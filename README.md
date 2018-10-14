@@ -23,7 +23,7 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 
 # カリキュラム
 ## Frontend
-1. 環境構築<br>
+1. [環境構築](./environment/README.md)<br>
 2. Vue.jsの基礎<br>
 基本構文<br>
 3. TypeScriptの基礎<br>
@@ -46,7 +46,7 @@ Cloud Firestore<br>
 Cloud Storage<br>
 Cloud Functions<br>
 Firebase Hosting<br>
-2. Vue.js + Firebaseでメッセージ共有アプリ作り<br>
+2. Vue.js + Firebaseでメッセージ共有アプリ作成<br>
 
 ## Blockchain
 1. NEM<br>
