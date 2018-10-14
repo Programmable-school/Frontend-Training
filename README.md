@@ -23,7 +23,7 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 
 # カリキュラム
 ## Frontend
-1. [環境構築](./environment/README.md)<br>
+1. [環境構築](./frontend/environment/README.md)<br>
 2. Vue.jsの基礎<br>
 基本構文<br>
 3. TypeScriptの基礎<br>
