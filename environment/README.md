@@ -132,7 +132,7 @@ $ yarn remove XXXX
 # [Git](https://www.npmjs.com/)
 プログラムのソースコードなどの変更履歴を記録・追跡するための分散型バージョン管理システム。<br>
 OSS(オープンソースソフトウェア)としてGit上にソースコードが公開され、各OSSのコントリビュータ達が改善を行いより良いOSSを作り上げている。<br>
-Gitを使ったソースコード管理システムは多く存在する有名なのが[Github](https://github.com/)であり、その他にも存在する。
+Gitを使ったソースコード管理システムは多く存在する有名なのが[GitHub](https://github.com/)であり、その他にも存在する。
 - [GitHub](https://github.com/)
 - [GitLab](https://gitlab.com/)
 - [BitBucket](https://bitbucket.org/)
