@@ -19,7 +19,6 @@
 ・package.json<br>
 インストールしたパッケージとバージョン情報が記録されたファイルです。<br>
 node_modulesが保存されていなくても記録されているパッケージ情報を元に必要なパッケージをインストールしてくれます。<br>
-
 # [npm](https://www.npmjs.com/)
 Node Package Managerの略称でnode.jsで動作するバージョン管理システムです。npmのインストールは以下の記事を参考。<br>
 [買いたてのＭacにNode.jsとnpmをインストール](https://qiita.com/taketakekaho/items/dd08cf01b4fe86b2e218)<br>
@@ -131,8 +130,8 @@ $ yarn remove XXXX
 
 # [Git](https://www.npmjs.com/)
 プログラムのソースコードなどの変更履歴を記録・追跡するための分散型バージョン管理システム。<br>
-OSS(オープンソースソフトウェア)としてGit上にソースコードが公開され、各OSSのコントリビュータ達が改善を行いより良いOSSを作り上げている。<br>
-Gitを使ったソースコード管理システムは多く存在する有名なのが[GitHub](https://github.com/)であり、その他にも存在する。
+OSS(オープンソースソフトウェア)としてソースコードがGit上に公開され、コントリビュータ達が協力して良いOSSを作り上げている。<br>
+Gitを使ったソースコード管理システムは多く存在する。一番有名なのが[GitHub](https://github.com/)である。
 - [GitHub](https://github.com/)
 - [GitLab](https://gitlab.com/)
 - [BitBucket](https://bitbucket.org/)
