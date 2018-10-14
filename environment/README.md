@@ -72,9 +72,7 @@ $ npm uninstall XXXX
 $ npm uninstall --save　XXXX
 $ npm uninstall --save-dev　XXXX
 ``` 
-
-
-# [yarn](https://yarnpkg.com/lang/ja/)
+# [yarn](https://yarnpkg.com/)
 yarnはnpmをさらに高速にしたパッケージ管理システムです<br>
 ## yarnをインストール
 ```bash
@@ -128,7 +126,7 @@ $ yarn outdated
 $ yarn remove XXXX
 ``` 
 
-# [Git](https://www.npmjs.com/)
+# [Git](https://git-scm.com/)
 プログラムのソースコードなどの変更履歴を記録・追跡するための分散型バージョン管理システム。<br>
 OSS(オープンソースソフトウェア)としてソースコードがGit上に公開され、コントリビュータ達が協力して良いOSSを作り上げている。<br>
 Gitを使ったソースコード管理システムは多く存在する。一番有名なのが[GitHub](https://github.com/)である。
