@@ -1,6 +1,6 @@
 # 環境構築
 
-> Webアプリケーションの開発をするための環境構築です。
+> Webアプリケーションの開発をするための環境構築。
 
 # 目次
 - バージョン管理システム概要
@@ -171,8 +171,19 @@ $ git reset --soft HEAD~X
 $ git reset --hard HEAD~X
 ```
 
+## 取り込み
+``` bash
+# リポジトリの最新情報を追加
+$ git fetch
+
+# リポジトリの変更を取り込む
+$ git pull
+```
 ## ブランチ
 ``` bash
+# ブランチを確認
+$ git branch -a
+
 # ブランチ作成
 $ git branch XXXX
 
