@@ -3,7 +3,7 @@
 > Vue.jsでWebアプリケーション開発の基礎と実務スキルを身につけるためのカリキュラム
 
 ## 概要
-当カリキュラムはWebアプリケーション開発向けに構成しています。<br><br>
+簡単にWebアプリケーションを作れるカリキュラムです。<br><br>
 ・フロントエンド<br>
 フレームワークVue.jsを採用。<br>
 HTML + JavaScript(TypeScript) + CSS(Stylus)を学習します。<br><br>
