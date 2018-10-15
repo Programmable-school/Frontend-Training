@@ -201,6 +201,6 @@ $ git branch -m XXXX YYYY
 ```
 
 ## 実はツールで簡単に操作できる
-GitはGUIツールが用意されており、より簡単に操作できます。
+GitはGUIツールが用意されておりより簡単に操作できます。
 - [SourceTree](https://ja.atlassian.com/software/sourcetree)
 - [GitHub Desktop](https://desktop.github.com/)
