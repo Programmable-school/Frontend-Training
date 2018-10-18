@@ -144,6 +144,11 @@ $ git add *
 $ git commit -m "comment"
 ```
 
+## リモートリポジトリの作成
+GitHubからリモートリポジトリを作成。<br>
+![スクリーンショット](https://imgur.com/Y7Z9hlw)
+
+
 ## リポジトリのクローン
 ``` bash
 # 既に公開されているリポジトリをダウンロード
@@ -173,11 +178,14 @@ $ git reset --hard HEAD~X
 
 ## 取り込み
 ``` bash
+# リモートリポジトリの情報を追加（リモートリポジトリのパスを指定）
+$ git remote add origin https://github.com/hukusuke1007/FrontendTrainingKadai_1.git
+
 # リポジトリの最新情報を追加
 $ git fetch
 
-# リポジトリの変更を取り込む
-$ git pull
+# リポジトリの変更を取り込む（リモートリポジトリのパスを指定）
+$ git pull https://github.com/hukusuke1007/FrontendTrainingKadai_1.git
 ```
 ## ブランチ
 ``` bash
@@ -204,3 +212,11 @@ $ git branch -m XXXX YYYY
 GitはGUIツールが用意されておりより簡単に操作できます。
 - [SourceTree](https://ja.atlassian.com/software/sourcetree)
 - [GitHub Desktop](https://desktop.github.com/)
+
+GitHub Desktopの使い方は[こちら](http://hobbydevelop.info/pwa_vuejs_nem_0#GitHub)を参考。
+
+# 課題
+## 課題1
+GitHubアカウントを作成し、コマンド又はツールを用いて新しいrepositoryを作成してください。<br>
+以下のようにrepositoryにはtext.txtをコミットしてください。<br>
+[FrontendTrainingKadai_1](https://github.com/hukusuke1007/FrontendTrainingKadai_1)
