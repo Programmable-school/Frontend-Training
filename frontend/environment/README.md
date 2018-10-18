@@ -146,8 +146,7 @@ $ git commit -m "comment"
 
 ## リモートリポジトリの作成
 GitHubからリモートリポジトリを作成。<br>
-![スクリーンショット](https://imgur.com/Y7Z9hlw)
-
+![スクリーンショット](https://i.imgur.com/Y7Z9hlw.png)
 
 ## リポジトリのクローン
 ``` bash
