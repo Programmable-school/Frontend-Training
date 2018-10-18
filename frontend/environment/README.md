@@ -7,6 +7,8 @@
 - npm
 - yarn
 - Git
+- エディタ
+- 課題
 # バージョン管理システム
 バージョン管理システムを導入します。SDK、ライブラリ、CLIなどのパッケージを導入するために使用します。<br>
 パッケージをインストールするとnode_modulesフォルダとpackage.jsonが生成されます。<br>
@@ -146,7 +148,7 @@ $ git commit -m "comment"
 
 ## リモートリポジトリの作成
 GitHubからリモートリポジトリを作成。<br>
-![スクリーンショット](https://i.imgur.com/Y7Z9hlw.png)
+<a href="https://imgur.com/Y7Z9hlw"><img src="https://i.imgur.com/Y7Z9hlw.png" witdh="400" height="400"  title="source: imgur.com" /></a>
 
 ## リポジトリのクローン
 ``` bash
@@ -214,8 +216,30 @@ GitはGUIツールが用意されておりより簡単に操作できます。
 
 GitHub Desktopの使い方は[こちら](http://hobbydevelop.info/pwa_vuejs_nem_0#GitHub)を参考。
 
+# エディタ
+フロントエンド開発にはVSCode(Visual Studio Code)を推奨する。<br>
+[https://code.visualstudio.com/](https://code.visualstudio.com/)<br>
+<br>
+インストール後、ソースコードの可読性を上げるため以下のプラグインを導入する。
+| プラグイン | 説明 |
+|:---|:---|
+|Vetur |Vue.jsのサポート|
+|VueHelper |Vue.jsのコード補完|
+|HTML Snippets |HTML5のコード補完|
+|language-stylus |stylusのサポート|
+|HTML CSS Support|CSSのサポート|
+|ESLint |JavaScriptのlint|
+|TSLint |TypeScriptのlint|
+
+その他のプラグインは[こちらの記事](https://qiita.com/EbXpJ6bp/items/4b87a092a3d6a0ecf595)で紹介されている。
+
+<a href="https://imgur.com/OFOjrbH"><img src="https://i.imgur.com/OFOjrbH.png" width="300" height="300" title="source: imgur.com" /></a>
+
 # 課題
 ## 課題1
 GitHubアカウントを作成し、コマンド又はツールを用いて新しいrepositoryを作成してください。<br>
 以下のようにrepositoryにはtext.txtをコミットしてください。<br>
 [FrontendTrainingKadai_1](https://github.com/hukusuke1007/FrontendTrainingKadai_1)
+
+## 課題2
+VSCodeをインストールし、[エディタ](#エディタ)に書かれているプラグインを導入してください。
