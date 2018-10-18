@@ -220,7 +220,8 @@ GitHub Desktopの使い方は[こちら](http://hobbydevelop.info/pwa_vuejs_nem_
 フロントエンド開発にはVSCode(Visual Studio Code)を推奨する。<br>
 [https://code.visualstudio.com/](https://code.visualstudio.com/)<br>
 <br>
-インストール後、ソースコードの可読性を上げるため以下のプラグインを導入する。<br>
+インストール後、ソースコードの可読性を上げるため以下のプラグインを導入する。
+
 | プラグイン | 説明 |
 |:---|:---|
 |Vetur |Vue.jsのサポート|
@@ -230,6 +231,7 @@ GitHub Desktopの使い方は[こちら](http://hobbydevelop.info/pwa_vuejs_nem_
 |HTML CSS Support|CSSのサポート|
 |ESLint |JavaScriptのlint|
 |TSLint |TypeScriptのlint|
+
 
 その他のプラグインは[こちらの記事](https://qiita.com/EbXpJ6bp/items/4b87a092a3d6a0ecf595)で紹介されている。
 
