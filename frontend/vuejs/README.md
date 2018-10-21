@@ -76,17 +76,18 @@ export default {
 }
 ```
 ## 属性
-属性はv-bindまたは:を使います。<br>
+属性はv-bind又はv-bindを省略して : を使います。<br>
 以下の例はボタンの押下許可の設定を行います。<br>
 ```html
-<button v-bind:disabled="isEnable">ボタン</button>
+<button v-bind:disabled="isDisabled">ボタン1</button>
+<button :disabled="isDisabled">ボタン2</button>
 ```
 ```js
 export default {
   name: 'app',
   data() {
     return {
-      isEnable: false
+      isDisabled: false
     }
   }
 }
@@ -112,15 +113,25 @@ export default {
 ## イベントをバインド
 v-onまたは@を使います。
 ```html
-<button v-on:click="onClick(1)">ボタン1</button>
-<button @click="onClick(2)">ボタン2</button>
+<div>
+  <button v-on:click="onClick(1)">ボタン1</button>
+  <button @click="onClick(2)">ボタン2</button>
+</div>
+<div>
+  ボタンタグ = {{ btnTag }}
+</div>
 ```
 ```js
 export default {
   name: 'app',
+  data() {
+    return {
+      btnTag: 0
+    }
+  },
   methods: {
-    onClick:(tag) => {
-      console.log("ボタン", tag)
+    onClick(tag) {
+      this.btnTag = tag
     }
   }
 }
@@ -131,13 +142,21 @@ export default {
 <div @click="onClick(100)">
   <button @click.stop="onClick(3)">ボタン3</button>
 </div>
+<div>
+  ボタンタグ = {{ btnTag }}
+</div>
 ```
 ```js
 export default {
   name: 'app',
+  data() {
+    return {
+      btnTag: 0
+    }
+  },
   methods: {
-    onClick:(tag) => {
-      console.log("ボタン", tag)
+    onClick(tag) {
+      this.btnTag = tag
     }
   }
 }
