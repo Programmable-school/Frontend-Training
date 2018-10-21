@@ -170,11 +170,11 @@ $ git push origin master
 
 ## コミットの取り消し
 ``` bash
-# 最新コミットのX件分のワークディレクトリを保持した状態でコミットを取り消す
-$ git reset --soft HEAD~X
+# 最新コミットの1件分のワークディレクトリを保持した状態でコミットを取り消す
+$ git reset --soft HEAD~1
 
-# 最新コミットのX件分のワークディレクトリとコミットを取り消す
-$ git reset --hard HEAD~X
+# 最新コミットの1件分のワークディレクトリとコミットを取り消す
+$ git reset --hard HEAD~1
 ```
 
 ## 取り込み
@@ -233,7 +233,7 @@ GitHub Desktopの使い方は[こちら](http://hobbydevelop.info/pwa_vuejs_nem_
 |TSLint |TypeScriptのlint|
 
 
-その他のプラグインは[こちらの記事](https://qiita.com/EbXpJ6bp/items/4b87a092a3d6a0ecf595)で紹介されている。
+その他のプラグインは[こちらの記事](https://qiita.com/EbXpJ6bp/items/4b87a092a3d6a0ecf595)を参照。
 
 <a href="https://imgur.com/OFOjrbH"><img src="https://i.imgur.com/OFOjrbH.png" width="300" height="300" title="source: imgur.com" /></a>
 
