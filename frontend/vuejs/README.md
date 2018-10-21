@@ -108,6 +108,42 @@ export default {
     }
   }
 }
+```
+## イベントをバインド
+v-onまたは@を使います。
+```html
+<button v-on:click="onClick(1)">ボタン1</button>
+<button @click="onClick(2)">ボタン2</button>
+```
+```js
+export default {
+  name: 'app',
+  methods: {
+    onClick:(tag) => {
+      console.log("ボタン", tag)
+    }
+  }
+}
+```
+## 修飾子
+.を繋ぐとイベントの処理を指定できます。
+```html
+<div @click="onClick(100)">
+  <button @click.stop="onClick(3)">ボタン3</button>
+</div>
+```
+```js
+export default {
+  name: 'app',
+  methods: {
+    onClick:(tag) => {
+      console.log("ボタン", tag)
+    }
+  }
+}
+```
+stopを指定しない場合はボタン3を押すとdivのイベントも処理されますが、stopを指定するとボタン3のイベントだけ処理されます。<br>
+その他の詳細は[こちら](https://jp.vuejs.org/v2/guide/events.html)を参照。
 
 # 課題
 ## 課題1

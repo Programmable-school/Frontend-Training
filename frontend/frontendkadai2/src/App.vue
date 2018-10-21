@@ -7,6 +7,13 @@
     <button v-bind:disabled="isEnable">ボタン</button>
     <div v-if="isShow">見えていますか</div>
     <span v-for="(item, index) in items" :key="index">{{ item }}</span>
+    <div>
+      <button v-on:click="onClick(1)">ボタン1</button>
+      <button @click="onClick(2)">ボタン2</button>
+      <div @click="onClick(100)">
+        <button @click="onClick(3)">ボタン3</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,7 +31,13 @@ export default {
       htmlData: "<p>私の名前はshoheiです</p>",
       isEnable: false,
       isShow: true,
-      items: ["こ", "ん", "に", "ち", "わ"]
+      items: ["こ", "ん", "に", "ち", "わ"],
+      n: 0
+    }
+  },
+  methods: {
+    onClick:(tag) => {
+      console.log("ボタン", tag)
     }
   }
 }
