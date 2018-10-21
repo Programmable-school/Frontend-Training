@@ -20,6 +20,8 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 - TypeScript 3.0
 - yarn 1.9.4
 - npm 5.6.0
+- Chrome 69.0
+- FireFox 62.0
 
 # カリキュラム
 ## Frontend
