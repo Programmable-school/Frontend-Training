@@ -72,6 +72,22 @@ frontendkadai2/
 |package.json |npm（又はyarn）の操作、導入ライブラリの設定|
 |yarn.lock |導入したライブラリのバージョンと依存関係の管理ファイル|
 
+## .vueの構成
+HTML、script、styleの構成でコーディングします。
+```html
+<template>
+<!-- HTMLを記述します。-->
+</template>
+
+<script>
+// JavaScript（TypeScript）記述します。
+export default {}
+</script>
+
+<style scoped>
+/* CSS（SCSS、Stylus）を記述します。 */
+</style>
+```
 
 # 基礎
 ## データバインディング
