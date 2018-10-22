@@ -241,7 +241,7 @@ export default {
 ## インスタンス生成と削除のタイミング
 ### created
 Vueインスタンスが生成されたタイミングで呼ばれます。<br>
-DOM（Document Object Modelの略称、<div>や<p>などの要素にアクセスできる仕組みのこと）を操作できる前に呼ばれます。<br>
+DOM（Document Object Modelの略称、HTMLタグの要素にアクセスできる仕組みのこと）を操作できる前に呼ばれます。<br>
 ```js
 export default {
   created() {
