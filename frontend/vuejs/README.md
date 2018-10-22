@@ -81,7 +81,7 @@ frontendkadai2/
 <template>
   <div>
     <input type="text" v-model="name"/>
-    <div v-once>私は{{ name }}です</div>
+    <div>私は{{ name }}です</div>
   </div>
 </template>
 
