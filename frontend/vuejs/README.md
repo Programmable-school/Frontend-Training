@@ -446,7 +446,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .fontColor__blue {
   color: blue
 }
