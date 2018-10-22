@@ -4,7 +4,7 @@
 
 Vue.jsの基礎を学習します。<br>
 公式リファレンスをベースによく使う構文をピックアップしています。<br>
-その他又は詳細は[公式リファレンス](https://jp.vuejs.org/v2/guide/)、[APIリファレンス](https://jp.vuejs.org/v2/api/)を確認してください。<br>
+その他の詳細は[公式リファレンス](https://jp.vuejs.org/v2/guide/)、[APIリファレンス](https://jp.vuejs.org/v2/api/)を確認してください。<br>
 
 # Vue CLIの導入
 Vueのテンプレートを用いて学習します。<br>
@@ -92,7 +92,7 @@ export default {}
 # 基礎
 ## データバインディング
 データのバインディングは {{}} を使います。<br>
-またテキスト入力に伴い値を更新する場合は双方向バインディングのv-modelを使用します。<br>
+テキスト入力に伴い値を更新する場合は双方向バインディングのv-modelを使用します。<br>
 ```html
 <template>
   <div>
@@ -112,7 +112,7 @@ export default {
 </script>
 ```
 
-変数の更新を反映させたくない場合はv-onceを使います。
+データの更新を反映させたくない場合はv-onceを使います。
 ```html
 <div>
   <input type="text" v-model="name"/>
@@ -120,7 +120,7 @@ export default {
 </div>
 ```
 ## HTMLを挿入
-変数をHTMLとして扱いたい場合はv-htmlを使います。
+データをHTMLとして扱いたい場合はv-htmlを使います。
 ```html
 <template>
   <div v-html="htmlData"/>
@@ -137,7 +137,7 @@ export default {
 <script>
 ```
 ## 属性
-属性はv-bind又はv-bindを省略して : を使います。<br>
+属性はv-bind（省略して : ）を使います。<br>
 以下の例はボタンの押下許可の設定を行います。<br>
 ```html
 <template>
@@ -176,7 +176,7 @@ export default {
 </script>
 ```
 ## イベントをバインド
-v-onまたは@を使います。
+v-on（又は@）を使います。
 ```html
 <template>
   <div>
@@ -204,7 +204,7 @@ export default {
 </script>
 ```
 ## 修飾子
-.を繋ぐとイベントの処理を指定できます。
+.で繋ぐとイベントの処理を指定できます。
 ```html
 <template>
   <div @click="onClick(100)">
@@ -295,7 +295,7 @@ DOM（Document Object Modelの略称、HTMLタグの要素にアクセスでき�
 ```js
 export default {
   created() {
-    console.log("DOMが作られる前に呼ばれる")
+    console.log("DOM操作不可")
   }
 }
 ```
@@ -305,7 +305,7 @@ Vueインスタンスが生成されたタイミングで処理されます。<b
 ```js
 export default {
   mounted() {
-    console.log("DOMが作られた後に呼ばれる")
+    console.log("DOM操作可能")
   }
 }
 ```
@@ -318,8 +318,10 @@ export default {
   }
 }
 ```
+
+その他の詳細は[こちら](https://jp.vuejs.org/v2/guide/instance.html)。
 ## 監視
-値を監視するときはwatchを使います。
+データを監視する場合はwatchを使います。
 ```html
 <template>
   <div>
@@ -351,7 +353,7 @@ export default {
 </script>
 ```
 
-JSONデータはdeep: trueを指定すると監視されます。
+JSONデータはdeep: trueを設定すると監視されます。
 ```HTML
 <template>
   <div>
@@ -420,7 +422,8 @@ export default {
 </script>
 ```
 ## 算出プロパティ
-computedを使うことでv-ifやclassの処理をまとめることができます。<br>
+computedを使うことで処理をまとめることができます。<br>
+v-ifやclassで使うと便利です。<br>
 ```HTML
 <template>
   <div v-if="dateJudgement">まだ2018年ですね！</div>
@@ -457,7 +460,7 @@ export default {
 ```
 
 ## フィルター
-filtersを使って値を容易に変更できます。変数 | filters関数 で変更できます。<br>
+filtersを使ってデータを容易に加工できます。書き方はデータとfilters関数の間に | を挟みます。<br>
 ```HTML
 <template>
   <div>{{ nowDate | year }}</div>
@@ -472,6 +475,7 @@ export default {
   },
   filters: {
     year(val) {
+      // valはnowDateが入る
       return val.getFullYear()
     }
   }
