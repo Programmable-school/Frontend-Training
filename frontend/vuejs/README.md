@@ -39,6 +39,39 @@ $ yarn serve
 [http://localhost:8080](http://localhost:8080) をブラウザで確認し、以下のような画面が確認できればOKです。<br>
 <a href="https://imgur.com/S55Q23B"><img src="https://i.imgur.com/S55Q23B.png" width="300" height="300" /></a>
 
+## ディレクトリ構成
+```
+frontendkadai2/
+  ├── node_modules
+  ├── public
+        ├── favicon.ico
+        └── index.html
+  ├── src
+        ├── assets	 
+        ├── components
+              └──  HelloWorld.vue
+        ├── App.vue
+        └── main.js
+  ├── .gitignore
+  ├── babel.config.js
+  ├── package.json
+  ├── README.md
+  └── yarn.lock
+```
+
+| ファイル | 概要 |
+|:---|:---|
+|node_modules |導入したライブラリ|
+|public |エントリーポイントとなるディレクトリ|
+|src/assets |画像などを格納|
+|src/components |コンポーネントVueを格納|
+|src/App.vue: |エントリーポイントVue|
+|src/main.js |vueのプラグインなどの設定を行う|
+|.gitignore |Gitリモートリポジトリへのデプロイ対象外のファイルを設定|
+|babel.config.js |babelの設定|
+|package.json |npm（又はyarn）の操作、導入ライブラリの設定|
+|yarn.lock |導入したライブラリのバージョンと依存関係の管理ファイル|
+
 # 基礎
 ## データバインディング
 データのバインディングは {{}} を使います。<br>
@@ -620,7 +653,7 @@ localhostを起動し、以下のような画面が表示されることを確�
 <a href="https://imgur.com/S55Q23B"><img src="https://i.imgur.com/S55Q23B.png" width="300" height="300" /></a>
 
 ## 課題2
-ToDoアプリを作成してください。<br>
+[課題1](##課題1)で作成した環境でToDoアプリを作成してください。<br>
 ToDoアプリの仕様はこちら。<br>
 - 入力フォーム、追加ボタン、削除ボタンの実装
 - テキスト入力後、追加ボタンを押すと一覧表示される。追加ボタン押下後は入力フォームを空にする
