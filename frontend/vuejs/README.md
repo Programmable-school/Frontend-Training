@@ -627,7 +627,7 @@ ToDoアプリの仕様はこちら。<br>
 - チェックボタンにチェックをいれたToDoは削除ボタンで削除できること
 
 完成画面イメージ<br>
-<a href="https://imgur.com/QGfHpGQ"><img src="https://i.imgur.com/QGfHpGQ.png" /></a>
+<a href="https://imgur.com/7tVTAVj"><img src="https://i.imgur.com/7tVTAVj.png" /></a>
 
 ## 課題３
 [課題2](##課題2)で作ったToDoフォームをコンポーネント化して実装してください。<br>
