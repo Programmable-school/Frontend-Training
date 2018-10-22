@@ -467,7 +467,7 @@ export default {
   },
   watch: {
     info: {
-      handler(val) {
+      handler() {
         this.isShow = false
       },
       deep: true
@@ -507,6 +507,7 @@ export default {
 }
 </script>
 ```
+
 ## コンポーネントへ値の受け渡し
 値の受け渡しにはpropsとemitを使います。<br>
 propsには型と初期値を定義できます。v-modelでバインディングすることでpropsのvalueに値を渡すことができます。
@@ -547,7 +548,7 @@ export default {
   },
   watch: {
     info: {
-      handler(val) {
+      handler() {
         this.isShow = false
       },
       deep: true
@@ -614,5 +615,21 @@ export default {
 
 # 課題
 ## 課題1
+Vue CLIを導入してテンプレートを作成してください。<br>
+localhostを起動し、以下のような画面が表示されることを確認してください。<br>
+<a href="https://imgur.com/S55Q23B"><img src="https://i.imgur.com/S55Q23B.png" width="300" height="300" /></a>
 
 ## 課題2
+ToDoアプリを作成してください。<br>
+ToDoアプリの仕様はこちら。<br>
+- 入力フォーム、追加ボタン、削除ボタンの実装
+- テキスト入力後、追加ボタンを押すと一覧表示される。追加ボタン押下後は入力フォームを空にする
+- チェックボタンにチェックをいれたToDoは削除ボタンで削除できること
+
+完成画面イメージ<br>
+<a href="https://imgur.com/QGfHpGQ"><img src="https://i.imgur.com/QGfHpGQ.png" /></a>
+
+## 課題３
+[課題2](##課題2)で作ったToDoフォームをコンポーネント化して実装してください。<br>
+
+[答え](../frontendkadai2)

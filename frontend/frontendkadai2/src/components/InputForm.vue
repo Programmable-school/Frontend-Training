@@ -35,7 +35,7 @@ export default {
   },
   watch: {
     info: {
-      handler(val) {
+      handler() {
         this.isShow = false
       },
       deep: true
