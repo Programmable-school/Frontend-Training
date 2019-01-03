@@ -27,7 +27,7 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 ## Frontend
 1. [環境構築](./frontend/environment/README.md)<br>
 2. [Vue.jsの基礎](./frontend/vuejs/README.md)<br>
-3. TypeScriptの基礎<br>
+3. [TypeScriptの基礎](https://github.com/Programmable-school/TypeScript-Training)<br>
 4. CSS（Stylus）の基礎<br>
 簡単なプロフィール画面作成<br>
 5. 便利なライブラリの使い方<br>
