@@ -33,7 +33,6 @@ Firestoreトレーニングではテストモードでトレーニングをし�
 
 ### トレーニングで利用するライブラリを導入
 ```sh
-# Firebaes
 $ yarn add firebase vuetify axios
 ```
 
