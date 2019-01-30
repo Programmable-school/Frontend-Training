@@ -21,4 +21,4 @@ yarn-error.log*
 *.sw*
 
 # config
-repository/firebaseConfig.ts
+src/repository/firebaseConfig.ts
