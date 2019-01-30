@@ -40,11 +40,11 @@ dotenv<br>
 6. SPAの作成<br>
    
 ## Backend
-1. Firebase<br>
+1. [Firebase](./backend/firebase/README.md)<br>
+[Cloud Firestore](./backend/firebase/firebase-training/README.md)<br>
 Firebase Authantication<br>
-Cloud Firestore<br>
-Cloud Storage<br>
 Cloud Functions<br>
+Cloud Storage<br>
 Firebase Hosting<br>
 2. Vue.js + Firebaseでメッセージ共有アプリ作成<br>
 
