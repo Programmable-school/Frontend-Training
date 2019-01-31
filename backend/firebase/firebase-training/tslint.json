@@ -9,6 +9,8 @@
     ]
   },
   "rules": {
+    "member-access": false,
+    "no-console": false,
     "quotemark": [true, "single"],
     "semicolon": [false, "always"],
     "indent": [true, "spaces", 2],
