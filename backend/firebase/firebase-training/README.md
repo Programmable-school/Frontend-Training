@@ -1,6 +1,15 @@
 # firebase-training
 
-## 公式ページ
+## 目次
+### Firestoreデータベース
+- [メモフォームを作成（データの追加、読み込み）](./src/views/firestore/CreateFormPage.vue)
+- [名簿リストを作成（データ追加、読み込み、更新、削除、リアルタイム取得）](./src/views/firestore/RosterListPage.vue)
+- [名簿リストから指定したデータを取得（検索クエリ）]()
+- [名簿リストを充実させる（バッジ処理による一括書き込み）]()
+- [商品登録と購入フォームを作成（トランザクション）]()
+- [便利！Firestoreモデルクラスを作る]()
+
+## Firebase 公式ページ
 [https://firebase.google.com/docs/firestore/quickstart?hl=ja](https://firebase.google.com/docs/firestore/quickstart?hl=ja)
 
 ## 環境構築
@@ -116,6 +125,23 @@ Vue.use(Vuetify, {
   },
 })
 ```
+
+## レッスン
+本プロジェクトをcloneして以下のレッスンのサンプルコードを写経してください。
+- [メモフォームを作成（データの追加、読み込み）](./src/views/firestore/CreateFormPage.vue)<br>
+<br>
+<a href="https://imgur.com/hPqE06I"><img src="https://i.imgur.com/hPqE06I.png" width="450" height="400" /></a>
+<br>
+
+- [名簿リストを作成（データ追加、読み込み、更新、削除、リアルタイム取得）](./src/views/firestore/RosterListPage.vue)<br>
+<br>
+<a href="https://imgur.com/50bOYZW"><img src="https://i.imgur.com/50bOYZW.png" width="400" height="500" /></a>
+<br>
+
+- [名簿リストから指定したデータを取得（検索クエリ）]()
+- [名簿リストを充実させる（バッジ処理による一括書き込み）]()
+- [商品登録と購入フォームを作成（トランザクション）]()
+- [便利！Firestoreモデルクラスを作る]()
 
 ## Project setup
 ```

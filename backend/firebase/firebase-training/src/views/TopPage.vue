@@ -7,7 +7,7 @@
         <v-flex style="margin: 24px;">
           <router-link to="./create_form_page">
             <div><b>メモフォームを作成</b></div>
-            <div class="subtitle">データの追加と読み込み</div>
+            <div class="subtitle">データの追加、読み込み</div>
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">
@@ -18,7 +18,7 @@
         </v-flex>
         <v-flex style="margin: 24px;">
           <router-link to="">
-            <div><b>名簿リストから指定したデータを取得してみよう！</b></div>
+            <div><b>名簿リストから指定したデータを取得</b></div>
             <div class="subtitle">検索クエリ</div>
           </router-link>
         </v-flex>
@@ -30,13 +30,13 @@
         </v-flex>
         <v-flex style="margin: 24px;">
           <router-link to="">
-            <div><b>商品登録と購入ページを作成</b></div>
+            <div><b>商品登録と購入フォームを作成</b></div>
             <div class="subtitle">トランザクション</div>
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">
           <router-link to="">
-            <div><b>開発効率！ちょー便利、Firestoreモデルクラスを作ろう</b></div>
+            <div><b>便利！Firestoreモデルクラスを作る</b></div>
           </router-link>
         </v-flex>
       </v-flex>
