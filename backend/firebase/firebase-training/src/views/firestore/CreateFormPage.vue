@@ -5,17 +5,12 @@
         <v-flex>
           <h2>メモフォームを作成</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
-            <v-text-field
-              v-model="name"
-              single-line
-              outline
-              placeholder="名前"/>
             <v-textarea
               v-model="memo"
               outline
               placeholder="メモ"/>
             <v-btn
-              @click="regist"
+              @click="onRegist"
               :loading="isLoading"
               color="blue"
               class="white--text">
@@ -25,7 +20,7 @@
         </v-flex>
         <v-card class="container">
           <v-flex>
-            <h3>登録した名簿リスト</h3>
+            <h3>登録したメモ</h3>
             <v-flex style="margin: 24px;">
               <v-btn
                 @click="getItems"
@@ -44,10 +39,9 @@
                   slot-scope="props">
                   <tr>
                     <td>{{ props.item.uid }}</td>
-                    <td>{{ props.item.name }}</td>
                     <td>{{ props.item.memo }}</td>
-                    <td>{{ props.item.createdAt.toDate() }}</td>
-                    <td>{{ props.item.updatedAt.toDate() }}</td>
+                    <td>{{ props.item.createdAt.toDate() | dateFormat }}</td>
+                    <td>{{ props.item.updatedAt.toDate() | dateFormat }}</td>
                   </tr>
                 </template>
               </v-data-table>
@@ -62,8 +56,16 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import firebase from 'firebase/app'
+import { format } from 'date-fns'
 
-@Component
+@Component({
+  name: 'CreateFormPage',
+  filters: {
+    dateFormat(date: Date) {
+      return format(date, 'YYYY/MM/DD HH:mm:ss');
+    },
+  },
+})
 export default class CreateFormPage extends Vue {
   /**
    * ローディングフラグ
@@ -73,7 +75,6 @@ export default class CreateFormPage extends Vue {
   /**
    * 登録データ
    */
-  name: string = ''
   memo: string = ''
 
   /**
@@ -86,12 +87,14 @@ export default class CreateFormPage extends Vue {
    */
   headers: any[] = [
     { text: 'uid', value: 'uid' },
-    { text: 'name', value: 'name' },
     { text: 'memo', value: 'memo' },
     { text: 'createdAt', value: 'createdAt' },
     { text: 'updatedAt', value: 'updatedAt' },
   ]
 
+  /**
+   * data
+   */
   selectRowsPerPage: number = 5
 
   pagination: any = {
@@ -109,8 +112,10 @@ export default class CreateFormPage extends Vue {
     this.getItems()
   }
 
-  async regist() {
-    console.log(this.name, this.memo)
+  /**
+   * 登録
+   */
+  async onRegist() {
     this.isLoading = true
     await this.writeFirestore()
     await this.getItems()
@@ -118,6 +123,9 @@ export default class CreateFormPage extends Vue {
     this.isLoading = false
   }
 
+  /**
+   * 取得
+   */
   async getItems() {
     console.log('getItems')
     this.isLoading = true
@@ -125,8 +133,10 @@ export default class CreateFormPage extends Vue {
     this.isLoading = false
   }
 
+  /**
+   * フォームをクリア
+   */
   clear() {
-    this.name = ''
     this.memo = ''
   }
 
@@ -136,13 +146,12 @@ export default class CreateFormPage extends Vue {
   async writeFirestore() {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection = db.collection('version/1/users')
+      const collection = db.collection('version/1/memos')
       const id: string = collection.doc().id
       const result = await collection.doc(id).set({
         uid: id,
         createdAt: new Date(),
         updatedAt: new Date(),
-        name: this.name,
         memo: this.memo,
       })
     } catch (error) {
@@ -157,7 +166,7 @@ export default class CreateFormPage extends Vue {
     try {
       this.items = []
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const items: firebase.firestore.QuerySnapshot = await db.collection('version/1/users').get()
+      const items: firebase.firestore.QuerySnapshot = await db.collection('version/1/memos').get()
       items.docs.forEach((item: firebase.firestore.QueryDocumentSnapshot) => {
         this.items.push(item.data())
       })
