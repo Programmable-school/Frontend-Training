@@ -104,7 +104,7 @@ export default class RosterListPage extends Vue {
   /**
    * 登録データ
    */
-  name: string = ''
+  name: string = 'ゲスト'
   age: number = 20
   sex: string = '男性'
   isPublished: boolean = true
@@ -154,8 +154,9 @@ export default class RosterListPage extends Vue {
     this.publishedLabel = val === true ? '公開する' : '公開しない'
   }
 
-  mounted() {
-    this.getItems()
+  async mounted() {
+    await this.getItems()
+    this.observeFirestore()
   }
 
   /**
@@ -168,7 +169,6 @@ export default class RosterListPage extends Vue {
     } else {
       await this.updateFirestore(this.selectId)
     }
-    await this.getItems()
     this.clear()
     this.isLoading = false
   }
@@ -189,7 +189,6 @@ export default class RosterListPage extends Vue {
   async onDelete() {
     this.isLoading = true
     await this.deleteFirestore(this.selectId)
-    await this.getItems()
     this.clear()
     this.isLoading = false
   }
@@ -220,7 +219,7 @@ export default class RosterListPage extends Vue {
    * フォームをクリア
    */
   clear() {
-    this.name = ''
+    this.name = 'ゲスト'
     this.age = 20
     this.sex = '男性'
     this.isPublished = true
@@ -240,9 +239,9 @@ export default class RosterListPage extends Vue {
   async writeFirestore() {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection = db.collection('version/1/users')
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/users')
       const id: string = collection.doc().id
-      const result = await collection.doc(id).set({
+      await collection.doc(id).set({
         uid: id,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -272,15 +271,15 @@ export default class RosterListPage extends Vue {
       console.error('firebase error', error)
     }
   }
-  
+
   /**
    * Firestoreのデータを更新
    */
   async updateFirestore(id: string) {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection = db.collection('version/1/users')
-      const result = await collection.doc(id).update({
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/users')
+      await collection.doc(id).update({
         updatedAt: new Date(),
         name: this.name,
         age: this.age,
@@ -298,8 +297,70 @@ export default class RosterListPage extends Vue {
   async deleteFirestore(id: string) {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection = db.collection('version/1/users')
-      const result = await collection.doc(id).delete()
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/users')
+      await collection.doc(id).delete()
+    } catch (error) {
+      console.error('firebase error', error)
+    }
+  }
+
+  /**
+   * Firestoreのデータをリアルタイムに取得
+   */
+  async observeFirestore() {
+    try {
+      const db: firebase.firestore.Firestore = firebase.firestore()
+      db.collection('version/1/users').onSnapshot((snapshot: firebase.firestore.QuerySnapshot) => {
+        snapshot.docChanges().forEach((change: firebase.firestore.DocumentChange) => {
+            /**
+             * onSnapshotの種別がmodifiedの場合はデータを追加する。
+             */
+            if (change.type === 'added') {
+              console.log('added', change.doc.data(), this.items)
+              const data = change.doc.data()
+              const filters = this.items.filter((item: any) => {
+                if (item.uid === data.uid) {
+                  return true
+                } else {
+                  return false
+                }
+              })
+              if (filters.length === 0) {
+                this.items.push(data)
+              }
+            }
+
+            /**
+             * onSnapshotの種別がmodifiedの場合はデータを更新する。
+             */
+            if (change.type === 'modified') {
+              console.log('modified', change.doc.data())
+              const data = change.doc.data()
+              this.items = this.items.map((item: any) => {
+                if (item.uid === data.uid) {
+                  return data
+                } else {
+                  return item
+                }
+              })
+            }
+
+            /**
+             * onSnapshotの種別がremovedの場合はデータを削除する。
+             */
+            if (change.type === 'removed') {
+              console.log('removed', change.doc.data())
+              const data = change.doc.data()
+              this.items = this.items.filter((item: any) => {
+                if (item.uid === data.uid) {
+                  return false
+                } else {
+                  return true
+                }
+              })
+            }
+        })
+      })
     } catch (error) {
       console.error('firebase error', error)
     }

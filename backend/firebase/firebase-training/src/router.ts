@@ -23,6 +23,6 @@ export default new Router({
       path: '/roster_list_page',
       name: 'roster_list_page',
       component: RosterListPage,
-    }
+    },
   ],
 })

@@ -146,7 +146,7 @@ export default class CreateFormPage extends Vue {
   async writeFirestore() {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection = db.collection('version/1/memos')
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/memos')
       const id: string = collection.doc().id
       const result = await collection.doc(id).set({
         uid: id,
