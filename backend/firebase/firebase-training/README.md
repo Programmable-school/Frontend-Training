@@ -17,28 +17,28 @@
 ```sh
 $ vue create firebase-training
 ```
-<a href="https://imgur.com/5JOfmpS"><img src="https://i.imgur.com/5JOfmpS.png" width="350" height="200" /></a><br>
+<a href="https://imgur.com/5JOfmpS"><img src="https://i.imgur.com/5JOfmpS.png" width="30%" height="30%" /></a><br>
 <br>
 <br>
 設定項目は以下の通りです。<br>
-<a href="https://imgur.com/n6EfWaO"><img src="https://i.imgur.com/n6EfWaO.png" width="600" height="200" /></a>
+<a href="https://imgur.com/n6EfWaO"><img src="https://i.imgur.com/n6EfWaO.png" width="50%" height="50%" /></a>
 
 ### Firebaseプロジェクトを作成
 ※Googleアカウントを取得してください。<br>
 [Firebaseコンソール](https://console.firebase.google.com/u/0/?hl=ja)より「プロジェクトの追加」でプロジェクトを作成します。<br>
 <br>
-<a href="https://imgur.com/gRb3yJg"><img src="https://i.imgur.com/gRb3yJg.png" width="400" height="600" /></a>
+<a href="https://imgur.com/gRb3yJg"><img src="https://i.imgur.com/gRb3yJg.png" width="50%" height="50%" /></a>
 <br>
 <br>
 作成後、「ウェブアプリにFirebaseを追加する」を選択してFirebaseの設定値を保存してください。<br>
 <br>
-<a href="https://imgur.com/dxNKASf"><img src="https://i.imgur.com/dxNKASf.png" width="700" height="500" /></a>
+<a href="https://imgur.com/dxNKASf"><img src="https://i.imgur.com/dxNKASf.png" width="50%" height="50%" /></a>
 <br>
 <br>
 左メニューのDatabaseを選択してFirestoreの設定をします。<br>
 Firestoreトレーニングではテストモードでトレーニングをします（Firebase Authanticationでロックモードを利用したトレーニングを行います）。<br>
 <br>
-<a href="https://imgur.com/AgbcnC4"><img src="https://i.imgur.com/AgbcnC4.png" width="700" height="500" /></a>
+<a href="https://imgur.com/AgbcnC4"><img src="https://i.imgur.com/AgbcnC4.png"  width="50%" height="50%" /></a>
 
 ### トレーニングで利用するライブラリを導入
 ```sh
@@ -130,12 +130,12 @@ Vue.use(Vuetify, {
 本プロジェクトをcloneして以下のレッスンのサンプルコードを写経してください。
 - [メモフォームを作成（データの追加、読み込み）](./src/views/firestore/CreateFormPage.vue)<br>
 <br>
-<a href="https://imgur.com/hPqE06I"><img src="https://i.imgur.com/hPqE06I.png" width="450" height="400" /></a>
+<a href="https://imgur.com/hPqE06I"><img src="https://i.imgur.com/hPqE06I.png" width="50%" height="50%" /></a>
 <br>
 
 - [名簿リストを作成（データ追加、読み込み、更新、削除、リアルタイム取得）](./src/views/firestore/RosterListPage.vue)<br>
 <br>
-<a href="https://imgur.com/50bOYZW"><img src="https://i.imgur.com/50bOYZW.png" width="400" height="500" /></a>
+<a href="https://imgur.com/50bOYZW"><img src="https://i.imgur.com/50bOYZW.png" width="50%" height="50%" /></a>
 <br>
 
 - [名簿リストから指定したデータを取得（検索クエリ）]()
