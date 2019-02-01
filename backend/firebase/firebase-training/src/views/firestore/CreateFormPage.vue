@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex>
       <v-card class="container">
         <v-flex>
           <h2>メモフォームを作成</h2>

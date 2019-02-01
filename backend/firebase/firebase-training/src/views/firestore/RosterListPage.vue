@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex>
       <v-card class="container">
         <v-flex>
           <h2>名簿リスト</h2>
@@ -17,7 +17,8 @@
               type="number"
               placeholder="年齢"/>
             <v-radio-group 
-              v-model="sex" row>
+              v-model="sex"
+              row>
               <v-radio label="男性" value="男性" color="blue"></v-radio>
               <v-radio label="女性" value="女性" color="blue"></v-radio>
             </v-radio-group>
@@ -77,6 +78,69 @@
             </v-flex>
           </v-flex>
         </v-card>
+        <v-card class="container">
+          <v-flex>
+            <h3>登録した名簿（検索クエリ）</h3>
+            <v-flex style="margin: 24px;">
+              <p>条件を指定して検索する</p>
+              <v-flex>
+                <v-text-field
+                  v-model="queryAge"
+                  single-line
+                  outline
+                  type="number"
+                  placeholder="年齢"/>
+                <v-radio-group 
+                  v-model="querySex" 
+                  row>
+                  <v-radio label="男性" value="男性" color="blue"></v-radio>
+                  <v-radio label="女性" value="女性" color="blue"></v-radio>
+                </v-radio-group>
+                <v-switch
+                  v-model="queryIsPublished"
+                  :label="publishedLabel"
+                  color="blue"/>
+                <v-flex style="margin: 8px;">
+                  <p>検索件数</p>
+                  <div style="margin-top: -10px;">
+                    <select v-model="selectRowsPerPage">
+                      <option v-for="(item, index) in pages" :key="index" :value="item">
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
+                </v-flex>
+              </v-flex>
+              <v-flex style="margin-top: 24px;">
+                <v-btn
+                  @click="getQueryItems"
+                  :loading="isLoading"
+                  color="blue"
+                  class="white--text">
+                  読み込み
+                </v-btn>
+              </v-flex>
+              <v-data-table
+                :headers="headers"
+                :items="queryItems"
+                :pagination.sync="pagination"
+                no-data-text="">
+                <template 
+                  slot="items"
+                  slot-scope="props">
+                  <tr>
+                    <td>{{ props.item.uid }}</td>
+                    <td>{{ props.item.name }}</td>
+                    <td>{{ props.item.age }}</td>
+                    <td>{{ props.item.sex }}</td>
+                    <td>{{ props.item.createdAt.toDate() | dateFormat }}</td>
+                    <td>{{ props.item.updatedAt.toDate() | dateFormat }}</td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-flex>
+          </v-flex>
+        </v-card>
       </v-card>
     </v-flex>
   </div>
@@ -110,14 +174,22 @@ export default class RosterListPage extends Vue {
   isPublished: boolean = true
 
   /**
+   * クエリ用データ
+   */
+  queryAge: number = 20
+  querySex: string = '男性'
+  queryIsPublished: boolean = true
+
+  /**
    * 登録一覧
    */
   items: any[] = []
+  queryItems: any[] = []
 
   /**
    * select
    */
-  ages: number[] = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+  pages: number[] = [5, 10, 20, 50, 100]
 
   /**
    * v-data-table
@@ -156,6 +228,7 @@ export default class RosterListPage extends Vue {
 
   async mounted() {
     await this.getItems()
+    await this.getQueryItems()
     this.observeFirestore()
   }
 
@@ -169,6 +242,7 @@ export default class RosterListPage extends Vue {
     } else {
       await this.updateFirestore(this.selectId)
     }
+    await this.readQueryFirestore()
     this.clear()
     this.isLoading = false
   }
@@ -184,11 +258,22 @@ export default class RosterListPage extends Vue {
   }
 
   /**
+   * 取得（検索クエリ）
+   */
+  async getQueryItems() {
+    console.log('getQueryItems')
+    this.isLoading = true
+    await this.readQueryFirestore()
+    this.isLoading = false
+  }
+
+  /**
    * 削除
    */
   async onDelete() {
     this.isLoading = true
     await this.deleteFirestore(this.selectId)
+    await this.readQueryFirestore()
     this.clear()
     this.isLoading = false
   }
@@ -246,7 +331,7 @@ export default class RosterListPage extends Vue {
         createdAt: new Date(),
         updatedAt: new Date(),
         name: this.name,
-        age: this.age,
+        age: Number(this.age),  // v-text-fieldで入力するとString型になるためNumber型へ変換
         sex: this.sex,
         isPublished: this.isPublished,
       })
@@ -256,13 +341,14 @@ export default class RosterListPage extends Vue {
   }
 
   /**
-   * Firestoreからデータを取得
+   * Firestoreからデータを取得, 検索クエリ
    */
   async readFirestore() {
     try {
       this.items = []
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const items: firebase.firestore.QuerySnapshot = await db.collection('version/1/users').get()
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/users')
+      const items: firebase.firestore.QuerySnapshot = await collection.get()
       items.docs.forEach((item: firebase.firestore.QueryDocumentSnapshot) => {
         this.items.push(item.data())
       })
@@ -282,7 +368,7 @@ export default class RosterListPage extends Vue {
       await collection.doc(id).update({
         updatedAt: new Date(),
         name: this.name,
-        age: this.age,
+        age: Number(this.age),  // v-text-fieldで入力するとString型になるためNumber型へ変換
         sex: this.sex,
         isPublished: this.isPublished,
       })
@@ -365,6 +451,34 @@ export default class RosterListPage extends Vue {
       console.error('firebase error', error)
     }
   }
+
+  /**
+   * Firestoreのデータを検索クエリを用いて取得
+   */
+  async readQueryFirestore() {
+    try {
+      this.queryItems = []
+      const db: firebase.firestore.Firestore = firebase.firestore()
+      /**
+       * 検索クエリ
+       * whereを用いて該当するage, sex, isPublishedのデータを検索する。
+       * limitを用いて指定された数のデータを取得する。
+       */
+      const query: firebase.firestore.Query = db.collection('version/1/users')
+                      .where('age', '==', Number(this.queryAge))  // v-text-fieldで入力するとString型になるためNumber型へ変換
+                      .where('sex', '==', this.querySex)
+                      .where('isPublished', '==', this.queryIsPublished)
+                      .limit(Number(this.selectRowsPerPage))
+
+      const items: firebase.firestore.QuerySnapshot = await query.get()
+      items.docs.forEach((item: firebase.firestore.QueryDocumentSnapshot) => {
+        this.queryItems.push(item.data())
+      })
+      console.log(this.queryItems)
+    } catch (error) {
+      console.error('firebase error', error)
+    }
+  }
 }
 </script>
 <style lang="stylus">
@@ -378,5 +492,23 @@ export default class RosterListPage extends Vue {
 
 .subtitle
   padding-left 12px
+
+select
+  outline none
+  -moz-appearance none
+  text-indent 0.01px
+  text-overflow ''
+  background none transparent
+  vertical-align middle
+  font-size 1.0em
+  appearance none
+  -webkit-appearance none
+  -moz-appearance none
+  height: 40px
+  padding: 8px 12px
+  border 2px solid black
+  color black
+  width 100px
+  border-radius 16px
 
 </style>

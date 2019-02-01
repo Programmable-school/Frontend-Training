@@ -13,13 +13,7 @@
         <v-flex style="margin: 24px;">
           <router-link to="./roster_list_page">
             <div><b>名簿リストを作成</b></div>
-            <div class="subtitle">データ追加、読み込み、更新、削除、リアルタイム取得</div>
-          </router-link>
-        </v-flex>
-        <v-flex style="margin: 24px;">
-          <router-link to="">
-            <div><b>名簿リストから指定したデータを取得</b></div>
-            <div class="subtitle">検索クエリ</div>
+            <div class="subtitle">データ追加、読み込み、更新、削除、リアルタイム取得、検索クエリ</div>
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">
