@@ -44,14 +44,14 @@ $ yarn serve
 frontendkadai2/
   ├── node_modules
   ├── public
-        ├── favicon.ico
-        └── index.html
+  │     ├── favicon.ico
+  │     └── index.html
   ├── src
-        ├── assets	 
-        ├── components
-              └──  HelloWorld.vue
-        ├── App.vue
-        └── main.js
+  │     ├── assets	 
+  │     ├── components
+  │     │     └──  HelloWorld.vue
+  │     ├── App.vue
+  │     └── main.js
   ├── .gitignore
   ├── babel.config.js
   ├── package.json
@@ -114,10 +114,12 @@ export default {
 
 データの更新を反映させたくない場合はv-onceを使います。
 ```html
-<div>
-  <input type="text" v-model="name"/>
-  <div v-once>私は{{ name }}です</div>
-</div>
+<template>
+  <div>
+    <input type="text" v-model="name"/>
+    <div v-once>私は{{ name }}です</div>
+  </div>
+</template>
 ```
 ## HTMLを挿入
 データをHTMLとして扱いたい場合はv-htmlを使います。
@@ -134,15 +136,17 @@ export default {
     }
   }
 }
-<script>
+</script>
 ```
 ## 属性
 属性はv-bind（省略して : ）を使います。<br>
 以下の例はボタンの押下許可の設定を行います。<br>
 ```html
 <template>
-  <button v-bind:disabled="isDisabled">ボタン1</button>
-  <button :disabled="isDisabled">ボタン2</button>
+  <div>
+    <button v-bind:disabled="isDisabled">ボタン1</button>
+    <button :disabled="isDisabled">ボタン2</button>
+  </div>
 </template>
 
 <script>
@@ -160,8 +164,10 @@ export default {
 v-から始まる構文をディレクティブと言います。<br>
 ```html
 <template>
-  <div v-if="isShow">見えていますか</div>
-  <span v-for="(item, index) in items" :key="index">{{ item }}</span>
+  <div>
+    <div v-if="isShow">見えていますか</div>
+    <span v-for="(item, index) in items" :key="index">{{ item }}</span>
+  </div>
 </template>
 
 <script>
@@ -180,11 +186,13 @@ v-on（又は@）を使います。
 ```html
 <template>
   <div>
-    <button v-on:click="onClick(1)">ボタン1</button>
-    <button @click="onClick(2)">ボタン2</button>
-  </div>
-  <div>
-    ボタンタグ = {{ btnTag }}
+    <div>
+      <button v-on:click="onClick(1)">ボタン1</button>
+      <button @click="onClick(2)">ボタン2</button>
+    </div>
+    <div>
+      ボタンタグ = {{ btnTag }}
+    </div>
   </div>
 </template>
 
@@ -207,11 +215,13 @@ export default {
 .で繋ぐとイベントの処理を指定できます。
 ```html
 <template>
-  <div @click="onClick(100)">
-    <button @click.stop="onClick(3)">ボタン3</button>
-  </div>
   <div>
-    ボタンタグ = {{ btnTag }}
+    <div @click="onClick(100)">
+      <button @click.stop="onClick(3)">ボタン3</button>
+    </div>
+    <div>
+      ボタンタグ = {{ btnTag }}
+    </div>
   </div>
 </template>
 
@@ -238,16 +248,18 @@ stopを指定しない場合はボタン3を押すとdivのイベントも処理
 ```html
 <template>
   <div>
-    変数は {{ name }}
-  </div>
-  <div>
-    配列の中身は
-    <span v-for="(item, index) in items" :key="index">{{ item }}</span>
-  </div>
-  <div>
-    JSON配列の中身はこちら
-    <div v-for="(item) in infos" :key="item.id">
-      {{ item.name }}は{{ item.hobby }}が趣味
+    <div>
+      変数は {{ name }}
+    </div>
+    <div>
+      配列の中身は
+      <span v-for="(item, index) in items" :key="index">{{ item }}</span>
+    </div>
+    <div>
+      JSON配列の中身はこちら
+      <div v-for="(item) in infos" :key="item.id">
+        {{ item.name }}は{{ item.hobby }}が趣味
+      </div>
     </div>
   </div>
 </template>
@@ -426,8 +438,10 @@ computedを使うことで処理をまとめることができます。<br>
 v-ifやclassで使うと便利です。<br>
 ```HTML
 <template>
-  <div v-if="dateJudgement">まだ2018年ですね！</div>
-  <div v-bind:class="fontColor">エラーだったら赤色になるよ</div>
+  <div>
+    <div v-if="dateJudgement">まだ2018年ですね！</div>
+    <div v-bind:class="fontColor">エラーだったら赤色になるよ</div>
+  </div>
 </template>
 
 <script>
