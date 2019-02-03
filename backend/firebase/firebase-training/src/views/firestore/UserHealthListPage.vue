@@ -222,7 +222,7 @@ export default class UserHealthListPage extends Vue {
    */
   async onDelete() {
     this.isLoading = true
-    await this.deleteFirestore(this.selectItem.uid)
+    await this.deleteFirestore(this.selectItem)
     await this.getItems()
     this.clear()
     this.isLoading = false
@@ -392,7 +392,7 @@ export default class UserHealthListPage extends Vue {
   /**
    * Firestoreのデータを削除（バッチ処理）
    */
-  async deleteFirestore(id: string) {
+  async deleteFirestore(item: any) {
     try {
       /**
        * バッチ処理で削除する。
@@ -404,12 +404,11 @@ export default class UserHealthListPage extends Vue {
 
       // ユーザーコレクション
       const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
-      const userRef: firebase.firestore.DocumentReference = userCollection.doc(id)
+      const userRef: firebase.firestore.DocumentReference = userCollection.doc(item.uid)
       bach.delete(userRef)
 
       // ヘルスコレクション
-      const healthUid: string = this.items.filter((item) => item.uid === id)[0].healthUid
-      const healthRef: firebase.firestore.DocumentReference = userCollection.doc(`${id}/health/${healthUid}`)
+      const healthRef: firebase.firestore.DocumentReference = userCollection.doc(`${item.uid}/health/${item.healthUid}`)
       bach.delete(healthRef)
 
       // 一括削除
