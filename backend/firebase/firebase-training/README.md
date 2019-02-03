@@ -137,12 +137,14 @@ Vue.use(Vuetify, {
 <a href="https://imgur.com/3lWAZwK"><img src="https://i.imgur.com/3lWAZwK.png" width="50%" height="50%" /></a>
 <br>
 
-- [ユーザーヘルスリストを作成（バッチ処理による一括処理](./src/views/firestore/UserHealthListPage.vue)<br>
+- [ユーザーヘルスリストを作成（バッチ処理による一括処理）](./src/views/firestore/UserHealthListPage.vue)<br>
 <br>
 <a href="https://imgur.com/DzKiGOW"><img src="https://i.imgur.com/DzKiGOW.png" width="50%" height="50%" /></a>
 <br>
+
 - [商品登録と購入フォームを作成（トランザクション）]()<br>
 <br>
+
 - [便利！Firestoreモデルクラスを作る]()<br>
 <br>
 

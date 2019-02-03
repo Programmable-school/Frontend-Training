@@ -180,7 +180,6 @@ export default class UserHealthListPage extends Vue {
 
   async mounted() {
     await this.getItems()
-    await this.getQueryItems()
   }
 
   /**
@@ -205,15 +204,6 @@ export default class UserHealthListPage extends Vue {
     console.log('getItems')
     this.isLoading = true
     await this.readFirestore()
-    this.isLoading = false
-  }
-
-  /**
-   * 取得（検索クエリ）
-   */
-  async getQueryItems() {
-    console.log('getQueryItems')
-    this.isLoading = true
     this.isLoading = false
   }
 
@@ -246,6 +236,8 @@ export default class UserHealthListPage extends Vue {
     this.age = item.age
     this.sex = item.sex
     this.isPublished = item.isPublished
+    this.height = item.height
+    this.weight = item.weight
   }
 
   /**
@@ -256,6 +248,8 @@ export default class UserHealthListPage extends Vue {
     this.age = 20
     this.sex = '男性'
     this.isPublished = true
+    this.height = 160
+    this.weight = 40
     this.selectItem = undefined
     this.isUpdate = false
   }
@@ -332,16 +326,15 @@ export default class UserHealthListPage extends Vue {
       const items: firebase.firestore.QuerySnapshot = await userCollection.get()
       await items.docs.forEach(async (item: firebase.firestore.QueryDocumentSnapshot) => {
         /**
-         * ヘルスコレクションの中から一番最新の情報を取得する。
+         * ヘルスコレクションを取得
          */
         const userData: any = item.data()
-        const healthRef: firebase.firestore.DocumentReference = userCollection.doc(`${item.id}/health/${userData.healthUid}`)
-        const health: firebase.firestore.DocumentSnapshot = await healthRef.get()
+        const health: firebase.firestore.DocumentSnapshot = await item.ref.collection('health').doc(userData.healthUid).get()
         if (health.data() !== undefined) {
           userData.height = health.data()!.height
           userData.weight = health.data()!.weight
         }
-        console.log(userData)
+        console.log('getUserData', userData)
         this.items.push(userData)
       })
       console.log(this.items)
@@ -351,7 +344,7 @@ export default class UserHealthListPage extends Vue {
   }
 
   /**
-   * Firestoreのデータを更新（バッジ処理）
+   * Firestoreのデータを更新（バッチ処理）
    */
   async updateFirestore(item: any) {
     try {
