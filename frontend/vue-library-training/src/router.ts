@@ -4,6 +4,7 @@ import TopPage from './views/TopPage.vue'
 import VueRouterTopPage from '@/views/vuerouter/VueRouterTopPage.vue'
 import VueRouterAgendaPage from '@/views/vuerouter/VueRouterAgendaPage.vue'
 import VueRouterFirstPage from '@/views/vuerouter/VueRouterFirstPage.vue'
+import VueRouterSecondPage from '@/views/vuerouter/VueRouterSecondPage.vue'
 import NotFoundPage from '@/views/vuerouter/NotFoundPage.vue'
 
 Vue.use(Router)
@@ -39,6 +40,11 @@ export default new Router({
           path: 'vue_router_first_page',
           name: 'vue_router_first_page',
           component: VueRouterFirstPage,
+        },
+        {
+          path: 'vue_router_second_page',
+          name: 'vue_router_second_page',
+          component: VueRouterSecondPage,
         },
       ],
     },

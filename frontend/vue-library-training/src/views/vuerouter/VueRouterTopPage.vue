@@ -10,14 +10,6 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class VueRouterTopPage extends Vue {}
 </script>
 <style lang="stylus">
-
 .top
   margin 10px
-
-.container
-  text-align left 
-
-.subtitle
-  padding-left 12px
-
 </style>

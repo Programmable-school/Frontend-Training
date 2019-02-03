@@ -10,9 +10,10 @@
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">
-          <router-link to="">
-            <div><b>ページ遷移 params指定</b></div>
-          </router-link>
+          <div class="router-link"
+            @click="onClickSecond">
+            <b>ページ遷移 params指定</b>
+          </div>
         </v-flex>
       </v-flex>
     </v-card>
@@ -23,7 +24,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 @Component
-export default class VueRouterAgendaPage extends Vue {}
+export default class VueRouterAgendaPage extends Vue {
+  onClickSecond() {
+    const object: any = new Date()
+    this.$router.push({ name: 'vue_router_second_page', params: { data: object } })
+  }
+}
 </script>
 <style lang="stylus">
 
@@ -36,4 +42,7 @@ export default class VueRouterAgendaPage extends Vue {}
 .subtitle
   padding-left 12px
 
+.router-link
+  color blue
+  text-decoration underline
 </style>
