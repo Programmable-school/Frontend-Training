@@ -141,8 +141,10 @@ Vue.use(Vuetify, {
 <br>
 <a href="https://imgur.com/DzKiGOW"><img src="https://i.imgur.com/DzKiGOW.png" width="50%" height="50%" /></a>
 <br>
-- [商品登録と購入フォームを作成（トランザクション）]()
-- [便利！Firestoreモデルクラスを作る]()
+- [商品登録と購入フォームを作成（トランザクション）]()<br>
+<br>
+- [便利！Firestoreモデルクラスを作る]()<br>
+<br>
 
 ## Project setup
 ```
