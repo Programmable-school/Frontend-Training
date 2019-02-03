@@ -9,7 +9,7 @@
           <v-flex style="margin: 8px;">
             <!-- router-linkでページ遷移 -->
             <router-link to="vue_router_top_page/vue_router_first_page">
-              <div><b>ページ</b></div>
+              <div>ページ</div>
             </router-link>
           </v-flex>
         </v-flex>
@@ -37,7 +37,6 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class VueRouterAgendaPage extends Vue {
   onClickSecond(pageId: string) {
-    const object: any = new Date()
     this.$router.push({ name: 'vue_router_second_page', params: { id: pageId } })
   }
 }

@@ -92,17 +92,9 @@ Vue.use(Vuetify, {
     original: colors.purple.base,
     theme: '#5982EE',
     background: '#ffffff',
-    whiteCloud: '#F8F9FB',
-    grayTheme: '#79838C',
-    blueTheme: '#5982EE',
-    sky: '#A2DCED',
-    sea: '#698FF0',
-    blackFlat: '#202223',
     twitter: '#00aced',
     facebook: '#305097',
     line: '#5ae628',
-    gold: '#FFD700',
-    goldenrod: '#DAA520',
     red: '#F26964',
     error: '#F26964',
     succcess: '#698FF0',
@@ -114,7 +106,7 @@ Vue.use(Vuetify, {
 ```
 
 ## レッスン
-本プロジェクトをcloneして以下のレッスンのサンプルコードを写経してください。<br>
+以下の解説を元に概要を理解し、本プロジェクトをcloneして以下のレッスンのサンプルコードを写経してください。<br>
 
 ### ページ遷移(VueRouter)
 複数のページを作成してページ遷移できるようにします。<br>
@@ -131,6 +123,7 @@ import TopPage from './views/TopPage.vue'
 import VueRouterTopPage from '@/views/vuerouter/VueRouterTopPage.vue'
 import VueRouterAgendaPage from '@/views/vuerouter/VueRouterAgendaPage.vue'
 import VueRouterFirstPage from '@/views/vuerouter/VueRouterFirstPage.vue'
+import VueRouterSecondPage from '@/views/vuerouter/VueRouterSecondPage.vue'
 import NotFoundPage from '@/views/vuerouter/NotFoundPage.vue'
 
 Vue.use(Router)
@@ -167,6 +160,14 @@ export default new Router({
           name: 'vue_router_first_page',
           component: VueRouterFirstPage,
         },
+        /**
+         * pathに:idを指定するとURLにidが表示される。
+         */
+        {
+          path: 'vue_router_second_page/:id',
+          name: 'vue_router_second_page',
+          component: VueRouterSecondPage,
+        },
       ],
     },
     /**
@@ -185,13 +186,47 @@ export default new Router({
       redirect: { name: 'not_found_page' },
     },
   ],
-});
-
+})
 ```
 
 #### ページ遷移をする方法
-T.B.D
+router-link を用いてページ遷移をします。<br>
 
+```html
+<router-link to="vue_router_top_page/vue_router_first_page">
+  <div>ページ</div>
+</router-link>
+```
+
+<br>
+ページ遷移時のデータの受け渡しはscript構文から$router/$routeを用います。<br>
+
+##### データの渡し方
+
+```ts
+onClickSecond(pageId: string) {
+  this.$router.push({ name: 'vue_router_second_page', params: { id: pageId } })
+}
+```
+
+##### データの受取り方
+
+```ts
+id: string = '0'
+created() {
+  this.id = this.$route.params.id
+}
+```
+
+router.tsで:idを指定するとURLにidを指定できます。URLのidを変更すると連動するパラメータに反映されます。<br>
+
+```ts
+{
+  path: 'vue_router_second_page/:id',
+  name: 'vue_router_second_page',
+  component: VueRouterSecondPage,
+},
+```
 
 ### 状態管理（VueStore）
 ### マテリアルデザインでトップページ作成（Vuetify）

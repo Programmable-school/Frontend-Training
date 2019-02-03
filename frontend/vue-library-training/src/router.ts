@@ -67,4 +67,4 @@ export default new Router({
       redirect: { name: 'not_found_page' },
     },
   ],
-});
+})

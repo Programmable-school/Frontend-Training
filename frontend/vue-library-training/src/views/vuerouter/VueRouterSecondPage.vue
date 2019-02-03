@@ -30,9 +30,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 //     },
 //   },
 // })
-@Component({
-  name: 'VueRouterSecondPage',
-})
+@Component
 export default class VueRouterSecondPage extends Vue {
   id: string = '0'
   created() {
