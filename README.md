@@ -31,7 +31,7 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 4. CSS（Stylus）の基礎<br>
 簡単なプロフィール画面作成<br>
 5. [必須ライブラリ](./frontend/vue-library-training/README.md)<br>
-[VueRouter]()<br>
+[VueRouter](https://github.com/Programmable-school/Frontend-Training/blob/master/frontend/vue-library-training/README.md###ページ遷移(VueRouter))<br>
 Vuex<br>
 Vuetify<br>
 localforage<br>

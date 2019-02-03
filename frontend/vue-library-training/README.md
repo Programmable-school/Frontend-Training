@@ -1,7 +1,7 @@
 # vue-library-training
 
 ## 目次
-- [ページ遷移（VueRouter）](###ページ遷移（VueRouter）)
+- [ページ遷移（VueRouter）](###ページ遷移(VueRouter))
 - [状態管理（VueStore）]()
 - [マテリアルデザインでトップページ作成（Vuetify）]()
 - [ローカルストレージに保存（localofrage）]()
@@ -116,7 +116,7 @@ Vue.use(Vuetify, {
 ## レッスン
 本プロジェクトをcloneして以下のレッスンのサンプルコードを写経してください。<br>
 
-### ページ遷移（VueRouter）
+### ページ遷移(VueRouter)
 複数のページを作成してページ遷移できるようにします。<br>
 src/views/vuerouter/配下に「VueRouterTopPage.vue」「VueRouterAgendaPage.vue」「VueRouterFirstPage.vue」「NotFoundPage.vue」を作成してください。<br>
 作成するページのソースコードは[こちら](./src/views/vuerouter)（コピーペしてもOK）。<br>
