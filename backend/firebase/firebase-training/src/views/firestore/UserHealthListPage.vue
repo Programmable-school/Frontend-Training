@@ -272,7 +272,7 @@ export default class UserHealthListPage extends Vue {
        * ヘルスコレクションはユーザーコレクションの中のコレクションとして作成する（NestedCollection）
        */
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const bach: firebase.firestore.WriteBatch = db.batch()
+      const batch: firebase.firestore.WriteBatch = db.batch()
 
       // ユーザーコレクション
       const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
@@ -288,7 +288,7 @@ export default class UserHealthListPage extends Vue {
        * バッチ処理で書き込み
        */
       // ユーザーコレクションをセット
-      bach.set(userRef, {
+      batch.set(userRef, {
         uid: userId,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -300,7 +300,7 @@ export default class UserHealthListPage extends Vue {
       })
 
       // ユーザーコレクションをセット
-      bach.set(healthRef, {
+      batch.set(healthRef, {
         uid: healthId,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -309,7 +309,7 @@ export default class UserHealthListPage extends Vue {
       })
 
       // 一括書き込み
-      await bach.commit()
+      await batch.commit()
     } catch (error) {
       console.error('firebase error', error)
     }
@@ -354,12 +354,12 @@ export default class UserHealthListPage extends Vue {
        * ヘルスコレクションはユーザーコレクションの中のコレクションとして作成する（NestedCollection）
        */
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const bach: firebase.firestore.WriteBatch = db.batch()
+      const batch: firebase.firestore.WriteBatch = db.batch()
 
       // ユーザーコレクション
       const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
       const userRef: firebase.firestore.DocumentReference = userCollection.doc(item.uid)
-      bach.update(userRef, {
+      batch.update(userRef, {
         updatedAt: new Date(),
         name: this.name,
         age: Number(this.age),  // v-text-fieldで入力するとString型になるためNumber型へ変換
@@ -369,14 +369,14 @@ export default class UserHealthListPage extends Vue {
 
       // ヘルスコレクション
       const healthRef: firebase.firestore.DocumentReference = userCollection.doc(`${item.uid}/health/${item.healthUid}`)
-      bach.update(healthRef, {
+      batch.update(healthRef, {
         updatedAt: new Date(),
         height: Number(this.height),  // v-text-fieldで入力するとString型になるためNumber型へ変換
         weight: Number(this.weight),  // v-text-fieldで入力するとString型になるためNumber型へ変換
       })
 
       // 一括更新
-      await bach.commit()
+      await batch.commit()
     } catch (error) {
       console.error('firebase error', error)
     }
@@ -393,19 +393,19 @@ export default class UserHealthListPage extends Vue {
        * コレクションの中のコレクションは一括削除できないため、指定して削除する。
        */
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const bach: firebase.firestore.WriteBatch = db.batch()
+      const batch: firebase.firestore.WriteBatch = db.batch()
 
       // ユーザーコレクション
       const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
       const userRef: firebase.firestore.DocumentReference = userCollection.doc(item.uid)
-      bach.delete(userRef)
+      batch.delete(userRef)
 
       // ヘルスコレクション
       const healthRef: firebase.firestore.DocumentReference = userCollection.doc(`${item.uid}/health/${item.healthUid}`)
-      bach.delete(healthRef)
+      batch.delete(healthRef)
 
       // 一括削除
-      await bach.commit()
+      await batch.commit()
     } catch (error) {
       console.error('firebase error', error)
     }

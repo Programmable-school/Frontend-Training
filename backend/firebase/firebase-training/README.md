@@ -12,7 +12,7 @@
 [https://firebase.google.com/docs/firestore/quickstart?hl=ja](https://firebase.google.com/docs/firestore/quickstart?hl=ja)
 
 ## 環境構築
-### トレーニング用のVueテンプレートを作成
+### トレーニング用Vueテンプレートを作成
 ```sh
 $ vue create firebase-training
 ```
