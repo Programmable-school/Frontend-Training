@@ -8,7 +8,7 @@
             <v-textarea
               v-model="memo"
               outline
-              placeholder="メモ"/>
+              label="メモ"/>
             <v-btn
               @click="onRegist"
               :loading="isLoading"

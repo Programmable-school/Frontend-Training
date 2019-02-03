@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import TopPage from './views/TopPage.vue'
 import CreateFormPage from './views/firestore/CreateFormPage.vue'
 import RosterListPage from './views/firestore/RosterListPage.vue'
+import UserHealthListPage from './views/firestore/UserHealthListPage.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +25,11 @@ export default new Router({
       path: '/roster_list_page',
       name: 'roster_list_page',
       component: RosterListPage,
+    },
+    {
+      path: '/user_health_list_page',
+      name: 'user_health_list_page',
+      component: UserHealthListPage,
     },
   ],
 })

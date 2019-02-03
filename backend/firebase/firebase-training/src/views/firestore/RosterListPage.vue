@@ -7,12 +7,12 @@
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <v-text-field
               v-model="name"
-              single-line
+              label="名前"
               outline
               placeholder="名前"/>
             <v-text-field
               v-model="age"
-              single-line
+              label="年齢"
               outline
               type="number"
               placeholder="年齢"/>
@@ -34,7 +34,7 @@
               {{ getRegistLabel }}            
             </v-btn>
             <v-btn
-              v-if="selectId!==''"
+              v-if="isUpdate===true"
               @click="onDelete"
               :loading="isLoading"
               color="red"
@@ -86,7 +86,7 @@
               <v-flex>
                 <v-text-field
                   v-model="queryAge"
-                  single-line
+                  label="年齢"
                   outline
                   type="number"
                   placeholder="年齢"/>
@@ -98,7 +98,7 @@
                 </v-radio-group>
                 <v-switch
                   v-model="queryIsPublished"
-                  :label="publishedLabel"
+                  :label="queryPublishedLabel"
                   color="blue"/>
                 <v-flex style="margin: 8px;">
                   <p>検索件数</p>
@@ -206,9 +206,11 @@ export default class RosterListPage extends Vue {
   /**
    * data
    */
-  selectId: string = ''
+  selectItem: any = undefined
+  isUpdate: boolean = false
   selectRowsPerPage: number = 5
   publishedLabel: string = '公開する'
+  queryPublishedLabel: string = '公開する'
 
   pagination: any = {
     sortBy: 'createdAt',
@@ -226,6 +228,11 @@ export default class RosterListPage extends Vue {
     this.publishedLabel = val === true ? '公開する' : '公開しない'
   }
 
+  @Watch('queryIsPublished')
+  onChangeQueryIsPublished(val: boolean) {
+    this.queryPublishedLabel = val === true ? '公開する' : '公開しない'
+  }
+
   async mounted() {
     await this.getItems()
     await this.getQueryItems()
@@ -233,14 +240,14 @@ export default class RosterListPage extends Vue {
   }
 
   /**
-   * 登録
+   * 登録・更新
    */
   async onRegist() {
     this.isLoading = true
-    if (this.selectId === '') {
-      await this.writeFirestore()
+    if (this.isUpdate === true) {
+      await this.updateFirestore(this.selectItem.uid)
     } else {
-      await this.updateFirestore(this.selectId)
+      await this.writeFirestore()
     }
     await this.readQueryFirestore()
     this.clear()
@@ -272,7 +279,7 @@ export default class RosterListPage extends Vue {
    */
   async onDelete() {
     this.isLoading = true
-    await this.deleteFirestore(this.selectId)
+    await this.deleteFirestore(this.selectItem.uid)
     await this.readQueryFirestore()
     this.clear()
     this.isLoading = false
@@ -283,11 +290,9 @@ export default class RosterListPage extends Vue {
    */
   onClick(item: any) {
     console.log(item)
-    this.selectId = item.uid
-    const data = this.items.filter((element: any) => element.uid === item.uid)[0]
-    if (data) {
-      this.setFormData(item)
-    }
+    this.selectItem = item
+    this.isUpdate = true
+    this.setFormData(item)
   }
 
   /**
@@ -308,14 +313,15 @@ export default class RosterListPage extends Vue {
     this.age = 20
     this.sex = '男性'
     this.isPublished = true
-    this.selectId = ''
+    this.selectItem = undefined
+    this.isUpdate = false
   }
 
   /**
    * 登録ラベルを取得
    */
   get getRegistLabel(): string {
-    return this.selectId === '' ? '登録' : '更新'
+    return this.isUpdate === true ? '更新' : '登録'
   }
 
   /**
@@ -463,11 +469,17 @@ export default class RosterListPage extends Vue {
        * 検索クエリ
        * whereを用いて該当するage, sex, isPublishedのデータを検索する。
        * limitを用いて指定された数のデータを取得する。
+       * orderByで並べ替えて取得（descを指定して降順で取得）
+       *
+       * ※注意
+       * 複合クエリのインデックスがないためエラーがでるので、
+       * エラー文の従いFirebase Firestoreコンソールより複合インデックスを追加する
        */
       const query: firebase.firestore.Query = db.collection('version/1/users')
                       .where('age', '==', Number(this.queryAge))  // v-text-fieldで入力するとString型になるためNumber型へ変換
                       .where('sex', '==', this.querySex)
                       .where('isPublished', '==', this.queryIsPublished)
+                      .orderBy('createdAt', 'desc')
                       .limit(Number(this.selectRowsPerPage))
 
       const items: firebase.firestore.QuerySnapshot = await query.get()

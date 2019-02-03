@@ -17,9 +17,9 @@
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">
-          <router-link to="">
-            <div><b>名簿リストを充実させる（身長と体重と1日の目標を追記する）</b></div>
-            <div class="subtitle">バッジ処理による一括書き込み</div>
+          <router-link to="./user_health_list_page">
+            <div><b>ユーザーヘルスリストを作成</b></div>
+            <div class="subtitle">バッチ処理による一括処理</div>
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">
