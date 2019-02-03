@@ -3,7 +3,7 @@
 ## 目次
 - [ページ遷移（VueRouter）](###ページ遷移(VueRouter))
 - [状態管理（VueStore）]()
-- [マテリアルデザインでトップページ作成（Vuetify）]()
+- [ナビゲーショントップページ作成（Vuetify）]()
 - [ローカルストレージに保存（localofrage）]()
 - [Qiitaのユーザーリスト表示ページ作成（axios）]()
 - [環境変数を設定（dotenv）]()
@@ -170,7 +170,7 @@ export default new Router({
       ],
     },
     /**
-     * NotFound用ページ
+     * NotFoundページ
      */
     {
       path: 'not_found_page',

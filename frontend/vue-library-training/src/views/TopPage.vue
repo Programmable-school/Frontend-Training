@@ -16,7 +16,7 @@
         </v-flex>
         <v-flex style="margin: 24px;">
           <router-link to="">
-            <div><b>マテリアルデザインでトップページ作成（Vuetify）</b></div>
+            <div><b>ナビゲーショントップページ作成（Vuetify）</b></div>
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">

@@ -43,7 +43,7 @@ export default new Router({
       ],
     },
     /**
-     * NotFound用ページ
+     * NotFoundページ
      */
     {
       path: 'not_found_page',
