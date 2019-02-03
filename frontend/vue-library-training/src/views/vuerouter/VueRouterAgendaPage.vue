@@ -5,15 +5,26 @@
       <v-flex>
         <h2>VueRouterトレーニング</h2>
         <v-flex style="margin: 24px;">
-          <router-link to="vue_router_top_page/vue_router_first_page">
-            <div><b>ページ遷移</b></div>
-          </router-link>
+          <h3>ページ遷移</h3>
+          <v-flex style="margin: 8px;">
+            <!-- router-linkでページ遷移 -->
+            <router-link to="vue_router_top_page/vue_router_first_page">
+              <div><b>ページ</b></div>
+            </router-link>
+          </v-flex>
         </v-flex>
         <v-flex style="margin: 24px;">
-          <div class="router-link"
-            @click="onClickSecond">
-            <b>ページ遷移 params指定</b>
-          </div>
+          <h3>ページ遷移 params指定</h3>
+          <v-flex style="margin: 8px;">
+            <div class="router-link"
+              @click="onClickSecond(1)">
+              ページ 1
+            </div>
+            <div class="router-link"
+              @click="onClickSecond(2)">
+              ページ 2
+            </div>
+          </v-flex>
         </v-flex>
       </v-flex>
     </v-card>
@@ -25,9 +36,9 @@
 import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class VueRouterAgendaPage extends Vue {
-  onClickSecond() {
+  onClickSecond(pageId: string) {
     const object: any = new Date()
-    this.$router.push({ name: 'vue_router_second_page', params: { data: object } })
+    this.$router.push({ name: 'vue_router_second_page', params: { id: pageId } })
   }
 }
 </script>

@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3>
     <v-card class="container">
       <v-flex>
-        <h2>VueRouter ページ 1</h2>
+        <h2>VueRouter ページ遷移</h2>
       </v-flex>
     </v-card>
     </v-flex>
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator'
 @Component
 export default class VueRouterFirstPage extends Vue {}
 </script>

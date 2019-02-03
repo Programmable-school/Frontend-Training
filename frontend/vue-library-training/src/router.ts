@@ -41,8 +41,11 @@ export default new Router({
           name: 'vue_router_first_page',
           component: VueRouterFirstPage,
         },
+        /**
+         * pathに:idを指定するとURLにidが表示される。
+         */
         {
-          path: 'vue_router_second_page',
+          path: 'vue_router_second_page/:id',
           name: 'vue_router_second_page',
           component: VueRouterSecondPage,
         },

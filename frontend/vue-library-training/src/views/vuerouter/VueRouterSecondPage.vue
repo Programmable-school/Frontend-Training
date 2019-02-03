@@ -3,8 +3,8 @@
     <v-flex xs12 sm6 offset-sm3>
     <v-card class="container">
       <v-flex>
-        <h2>VueRouter ページ 2</h2>
-        <div>{{ date }}</div>
+        <h2>VueRouter params指定</h2>
+        <div>ページ {{ id }}</div>
       </v-flex>
     </v-card>
     </v-flex>
@@ -34,11 +34,12 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
   name: 'VueRouterSecondPage',
 })
 export default class VueRouterSecondPage extends Vue {
-  date?: Date = undefined
+  id: string = '0'
   created() {
-    const data = (this.$route.params.data as any) as Date
-    console.log(data, data.getUTCFullYear(), data.getTime())
-    this.date = data
+    /**
+     * $route.paramsで渡されたデータを取得。
+     */
+    this.id = this.$route.params.id
   }
 }
 </script>
