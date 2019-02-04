@@ -1,24 +1,33 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 /**
- * Storeでアプリ全体の状態管理を行う。
+ * storeでアプリ全体の状態管理を行う。
  * 定義されたデータはアプリが消えるまで保持する（シングルトンのようなもの）
  */
 export default new Vuex.Store({
+  /**
+   * stateで管理するデータを定義
+   */
   state: {
     title: 'VueStoreTopPage',
     isLoading: false,
     successMessages: [] as string[],
     errorMessages: [] as string[],
   },
+  /**
+   * getters内でstateのデータを取得できるようにする。
+   */
   getters: {
     title: (state) => state.title,
     isLoading: (state) => state.isLoading,
     successMessages: (state) => state.successMessages,
     errorMessages: (state) => state.errorMessages,
   },
+  /**
+   * mutationsで実行処理を行う。データの変更を行う。
+   */
   mutations: {
     setTitle(state, title) {
       document.title = title
@@ -45,6 +54,9 @@ export default new Vuex.Store({
       state.errorMessages = message
     },
   },
+  /**
+   * actionsでmutationsをラップして実行。
+   */
   actions: {
     doTitle({ commit }, value: string) {
       commit('setTitle', value)
@@ -63,4 +75,4 @@ export default new Vuex.Store({
       commit('error', value)
     },
   },
-});
+})

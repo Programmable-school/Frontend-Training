@@ -111,10 +111,9 @@ Vue.use(Vuetify, {
 ### ページ遷移(VueRouter)
 複数のページを作成してページ遷移できるようにします。<br>
 src/views/vuerouter/配下に「VueRouterTopPage.vue」「VueRouterAgendaPage.vue」「VueRouterFirstPage.vue」「NotFoundPage.vue」を作成してください。<br>
-作成するページのソースコードは[こちら](./src/views/vuerouter)（コピーペしてもOK）。<br>
-
-src/router.tsでページ遷移の設定を行います。<br>
-##### router.ts
+<br>
+作成するページのソースコードは[こちら](./src/views/vuerouter)。<br>
+##### /src/router.ts
 
 ```ts
 import Vue from 'vue'
@@ -229,6 +228,93 @@ router.tsで:idを指定するとURLにidを指定できます。URLのidを変�
 ```
 
 ### 状態管理（VueStore）
+アプリ全体の状態を管理する場合はstoreを利用します。<br>
+ローディング状態や実行メッセージ等を管理すれば、アプリ全体で利用することができます。<br>
+
+##### /src/store.ts
+
+```ts
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+/**
+ * storeでアプリ全体の状態管理を行う。
+ * 定義されたデータはアプリが消えるまで保持する（シングルトンのようなもの）
+ */
+export default new Vuex.Store({
+  /**
+   * stateで管理するデータを定義
+   */
+  state: {
+    title: 'VueStoreTopPage',
+    isLoading: false,
+    successMessages: [] as string[],
+    errorMessages: [] as string[],
+  },
+  /**
+   * getters内でstateのデータを取得できるようにする。
+   */
+  getters: {
+    title: (state) => state.title,
+    isLoading: (state) => state.isLoading,
+    successMessages: (state) => state.successMessages,
+    errorMessages: (state) => state.errorMessages,
+  },
+  /**
+   * mutationsで実行処理を行う。データの変更を行う。
+   */
+  mutations: {
+    setTitle(state, title) {
+      document.title = title
+      state.title = title
+    },
+    startLoading(state) {
+      state.isLoading = true
+    },
+    stopLoading(state) {
+      state.isLoading = false
+    },
+    success(state, message) {
+      if (!Array.isArray(message)) {
+        state.successMessages = [message]
+        return
+      }
+      state.successMessages = message
+    },
+    error(state, message) {
+      if (!Array.isArray(message)) {
+        state.errorMessages = [message]
+        return
+      }
+      state.errorMessages = message
+    },
+  },
+  /**
+   * actionsでmutationsをラップして実行。
+   */
+  actions: {
+    doTitle({ commit }, value: string) {
+      commit('setTitle', value)
+    },
+    doLoading({ commit }, value: boolean) {
+      if (value === true) {
+        commit('startLoading')
+      } else {
+        commit('stopLoading')
+      }
+    },
+    doSuccessMessages({ commit }, value: string) {
+      commit('success', value)
+    },
+    doErrorMessages({ commit }, value: string) {
+      commit('error', value)
+    },
+  },
+})
+```
+これらの使い方は[こちら](./src/views/vuestore/VueStoreTopPage.vue)を確認してください。<br>
+
 ### マテリアルデザインでトップページ作成（Vuetify）
 ### ローカルストレージに保存（localofrage）
 ### Qiitaのユーザーリスト表示ページ作成（axios）
