@@ -4,8 +4,12 @@ import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
+import 'vuetify/dist/vuetify.min.css'
 
 // themeはお好みでどうぞ。
+/**
+ * バグ？なぜか色が効かない。
+ */
 Vue.use(Vuetify, {
   theme: {
     original: colors.purple.base,
