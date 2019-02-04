@@ -112,8 +112,8 @@ Vue.use(Vuetify, {
 複数のページを作成してページ遷移できるようにします。<br>
 src/views/vuerouter/配下に「VueRouterTopPage.vue」「VueRouterAgendaPage.vue」「VueRouterFirstPage.vue」「NotFoundPage.vue」を作成してください。<br>
 <br>
-作成するページのソースコードは[こちら](./src/views/vuerouter)。<br>
-##### /src/router.ts
+作成するページは[こちら](./src/views/vuerouter)。<br>
+##### ./src/router.ts
 
 ```ts
 import Vue from 'vue'
@@ -231,7 +231,7 @@ router.tsで:idを指定するとURLにidを指定できます。URLのidを変�
 アプリ全体の状態を管理する場合はstoreを利用します。<br>
 ローディング状態や実行メッセージ等を管理すれば、アプリ全体で利用することができます。<br>
 
-##### /src/store.ts
+##### ./src/store.ts
 
 ```ts
 import Vue from 'vue'
