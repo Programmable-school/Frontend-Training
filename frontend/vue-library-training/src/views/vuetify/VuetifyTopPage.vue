@@ -1,10 +1,7 @@
 <template>
   <div>
     <v-app>
-      <!-- ナビゲーションバーを設定
-        ・リファレンス
-        https://vuetifyjs.com/en/components/navigation-drawers#navigation-drawer 
-      -->
+      <!-- ナビゲーションバー https://vuetifyjs.com/en/components/navigation-drawers#navigation-drawer -->
       <v-navigation-drawer
         fixed
         clipped
@@ -36,10 +33,7 @@
         </v-container>
       </v-navigation-drawer>
       <!-- ここまで -->
-      <!-- ツールバーを設定
-        ・リファレンス
-        https://vuetifyjs.com/en/components/toolbars#toolbar
-      -->
+      <!-- ツールバー https://vuetifyjs.com/en/components/toolbars#toolbar -->
       <v-toolbar
         dark
         color="blue"
@@ -58,10 +52,7 @@
         </v-fade-transition>
       </v-container>
       <!-- ここまで-->
-      <!-- フッターを設定 
-        ・リファレンス
-        https://vuetifyjs.com/en/components/footer#footer
-      -->
+      <!-- フッター https://vuetifyjs.com/en/components/footer#footer -->
       <v-footer
         color='gray'
         app>

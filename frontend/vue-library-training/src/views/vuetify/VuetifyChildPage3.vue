@@ -11,7 +11,12 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class VuetifyChildPage3 extends Vue {
-  title: string = 'VuetifyChildPage3'
+  // https://vuetifyjs.com/en/components/bottom-navigation
+  // https://vuetifyjs.com/en/components/tabs
+  // https://vuetifyjs.com/en/components/snackbars
+  // https://vuetifyjs.com/en/components/ratings
+  // https://vuetifyjs.com/en/components/badges
+  title: string = 'VuetifyのBottomNavigationのサンプルです。'
 }
 </script>
 <style lang="stylus">

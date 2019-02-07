@@ -11,7 +11,8 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class VuetifyChildPage2 extends Vue {
-  title: string = 'VuetifyChildPage2'
+  // https://vuetifyjs.com/en/components/lists
+  title: string = 'VuetifyのListとDialogのサンプルです。'
 }
 </script>
 <style lang="stylus">

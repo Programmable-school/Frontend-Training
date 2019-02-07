@@ -402,7 +402,7 @@ export default class RosterListPage extends Vue {
   async observeFirestore() {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      db.collection('version/1/users').onSnapshot((snapshot: firebase.firestore.QuerySnapshot) => {
+      const unsubscribe = db.collection('version/1/users').onSnapshot((snapshot: firebase.firestore.QuerySnapshot) => {
         snapshot.docChanges().forEach((change: firebase.firestore.DocumentChange) => {
             /**
              * onSnapshotの種別がmodifiedの場合はデータを追加する。
@@ -452,6 +452,8 @@ export default class RosterListPage extends Vue {
               })
             }
         })
+        // 解除したいときはこれを呼ぶ。
+        // unsubscribe()
       })
     } catch (error) {
       console.error('firebase error', error)
