@@ -23,7 +23,7 @@
                       <v-icon>{{ menu.icon }}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                      <v-list-tile-title>{{ menu.label }}</v-list-tile-title>
+                      <v-list-tile-title><b>{{ menu.label }}</b></v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
                 </template>
@@ -75,17 +75,17 @@ export default class VuetifyTopPage extends Vue {
   menuList: any[] = [
     {
       to: 'vuetify_child_page_1',
-      label: 'ページ1',
+      label: 'v-cardサンプル',
       icon: 'dashboard',
     },
     {
       to: 'vuetify_child_page_2',
-      label: 'ページ2',
+      label: 'v-listとv-dialogのサンプル',
       icon: 'account_box',
     },
     {
       to: 'vuetify_child_page_3',
-      label: 'ページ3',
+      label: 'v-bottom-navのサンプル',
       icon: 'gavel',
     },
   ]

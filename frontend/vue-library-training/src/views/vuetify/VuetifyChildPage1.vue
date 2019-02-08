@@ -37,7 +37,7 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class VuetifyChildPage1 extends Vue {
-  title: string = 'Vuetifyのv-cardサンプルです。'
+  title: string = 'v-cardサンプル'
 }
 </script>
 <style lang="stylus">

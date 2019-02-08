@@ -16,7 +16,7 @@ export default class VuetifyChildPage3 extends Vue {
   // https://vuetifyjs.com/en/components/snackbars
   // https://vuetifyjs.com/en/components/ratings
   // https://vuetifyjs.com/en/components/badges
-  title: string = 'VuetifyのBottomNavigationのサンプルです。'
+  title: string = 'v-bottom-navのサンプル'
 }
 </script>
 <style lang="stylus">
