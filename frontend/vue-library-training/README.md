@@ -1,8 +1,8 @@
 # vue-library-training
 
 ## 目次
-- [ページ遷移（VueRouter）](###ページ遷移)
-- [VueStore](##VueStore)
+- [ページ遷移（VueRouter）](#ページ遷移（VueRouter）)
+- [状態管理（VueStore）](#状態管理（VueStore）)
 - [ナビゲーショントップページ作成（Vuetify）](./src/views/vuetify)
 - [ローカルストレージに保存（localofrage）]()
 - [Qiitaのユーザーリスト表示ページ作成（axios）]()
@@ -108,7 +108,7 @@ Vue.use(Vuetify, {
 ## レッスン
 以下の解説を元に概要を理解し、本プロジェクトをcloneして以下のレッスンのサンプルコードを写経してください。<br>
 
-### ページ遷移
+### ページ遷移（VueRouter）
 複数のページを作成してページ遷移できるようにします。<br>
 src/views/vuerouter/配下に「VueRouterTopPage.vue」「VueRouterAgendaPage.vue」「VueRouterFirstPage.vue」「NotFoundPage.vue」を作成してください。<br>
 <br>
@@ -227,7 +227,7 @@ router.tsで:idを指定するとURLにidを指定できます。URLのidを変�
 },
 ```
 
-## VueStore
+### 状態管理（VueStore）
 アプリ全体の状態を管理する場合はstoreを利用します。<br>
 ローディング状態や実行メッセージ等を管理すれば、アプリ全体で利用することができます。<br>
 
