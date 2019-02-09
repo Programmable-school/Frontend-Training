@@ -2,7 +2,7 @@
 
 ## 目次
 - [ページ遷移（VueRouter）](###ページ遷移)
-- [状態管理（VueStore）](###VueStore)
+- [VueStore](##VueStore)
 - [ナビゲーショントップページ作成（Vuetify）](./src/views/vuetify)
 - [ローカルストレージに保存（localofrage）]()
 - [Qiitaのユーザーリスト表示ページ作成（axios）]()
@@ -227,7 +227,7 @@ router.tsで:idを指定するとURLにidを指定できます。URLのidを変�
 },
 ```
 
-### VueStore
+## VueStore
 アプリ全体の状態を管理する場合はstoreを利用します。<br>
 ローディング状態や実行メッセージ等を管理すれば、アプリ全体で利用することができます。<br>
 
