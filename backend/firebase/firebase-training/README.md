@@ -45,7 +45,7 @@ $ yarn add firebase vuetify axios date-fns
 ```
 
 ### Firebaseの設定
-firebaseConfigSample.tsをfirebaseConfig.tsにリネームして、作成した[Firebaseの設定値](###Firebaseプロジェクトを作成)を追加します。<br>
+src内にrepositoryフォルダを作成し、firebaseConfig.tsを作成して[Firebaseの設定値](###Firebaseプロジェクトを作成)を追加します。<br>
 プロジェクトの設定値はFirebaseコンソールから確認できます。<br>
 
 #### ./src/repository/firebaseConfig.ts
