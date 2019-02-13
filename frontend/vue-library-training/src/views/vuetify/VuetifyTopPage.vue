@@ -75,17 +75,17 @@ export default class VuetifyTopPage extends Vue {
   menuList: any[] = [
     {
       to: 'vuetify_child_page_1',
-      label: 'v-cardサンプル',
+      label: 'v-card',
       icon: 'dashboard',
     },
     {
       to: 'vuetify_child_page_2',
-      label: 'v-listとv-dialogのサンプル',
+      label: 'v-list',
       icon: 'account_box',
     },
     {
       to: 'vuetify_child_page_3',
-      label: 'v-bottom-navのサンプル',
+      label: 'v-bottom-nav',
       icon: 'gavel',
     },
   ]
