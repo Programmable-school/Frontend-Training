@@ -10,6 +10,7 @@ import VuetifyTopPage from '@/views/vuetify/VuetifyTopPage.vue'
 import VuetifyChildPage1 from '@/views/vuetify/VuetifyChildPage1.vue'
 import VuetifyChildPage2 from '@/views/vuetify/VuetifyChildPage2.vue'
 import VuetifyChildPage3 from '@/views/vuetify/VuetifyChildPage3.vue'
+import LocalForageRosterListPage from '@/views/localforage/LocalForageRosterListPage.vue'
 import NotFoundPage from '@/views/vuerouter/NotFoundPage.vue'
 
 Vue.use(Router)
@@ -82,6 +83,11 @@ export default new Router({
           component: VuetifyChildPage3,
         },
       ],
+    },
+    {
+      path: '/local_forage_roster_list_page',
+      name: 'local_forage_roster_list_page',
+      component: LocalForageRosterListPage,
     },
     /**
      * NotFoundページ

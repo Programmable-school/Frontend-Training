@@ -20,7 +20,7 @@
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">
-            <router-link to="">
+            <router-link to="local_forage_roster_list_page">
               <div><b>ローカルストレージに保存（localforage）</b></div>
             </router-link>
           </v-flex>
