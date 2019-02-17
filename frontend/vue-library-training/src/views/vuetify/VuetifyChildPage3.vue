@@ -3,7 +3,7 @@
     <v-flex class="container__body">
        <v-card height="600px" flat>
         <template>
-          <div class="headline text-xs-center pa-5">
+          <div class="headline text-xs-center navi-container">
             {{ title + `${selectedTab+1}` }}
             <v-flex style="margin: 16px;" v-if="selectedTab===0">
               <!--  bottomNavigationTab1のフォームを表示 -->
@@ -50,15 +50,20 @@
               </v-tabs-items>
             </v-flex>
             <v-flex style="margin: 16px;" v-else>
-              <!-- bottomNavigationTab3のフォームを表示 -->
+              <!-- bottomNavigationTab3のフォームを表示 -->  
+              <!-- https://vuetifyjs.com/ja/components/carousels -->
+              <v-carousel>
+                <v-carousel-item v-for="(item, index) in bottomNaviData2" :key="index" :src="item.src"/>
+              </v-carousel>
             </v-flex>
           </div>
         </template>
         <!-- https://vuetifyjs.com/en/components/bottom-navigation -->
         <v-bottom-nav
+          :active.sync="bottomNav"
           :value="true"
           absolute
-          color="transparent">
+          style="margin-bottom: -10px;">
           <v-btn
             color="teal"
             flat
@@ -106,13 +111,11 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class VuetifyChildPage3 extends Vue {
-  // https://vuetifyjs.com/en/components/bottom-navigation
-  // https://vuetifyjs.com/en/components/snackbars
-  // https://vuetifyjs.com/en/components/tabs
   title: string = 'v-bottom-navi-tab'
   /**
    * bottom-navigation
    */
+  bottomNav: number = 2
   selectedTab: number = 0
   bottomNaviData0: any = {
     name: 'ゲスト',
@@ -122,6 +125,12 @@ export default class VuetifyChildPage3 extends Vue {
     model: 'tab-2',
     text: 'menu-tab',
   }
+  bottomNaviData2: any = [
+    { src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg' },
+    { src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg' },
+    { src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg' },
+    { src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'},
+  ]
   /**
    * snakbar
    */
@@ -149,5 +158,8 @@ export default class VuetifyChildPage3 extends Vue {
   width 100%
   &__body
     margin-top 24px
+
+.navi-container
+  margin-top 60px
 
 </style>
