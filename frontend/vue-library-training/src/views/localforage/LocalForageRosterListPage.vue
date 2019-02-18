@@ -3,7 +3,7 @@
     <v-flex>
       <v-card class="container">
         <v-flex>
-          <h2>名簿リスト</h2>
+          <h2>名簿リスト（localforage）</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <v-text-field
               v-model="name"
@@ -66,8 +66,8 @@
                     <td>{{ props.item.name }}</td>
                     <td>{{ props.item.age }}</td>
                     <td>{{ props.item.sex }}</td>
-                    <td>{{ props.item.createdAt.toDate() | dateFormat }}</td>
-                    <td>{{ props.item.updatedAt.toDate() | dateFormat }}</td>
+                    <td>{{ props.item.createdAt | dateFormat }}</td>
+                    <td>{{ props.item.updatedAt | dateFormat }}</td>
                   </tr>
                 </template>
               </v-data-table>
@@ -240,6 +240,8 @@ export default class LocalForageRosterListPage extends Vue {
 
   /**
    * LocalStorageへデータを書き込む
+   * １つのkeyに対してデータを保存する仕様。
+   * 配列ごと保存する。
    */
   async write() {
     try {
@@ -251,21 +253,22 @@ export default class LocalForageRosterListPage extends Vue {
         age: Number(this.age),  // v-text-fieldで入力するとString型になるためNumber型へ変換
         sex: this.sex,
       }
-      console.log('data', data)
-      await localforage.setItem(this.localforageKey, data)
+      this.items.push(data)
+      console.log('data', this.items)
+      await localforage.setItem(this.localforageKey, this.items)
     } catch (error) {
       console.error('database error', error)
     }
   }
 
   /**
-   * LocalStorageからデータを取得, 検索クエリ
+   * LocalStorageからデータを取得
    */
   async read() {
     try {
       const result = await localforage.getItem(this.localforageKey)
       if (result) {
-        // this.items = Array(result)
+        this.items = result as any[]
       }
       console.log(this.items)
     } catch (error) {
@@ -277,31 +280,36 @@ export default class LocalForageRosterListPage extends Vue {
    * LocalStorageのデータを更新
    */
   async update(id: string) {
-    // try {
-    //   const db: firebase.firestore.Firestore = firebase.firestore()
-    //   const collection: firebase.firestore.CollectionReference = db.collection('version/1/users')
-    //   await collection.doc(id).update({
-    //     updatedAt: new Date(),
-    //     name: this.name,
-    //     age: Number(this.age),  // v-text-fieldで入力するとString型になるためNumber型へ変換
-    //     sex: this.sex,
-    //   })
-    // } catch (error) {
-    //   console.error('firebase error', error)
-    // }
+    try {
+      this.items = this.items.map((item) => {
+        if (item.uid === id) {
+          const data: any = item
+          data.updatedAt = new Date()
+          data.name = this.name
+          data.age = Number(this.age)
+          data.sex = this.sex
+          return data
+        }
+        return item
+      })
+      await localforage.setItem(this.localforageKey, this.items)
+    } catch (error) {
+      console.error('database error', error)
+    }
   }
 
   /**
    * LocalStorageのデータを削除
+   * Keyに紐づくデータを全て削除する関数removeItemだが、
+   * 中身の細かいデータを削除する場合は削除対象のデータを除いたものを保存する必要がある。
    */
   async delete(id: string) {
-    // try {
-    //   const db: firebase.firestore.Firestore = firebase.firestore()
-    //   const collection: firebase.firestore.CollectionReference = db.collection('version/1/users')
-    //   await collection.doc(id).delete()
-    // } catch (error) {
-    //   console.error('firebase error', error)
-    // }
+    try {
+      this.items = this.items.filter((item: any) => item.uid !== id)
+      await localforage.setItem(this.localforageKey, this.items)
+    } catch (error) {
+      console.error('database error', error)
+    }
   }
 
   /**
@@ -322,13 +330,13 @@ export default class LocalForageRosterListPage extends Vue {
   /**
    * uidからデータを取得
    */
-  getDataFromUid(uid: string): any {
-    if (this.items) {
-      return this.items.filter((element, index, array) => uid === element.uid)[0]
-    } else {
-      return undefined
-    }
-  }
+  // getDataFromUid(uid: string): any {
+  //   if (this.items) {
+  //     return this.items.filter((element, index, array) => uid === element.uid)[0]
+  //   } else {
+  //     return undefined
+  //   }
+  // }
 }
 </script>
 <style lang="stylus">
