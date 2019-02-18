@@ -56,7 +56,7 @@ tslint.jsonは以下のように設定してください。<br>
 
 ### トレーニングで利用するライブラリを導入
 ```sh
-$ yarn add vuetify localforage axios dotenv-webpack
+$ yarn add vuetify localforage axios dotenv-webpack date-fns
 ```
 
 #### Vuetifyを導入
