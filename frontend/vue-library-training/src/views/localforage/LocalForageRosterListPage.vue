@@ -154,10 +154,15 @@ export default class LocalForageRosterListPage extends Vue {
 
   created() {
     /**
+     * localforageを用いてブラウザ上にデータを保存する。
+     * [Chrome]
+     * ブラウザを右クリック -> 検証 -> Application -> Storageから確認できる。
+     * 
      * 保存するデータベース種別を設定
      * LOCALSTORAGE
      * WEBSQL
      * INDEXEDDB
+     * -> 今回はデフォルトで設定されるINDEXEDDBを利用する。
      */
     localforage.setDriver(localforage.INDEXEDDB)
   }
