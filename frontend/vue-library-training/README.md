@@ -4,7 +4,7 @@
 - [VueRouter](#VueRouter)
 - [VueStore](#VueStore)
 - [Vuetify](./src/views/vuetify)
-- [ローカルストレージに保存（localofrage）]()
+- [ローカルストレージに保存（localofrage）](./src/views/localforage/LocalForageRosterListPage.vue)
 - [Qiitaのユーザーリスト表示ページ作成（axios）]()
 - [環境変数を設定（dotenv）]()
 
