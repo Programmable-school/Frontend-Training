@@ -157,12 +157,15 @@ export default class LocalForageRosterListPage extends Vue {
      * localforageを用いてブラウザ上にデータを保存する。
      * [Chrome]
      * ブラウザを右クリック -> 検証 -> Application -> Storageから確認できる。
-     * 
+     *
      * 保存するデータベース種別を設定
      * LOCALSTORAGE
      * WEBSQL
      * INDEXEDDB
      * -> 今回はデフォルトで設定されるINDEXEDDBを利用する。
+     *
+     * [注意]
+     * ブラウザからキャッシュやその他のストレージを削除してしまうとローカルストレージのデータが全て消去されるので注意してください。
      */
     localforage.setDriver(localforage.INDEXEDDB)
   }
@@ -286,7 +289,7 @@ export default class LocalForageRosterListPage extends Vue {
    */
   async update(id: string) {
     try {
-      this.items = this.items.map((item) => {
+      this.items = this.items.map((item: any) => {
         if (item.uid === id) {
           const data: any = item
           data.updatedAt = new Date()
@@ -323,8 +326,8 @@ export default class LocalForageRosterListPage extends Vue {
   getDataUid(): number {
     if (this.items) {
       let maxNumber = 0
-      this.items.forEach((element, index) => {
-        if (maxNumber < element.uid) { maxNumber = element.uid }
+      this.items.forEach((item: any) => {
+        if (maxNumber < item.uid) { maxNumber = item.uid }
       })
       return maxNumber + 1
     } else {
