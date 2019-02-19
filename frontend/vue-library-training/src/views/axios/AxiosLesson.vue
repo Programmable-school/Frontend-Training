@@ -135,7 +135,7 @@ export default class AxiosLesson extends Vue {
           }
         })
       }
-    } catch(error) {
+    } catch (error) {
       console.log('axios error', error)
     }
   }

@@ -359,22 +359,4 @@ export default class LocalForageRosterListPage extends Vue {
 .subtitle
   padding-left 12px
 
-select
-  outline none
-  -moz-appearance none
-  text-indent 0.01px
-  text-overflow ''
-  background none transparent
-  vertical-align middle
-  font-size 1.0em
-  appearance none
-  -webkit-appearance none
-  -moz-appearance none
-  height: 40px
-  padding: 8px 12px
-  border 2px solid black
-  color black
-  width 100px
-  border-radius 16px
-
 </style>
