@@ -356,6 +356,7 @@ export default class RosterListPage extends Vue {
       const collection: firebase.firestore.CollectionReference = db.collection('version/1/users')
       const items: firebase.firestore.QuerySnapshot = await collection.get()
       items.docs.forEach((item: firebase.firestore.QueryDocumentSnapshot) => {
+        console.log('uid', item.id)
         this.items.push(item.data())
       })
       console.log(this.items)
