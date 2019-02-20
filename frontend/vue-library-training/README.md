@@ -318,22 +318,22 @@ export default new Vuex.Store({
 ### マテリアルデザインでトップページ作成（Vuetify）
 <a href="https://imgur.com/JoxKnh4"><img src="https://i.imgur.com/JoxKnh4.png" width="50%" height="30%" /></a><br>
 <br>
-<a href="https://imgur.com/MOuDdlp"><img src="https://i.imgur.com/MOuDdlp.png" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/MOuDdlp"><img src="https://i.imgur.com/MOuDdlp.png" width="40%" height="30%" /></a><br>
 <br>
-<a href="https://imgur.com/LMIu2fr"><img src="https://i.imgur.com/LMIu2fr.png" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/LMIu2fr"><img src="https://i.imgur.com/LMIu2fr.png" width="50%" height="30%" /></a><br>
 <br>
-<a href="https://imgur.com/HdNhZM2"><img src="https://i.imgur.com/HdNhZM2.png" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/HdNhZM2"><img src="https://i.imgur.com/HdNhZM2.png" width="50%" height="30%" /></a><br>
 <br>
-<a href="https://imgur.com/cjsYoo7"><img src="https://i.imgur.com/cjsYoo7.png" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/cjsYoo7"><img src="https://i.imgur.com/cjsYoo7.png" width="50%" height="30%" /></a><br>
 <br>
 ### ローカルストレージに保存（localofrage）
 <a href="https://imgur.com/jwlcDnl"><img src="https://i.imgur.com/jwlcDnl.png" width="50%" height="30%" /></a><br>
 <br>
 
 ### Qiitaリスト表示ページ作成（axios）
-<a href="https://imgur.com/9m0y2hK"><img src="https://i.imgur.com/9m0y2hK.png" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/9m0y2hK"><img src="https://i.imgur.com/9m0y2hK.png" width="40%" height="30%" /></a><br>
 <br>
-<a href="https://imgur.com/VkBhEDx"><img src="https://i.imgur.com/VkBhEDx.png" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/VkBhEDx"><img src="https://i.imgur.com/VkBhEDx.png" width="40%" height="30%" /></a><br>
 <br>
 
 
