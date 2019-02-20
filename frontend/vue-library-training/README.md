@@ -5,7 +5,7 @@
 - [VueStore](#VueStore)
 - [Vuetify](./src/views/vuetify)
 - [ローカルストレージに保存（localofrage）](./src/views/localforage/LocalForageRosterListPage.vue)
-- [Qiitaのユーザーリスト表示ページ作成（axios）](./src/views/axios/AxiosLesson.vue)
+- [Qiitaリスト表示ページ作成（axios）](./src/views/axios/AxiosLesson.vue)
 - [環境変数を設定（dotenv）]()
 
 ## 環境構築
@@ -316,13 +316,24 @@ export default new Vuex.Store({
 これらの使い方は[こちら](./src/views/vuestore/VueStoreTopPage.vue)を確認してください。<br>
 
 ### マテリアルデザインでトップページ作成（Vuetify）
-### ローカルストレージに保存（localofrage）
-
-
-### Qiitaのユーザーリスト表示ページ作成（axios）
-<a href="https://imgur.com/9m0y2hK"><img src="https://imgur.com/9m0y2hK" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/JoxKnh4"><img src="https://i.imgur.com/JoxKnh4.png" width="50%" height="30%" /></a><br>
 <br>
-<a href="https://imgur.com/VkBhEDx"><img src="https://imgur.com/VkBhEDx" width="30%" height="30%" /></a><br>
+<a href="https://imgur.com/MOuDdlp"><img src="https://i.imgur.com/MOuDdlp.png" width="30%" height="30%" /></a><br>
+<br>
+<a href="https://imgur.com/LMIu2fr"><img src="https://i.imgur.com/LMIu2fr.png" width="30%" height="30%" /></a><br>
+<br>
+<a href="https://imgur.com/HdNhZM2"><img src="https://i.imgur.com/HdNhZM2.png" width="30%" height="30%" /></a><br>
+<br>
+<a href="https://imgur.com/cjsYoo7"><img src="https://i.imgur.com/cjsYoo7.png" width="30%" height="30%" /></a><br>
+<br>
+### ローカルストレージに保存（localofrage）
+<a href="https://imgur.com/jwlcDnl"><img src="https://i.imgur.com/jwlcDnl.png" width="50%" height="30%" /></a><br>
+<br>
+
+### Qiitaリスト表示ページ作成（axios）
+<a href="https://imgur.com/9m0y2hK"><img src="https://i.imgur.com/9m0y2hK.png" width="30%" height="30%" /></a><br>
+<br>
+<a href="https://imgur.com/VkBhEDx"><img src="https://i.imgur.com/VkBhEDx.png" width="30%" height="30%" /></a><br>
 <br>
 
 

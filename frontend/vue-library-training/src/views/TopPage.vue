@@ -26,7 +26,7 @@
           </v-flex>
           <v-flex style="margin: 24px;">
             <router-link to="axios_lesson">
-              <div><b>Qiitaのユーザーリスト表示ページ作成（axios）</b></div>
+              <div><b>Qiitaリスト表示ページ作成（axios）</b></div>
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">
