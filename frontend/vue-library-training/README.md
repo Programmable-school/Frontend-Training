@@ -317,7 +317,16 @@ export default new Vuex.Store({
 
 ### マテリアルデザインでトップページ作成（Vuetify）
 ### ローカルストレージに保存（localofrage）
+
+
 ### Qiitaのユーザーリスト表示ページ作成（axios）
+<a href="https://imgur.com/9m0y2hK"><img src="https://imgur.com/9m0y2hK" width="30%" height="30%" /></a><br>
+<br>
+<a href="https://imgur.com/VkBhEDx"><img src="https://imgur.com/VkBhEDx" width="30%" height="30%" /></a><br>
+<br>
+
+
+
 ### 環境変数を設定（dotenv）
 <br>
 
