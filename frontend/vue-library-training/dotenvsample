@@ -1,0 +1,12 @@
+# 環境変数として設定したい変数はここで定義する
+# 
+# 【環境変数にするポイント】
+# アプリの設定値でアプリ全体で利用することがあるAPIやKeyを設定する
+#
+# 【注意】
+# APIのSecretKeyはフロントエンド側のdotenvで定義しないこと。
+# ここで設定される変数は全てユーザーに見られてしまうため、見られても良いものを定義すること。
+APP_TITLE = "DotenvLesson"
+APP_VERSION = "1.0.0"
+ADMIN_EMAIL = "xxxx@xxxx.com"
+BASE_API_URL = "https://qiita.com/api/v2"

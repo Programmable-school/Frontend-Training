@@ -12,6 +12,7 @@ import VuetifyChildPage2 from '@/views/vuetify/VuetifyChildPage2.vue'
 import VuetifyChildPage3 from '@/views/vuetify/VuetifyChildPage3.vue'
 import LocalForageRosterListPage from '@/views/localforage/LocalForageRosterListPage.vue'
 import AxiosLesson from '@/views/axios/AxiosLesson.vue'
+import DotenvLesson from '@/views/dotenv/DotenvLesson.vue'
 import NotFoundPage from '@/views/vuerouter/NotFoundPage.vue'
 
 Vue.use(Router)
@@ -94,6 +95,11 @@ export default new Router({
       path: '/axios_lesson',
       name: 'axios_lesson',
       component: AxiosLesson,
+    },
+    {
+      path: '/dotenv_lesson',
+      name: 'dotenv_lesson',
+      component: DotenvLesson,
     },
     /**
      * NotFoundページ

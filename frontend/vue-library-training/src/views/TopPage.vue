@@ -30,7 +30,7 @@
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">
-            <router-link to="">
+            <router-link to="dotenv_lesson">
               <div><b>環境変数を設定（dotenv）</b></div>
             </router-link>
           </v-flex>

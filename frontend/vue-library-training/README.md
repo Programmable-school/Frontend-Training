@@ -3,10 +3,10 @@
 ## 目次
 - [VueRouter](#VueRouter)
 - [VueStore](#VueStore)
-- [Vuetify](./src/views/vuetify)
-- [ローカルストレージに保存（localofrage）](./src/views/localforage/LocalForageRosterListPage.vue)
-- [Qiitaリスト表示ページ作成（axios）](./src/views/axios/AxiosLesson.vue)
-- [環境変数を設定（dotenv）]()
+- [Vuetify](#Vuetify)
+- [ローカルストレージに保存（localofrage）](#localofrage)
+- [Qiitaリスト表示ページ作成（axios）](#axios)
+- [環境変数を設定（dotenv）](#dotenv)
 
 ## 環境構築
 ### トレーニング用Vueテンプレートを作成
@@ -108,7 +108,7 @@ Vue.use(Vuetify, {
 ## レッスン
 以下の解説を元に概要を理解し、本プロジェクトをcloneして以下のレッスンのサンプルコードを写経してください。<br>
 
-### VueRouter
+## VueRouter
 複数のページを作成してページ遷移できるようにします。<br>
 src/views/vuerouter/配下に「VueRouterTopPage.vue」「VueRouterAgendaPage.vue」「VueRouterFirstPage.vue」「NotFoundPage.vue」を作成してください。<br>
 <br>
@@ -227,7 +227,7 @@ router.tsで:idを指定するとURLにidを指定できます。URLのidを変�
 },
 ```
 
-### VueStore
+## VueStore
 アプリ全体の状態を管理する場合はstoreを利用します。<br>
 ローディング状態や実行メッセージ等を管理すれば、アプリ全体で利用することができます。<br>
 
@@ -315,7 +315,8 @@ export default new Vuex.Store({
 ```
 これらの使い方は[こちら](./src/views/vuestore/VueStoreTopPage.vue)を確認してください。<br>
 
-### マテリアルデザインでトップページ作成（Vuetify）
+## Vuetify
+### スクリーンショット
 <a href="https://imgur.com/JoxKnh4"><img src="https://i.imgur.com/JoxKnh4.png" width="50%" height="30%" /></a><br>
 <br>
 <a href="https://imgur.com/MOuDdlp"><img src="https://i.imgur.com/MOuDdlp.png" width="40%" height="30%" /></a><br>
@@ -326,20 +327,86 @@ export default new Vuex.Store({
 <br>
 <a href="https://imgur.com/cjsYoo7"><img src="https://i.imgur.com/cjsYoo7.png" width="50%" height="30%" /></a><br>
 <br>
-### ローカルストレージに保存（localofrage）
+
+[こちらのコード](./src/views/vuetify)を写経してページを作成してください。
+
+## localofrage
+### スクリーンショット
 <a href="https://imgur.com/jwlcDnl"><img src="https://i.imgur.com/jwlcDnl.png" width="50%" height="30%" /></a><br>
 <br>
 
-### Qiitaリスト表示ページ作成（axios）
+[こちらのコード](./src/views/localforage/LocalForageRosterListPage.vue)を写経してページを作成してください。
+
+
+## axios
+### スクリーンショット
 <a href="https://imgur.com/9m0y2hK"><img src="https://i.imgur.com/9m0y2hK.png" width="40%" height="30%" /></a><br>
 <br>
 <a href="https://imgur.com/VkBhEDx"><img src="https://i.imgur.com/VkBhEDx.png" width="40%" height="30%" /></a><br>
 <br>
 
+[こちらのコード](./src/views/axios/AxiosLesson.vue)を写経してページを作成してください。
 
-
-### 環境変数を設定（dotenv）
+## dotenv
+### スクリーンショット
+<a href="https://imgur.com/wOGlXxE"><img src="https://i.imgur.com/wOGlXxE.png" width="40%" height="30%" /></a><br>
 <br>
+
+### 構築
+dotenv-webpackをインストール後、vue.config.jsをルート上に作成して以下のように設定します。
+
+##### /vue.config.js
+```js
+const Dotenv = require('dotenv-webpack')
+module.exports = {
+  configureWebpack: {
+    plugins: [new Dotenv()]
+  }
+}
+```
+<br>
+これで導入完了です。<br>
+ルート上に.envファイルを作成して環境変数を設定します。<br>
+
+##### /.env
+```sh
+# 環境変数として設定したい変数はここで定義する
+# 
+# 【環境変数にするポイント】
+# アプリの設定値でアプリ全体で利用することがあるAPIやKeyを設定する
+#
+# 【注意】
+# APIのSecretKeyはフロントエンド側のdotenvで定義しないこと。
+# ここで設定される変数は全てユーザーに見られてしまうため、見られても良いものを定義すること。
+APP_TITLE = "DotenvLesson"
+APP_VERSION = "1.0.0"
+ADMIN_EMAIL = "xxxx@xxxx.com"
+BASE_API_URL = "https://qiita.com/api/v2"
+```
+<br>
+以下のような使い方で定義した環境変数を利用できます。
+
+```ts
+const title: string = process.env.APP_TITLE
+const version: string = process.env.APP_VERSION
+const email: string = process.env.ADMIN_EMAIL
+const baseUrl: string = process.env.BASE_API_URL
+```
+
+注意として、フロントエンド側で定義するとユーザーに見られてしまうため、見られてまずいものはフロントエンド側で定義しないようにしてください。<br>
+<br>
+お作法としてはセキュリティ上.envファイルはGit上に上げないようにします。<br>
+.gitignoreに.envを追加します。<br>
+
+##### /.gitignore
+```sh
+# local env files
+.env
+.env.local
+.env.*.local
+```
+
+[こちらのコード](./src/views/dotenv/DotenvLesson.vue)を写経してページを作成してください。
 
 ## Project setup
 
