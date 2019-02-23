@@ -2,7 +2,7 @@
 
 ## 目次
 - [VueRouter](#VueRouter)
-- [VueStore](#VueStore)
+- [Vuex](#Vuex)
 - [Vuetify](#Vuetify)
 - [ローカルストレージに保存（localofrage）](#localofrage)
 - [Qiitaリスト表示ページ作成（axios）](#axios)
@@ -227,7 +227,7 @@ router.tsで:idを指定するとURLにidを指定できます。URLのidを変�
 },
 ```
 
-## VueStore
+## Vuex
 アプリ全体の状態を管理する場合はstoreを利用します。<br>
 ローディング状態や実行メッセージ等を管理すれば、アプリ全体で利用することができます。<br>
 
