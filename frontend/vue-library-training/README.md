@@ -4,7 +4,7 @@
 - [VueRouter](#VueRouter)
 - [Vuex](#Vuex)
 - [Vuetify](#Vuetify)
-- [ローカルストレージに保存（localfrage）](#localfrage)
+- [ローカルストレージに保存（localforage）](#localforage)
 - [Qiitaリスト表示ページ作成（axios）](#axios)
 - [環境変数を設定（dotenv）](#dotenv)
 
@@ -330,7 +330,7 @@ export default new Vuex.Store({
 
 [こちらのコード](./src/views/vuetify)を写経してページを作成してください。
 
-## localfrage
+## localforage
 ### スクリーンショット
 <a href="https://imgur.com/jwlcDnl"><img src="https://i.imgur.com/jwlcDnl.png" width="50%" height="30%" /></a><br>
 <br>
