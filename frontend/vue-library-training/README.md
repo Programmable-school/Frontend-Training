@@ -384,7 +384,7 @@ try {
     query: searchText,
   }
   const result = await this.axios.get('/items', { params })
-  onsole.log('result', result.data)
+  console.log('result', result.data)
 } catch (error) {
   console.error(error)
 }
