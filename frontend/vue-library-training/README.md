@@ -345,6 +345,52 @@ export default new Vuex.Store({
 <a href="https://imgur.com/VkBhEDx"><img src="https://i.imgur.com/VkBhEDx.png" width="40%" height="30%" /></a><br>
 <br>
 
+### 構築
+axiosを用いて外部APIから取得したデータを画面上に表示します。本レッスンではQiita APIを用いて行います。<br>
+axiosを初期化する際に既にAPIが決まっている場合はbaseURLに設定します。<br>
+```ts
+import axios from 'axios'
+
+@Component
+export default class AxiosLesson extends Vue {
+  /**
+   * axiosを初期化する
+   * 予めリクエストを送るAPIをbaseURLとして設定することができる
+   */
+  axios = axios.create({
+    headers: { 'Content-Type': 'application/json' },
+    baseURL: 'https://qiita.com/api/v2',
+  })
+}
+```
+
+レッスンではユーザー情報と記事のリストを取得して画面上に表示します。
+```ts
+// ユーザー情報を取得
+try {
+  const result = await this.axios.get('/users')
+  console.log('result', result.data)
+} catch (error) {
+  console.error(error)
+}
+  
+```
+
+```ts
+// 記事を取得
+try {
+  const searchText: string = 'NEM' // 検索したいキーワード
+  const params: any = {
+    query: searchText,
+  }
+  const result = await this.axios.get('/items', { params })
+  onsole.log('result', result.data)
+} catch (error) {
+  console.error(error)
+}
+```
+API仕様は[QiitaAPIリファレンス](https://qiita.com/api/v2/docs)を参考にしてください。<br>
+<br>
 [こちらのコード](./src/views/axios/AxiosLesson.vue)を写経してページを作成してください。
 
 ## dotenv
