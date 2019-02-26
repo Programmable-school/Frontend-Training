@@ -335,8 +335,56 @@ export default new Vuex.Store({
 <a href="https://imgur.com/jwlcDnl"><img src="https://i.imgur.com/jwlcDnl.png" width="50%" height="30%" /></a><br>
 <br>
 
-[こちらのコード](./src/views/localforage/LocalForageRosterListPage.vue)を写経してページを作成してください。
+### 構築
+localforageを用いてローカルデータベースを利用します。データをブラウザ上に保存することができます。<br>
+予めデータベースを示すkeyを定義します。keyを利用してデータの保存、取得、削除します。
+```ts
+import localforage from 'localforage'
 
+export default class LocalForageRosterListPage extends Vue {
+  localforageKey: string = 'local-forage-lesson'  // 保存するデータベースのkey
+
+  /** 保存 */
+  async write() {
+    try {
+      const data = {
+        id: 0,
+        name: 'name',
+      }
+      await localforage.setItem(this.localforageKey, data)
+    } catch (error) {
+      console.error('database error', error)
+    }
+  }
+
+  /** 取得 */
+  async read() {
+    try {
+      const result = await localforage.getItem(this.localforageKey)
+      console.log(result)
+    } catch (error) {
+      console.error('database error', error)
+    }
+  }
+
+   /** 削除 */
+  async remove() {
+    try {
+      const result = await localforage.removeItem(this.localforageKey)
+      console.log(result)
+    } catch (error) {
+      console.error('database error', error)
+    }
+  }
+}
+
+```
+<br>
+保存されたデータは以下のようにブラウザの中に保存されます。<br>
+Chromeの場合は右クリック -> 検証 -> Applicationからローカルデータベースを確認できます。<br>
+<a href="https://imgur.com/MmOEGNu"><img src="https://i.imgur.com/MmOEGNu.png" width="40%" height="30%" /></a><br>
+
+[こちらのコード](./src/views/localforage/LocalForageRosterListPage.vue)を写経してページを作成してください。
 
 ## axios
 ### スクリーンショット
