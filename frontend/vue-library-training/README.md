@@ -328,6 +328,22 @@ export default new Vuex.Store({
 <a href="https://imgur.com/cjsYoo7"><img src="https://i.imgur.com/cjsYoo7.png" width="50%" height="30%" /></a><br>
 <br>
 
+### 解説
+本レッスンではVuetifyの以下のデザインを利用しています。具体的な使い方は各サンプルを確認してください。<br>
+<br>
+[・NavigationDrawer](https://vuetifyjs.com/en/components/navigation-drawers#navigation-drawer])<br>
+[・Toolbar](https://vuetifyjs.com/en/components/toolbars#toolbar])<br>
+[・Footer](https://vuetifyjs.com/en/components/footer#footer])<br>
+[・Grid](https://vuetifyjs.com/en/framework/grid])<br>
+[・Cards](https://vuetifyjs.com/ja/components/cards])<br>
+[・Dialog](https://vuetifyjs.com/en/components/dialogs])<br>
+[・Lists](https://vuetifyjs.com/en/components/lists])<br>
+[・FloatingActionButton](https://vuetifyjs.com/en/components/floating-action-buttons])<br>
+[・Tabs](https://vuetifyjs.com/en/components/tabs])<br>
+[・Carousels](https://vuetifyjs.com/ja/components/carousels])<br>
+[・Snackbars](https://vuetifyjs.com/en/components/snackbars])<br>
+<br>
+<br>
 [こちらのコード](./src/views/vuetify)を写経してページを作成してください。
 
 ## localforage
@@ -335,7 +351,7 @@ export default new Vuex.Store({
 <a href="https://imgur.com/jwlcDnl"><img src="https://i.imgur.com/jwlcDnl.png" width="50%" height="30%" /></a><br>
 <br>
 
-### 構築
+### 解説
 localforageを用いてローカルデータベースを利用します。データをブラウザ上に保存することができます。<br>
 予めデータベースを示すkeyを定義します。keyを利用してデータの保存、取得、削除します。
 ```ts
@@ -393,7 +409,7 @@ Chromeの場合は右クリック -> 検証 -> Applicationからローカルデ�
 <a href="https://imgur.com/VkBhEDx"><img src="https://i.imgur.com/VkBhEDx.png" width="40%" height="30%" /></a><br>
 <br>
 
-### 構築
+### 解説
 axiosを用いて外部APIから取得したデータを画面上に表示します。本レッスンではQiita APIを用いて行います。<br>
 axiosを初期化する際に既にAPIが決まっている場合はbaseURLに設定します。<br>
 ```ts
