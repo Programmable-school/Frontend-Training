@@ -38,7 +38,7 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 ・[localforage](./frontend/vue-library-training/README.md#localforage)<br>
 ・[axios](./frontend/vue-library-training/README.md#axios)<br>
 ・[dotenv](./frontend/vue-library-training/README.md#dotenv)<br>
-6. SPAの作成<br>
+6. [SPAの作成](./frontend/spa/README.md)<br>
    
 ## Backend
 1. [Firebase](./backend/firebase/README.md)<br>
