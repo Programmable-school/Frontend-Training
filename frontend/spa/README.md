@@ -22,7 +22,7 @@ Vue.jsとNEM APIを用いて作ったNEMウォレットです。<br>
 ### 利用できる外部API
 
 | サービス名 | ドキュメント | 備考 |
-| :------- | :--- | :-- | :------ |
+| :------- | :--- | :-- |
 | Qiita | [公式ドキュメント](https://qiita.com/api/v2/docs) | |
 | GitHub | [公式ドキュメント](https://developer.github.com/v3/) | |
 | Twitter | [公式ドキュメント](https://developer.twitter.com/en/docs.html) <br> [日本語訳（※古い可能性がある）](http://westplain.sakuraweb.com/translate/twitter/Documentation/REST-APIs/Public-API/REST-APIs.cgi) | Developer登録が必要<br>[Twitter API 登録 (アカウント申請方法) から承認されるまでの手順まとめ](https://qiita.com/kngsym2018/items/2524d21455aac111cdee) |
