@@ -20,6 +20,7 @@ Vue.jsとNEM APIを用いて作ったNEMウォレットです。<br>
 など
 
 ### 利用できる外部API
+
 | サービス名 | ドキュメント | 備考 |
 | :------- | :--- | :-- | :------ |
 | Qiita | [公式ドキュメント](https://qiita.com/api/v2/docs) | |
@@ -28,5 +29,6 @@ Vue.jsとNEM APIを用いて作ったNEMウォレットです。<br>
 | Facebook | [公式ドキュメント](https://developers.facebook.com/docs/apis-and-sdks?locale=ja_JP) | Developer登録が必要 |
 | NEMブロックチェーン | [公式ドキュメント](https://nemproject.github.io/) <br> [日本語訳](http://i-yusuke.com/entry/nem-nis-api-document-japanese/)| |
 | Avgle | [公式ドキュメント](https://avgle.github.io/doc/) | 18禁 |
+
 <br>
 他にも利用できるAPIはありますので探してみてください。
