@@ -155,8 +155,8 @@ Vue.use(Vuetify, {
 ## Lesson4
 ### 商品登録と購入フォームを作成（トランザクション）
 #### スクリーンショット
-※準備中<br>
-<br>
+
+[こちらのコード](./src/views/firestore/ShopItemBuyPage.vue)を写経してページを作成してください。
 <br>
 
 ## Lesson5
