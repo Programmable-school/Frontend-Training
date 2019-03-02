@@ -5,7 +5,7 @@
 - [メモフォームを作成（データの追加、読み込み）](#Lesson1)
 - [名簿リストを作成（データ追加、読み込み、更新、削除、リアルタイム取得、 検索クエリ）](#Lesson2)
 - [ユーザーヘルスリストを作成（バッチ処理による一括処理）](#Lesson3)
-- [商品登録と購入フォームを作成（トランザクション）](#Lesson4)
+- [商品登録と購入機能を作成（トランザクション）](#Lesson4)
 - [便利！Firestoreモデルクラスを作る](#Lesson5)
 
 ## Firebase 公式ページ
@@ -153,8 +153,9 @@ Vue.use(Vuetify, {
 <br>
 
 ## Lesson4
-### 商品登録と購入フォームを作成（トランザクション）
+### 商品登録と購入機能を作成（トランザクション）
 #### スクリーンショット
+<a href="https://imgur.com/EOXr36b"><img src="https://i.imgur.com/EOXr36b.png" width="50%" height="50%" /></a>
 
 [こちらのコード](./src/views/firestore/ShopItemBuyPage.vue)を写経してページを作成してください。
 <br>

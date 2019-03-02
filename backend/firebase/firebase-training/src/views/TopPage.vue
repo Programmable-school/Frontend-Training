@@ -24,7 +24,7 @@
         </v-flex>
         <v-flex style="margin: 24px;">
           <router-link to="shop_item_buy_page">
-            <div><b>商品登録と購入フォームを作成</b></div>
+            <div><b>商品登録と購入機能を作成</b></div>
             <div class="subtitle">トランザクション</div>
           </router-link>
         </v-flex>
