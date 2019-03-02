@@ -355,7 +355,7 @@ export default class ShopItemBuyPage extends Vue {
       /**
        * トランザクションを実行することで処理の制御排他ができる。
        * 複数人が同時にアクセスしても順番に処理される。
-       * １トランザクションあたり1秒かかるため、例えば3人が同時に処理すると3人目の処理が完了するのは3秒後になる。
+       * 1トランザクションあたり約1秒かかる、
        * トランザクションは失敗すると6回繰り返して行われる。
        * https://firebase.google.com/docs/firestore/manage-data/transactions?hl=ja
        */
