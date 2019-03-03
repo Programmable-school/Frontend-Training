@@ -29,7 +29,7 @@
           </router-link>
         </v-flex>
         <v-flex style="margin: 24px;">
-          <router-link to="">
+          <router-link to="shop_item_buy_page_original_model">
             <div><b>便利！Firestoreモデルクラスを作る</b></div>
           </router-link>
         </v-flex>

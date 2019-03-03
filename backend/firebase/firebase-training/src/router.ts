@@ -5,6 +5,7 @@ import CreateFormPage from './views/firestore/CreateFormPage.vue'
 import RosterListPage from './views/firestore/RosterListPage.vue'
 import UserHealthListPage from './views/firestore/UserHealthListPage.vue'
 import ShopItemBuyPage from './views/firestore/ShopItemBuyPage.vue'
+import ShopItemBuyPageOriginalModel from './views/firestore/ShopItemBuyPageOriginalModel.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/shop_item_buy_page',
       name: 'shop_item_buy_page',
       component: ShopItemBuyPage,
+    },
+    {
+      path: '/shop_item_buy_page_original_model',
+      name: 'shop_item_buy_page_original_model',
+      component: ShopItemBuyPageOriginalModel,
     },
   ],
 })
