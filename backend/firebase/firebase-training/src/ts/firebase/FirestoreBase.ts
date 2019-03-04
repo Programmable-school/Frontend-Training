@@ -2,12 +2,12 @@ import firebase from 'firebase/app'
 import 'reflect-metadata'
 
 /**
- * Reflect
+ * reflect
  */
 const propertyMetadataKey = Symbol('property')
 
 /**
- * Type
+ * type
  */
 type DocumentData = { createdAt: firebase.firestore.Timestamp, updatedAt: firebase.firestore.Timestamp } | { [key: string]: any } | firebase.firestore.DocumentData
 type DateType = 'createdAt' | 'updatedAt'
@@ -18,11 +18,24 @@ const property = <T extends FirebaseBase>(target: T, propertyKey: string) => {
   Reflect.defineMetadata(propertyMetadataKey, properties, target)
 }
 
+/**
+ * log
+ */
+const LOG_TAG: string = 'FirebaseBase'
+
+/**
+ * enum
+ */
+enum BatchType {
+  save,
+  update,
+  delete,
+}
+
 class FirebaseBase {
   /**
    * static
    */
-  public static logTag: string = 'FirebaseBase'
 
   /**
    * request to firestore static methods
@@ -41,7 +54,7 @@ class FirebaseBase {
   public path: string
 
   /** 必須フィールド */
-  public id?: string = undefined
+  public id: string
   public createdAt!: firebase.firestore.Timestamp
   public updatedAt!: firebase.firestore.Timestamp
 
@@ -49,6 +62,9 @@ class FirebaseBase {
   public firestore: firebase.firestore.Firestore = firebase.firestore()
   public batch: firebase.firestore.WriteBatch = this.firestore.batch()
   public collection?: firebase.firestore.CollectionReference
+
+  /** 状態 */
+  public isSaved: boolean = false
 
   /**
    * private
@@ -58,6 +74,7 @@ class FirebaseBase {
   constructor(modelName: string) {
     this.modelName = modelName
     this.path = `version/${this.version}/${this.modelName}`
+    this.id = this.firestore.collection(this.path).doc().id
   }
 
   /**
@@ -86,8 +103,12 @@ class FirebaseBase {
     return this.firestore.collection(this.getPath()).doc(id)
   }
 
+  public getProperties(): string[] {
+    return Reflect.getMetadata(propertyMetadataKey, this) || []
+  }
+
   /**
-   * request to firestore methods
+   * Firestoreからデータを取得する
    */
   public async get(id: string) {
     console.log('get', id, this.getDocument(id).path)
@@ -99,21 +120,115 @@ class FirebaseBase {
     }
   }
 
+  /**
+   * Firestoreへデータを書き込む
+   */
   public async save() {
     console.log('save')
+    try {
+      const bacth = this.pack(BatchType.save)
+      await bacth.commit()
+    } catch (error) {
+      console.error(LOG_TAG, error)
+    }
   }
 
+  /**
+   * Firestoreへデータを更新する
+   */
   public async update() {
     console.log('update')
+    try {
+      const bacth = this.pack(BatchType.update)
+      await bacth.commit()
+    } catch (error) {
+      console.error(LOG_TAG, error)
+    }
   }
 
   public async delete() {
     console.log('delete')
+    try {
+      const bacth = this.pack(BatchType.delete)
+      await bacth.commit()
+    } catch (error) {
+      console.error(LOG_TAG, error)
+    }
+  }
+
+  /**
+   * 継承しているモデルクラスのvalueを取得して{key: value}形式のデータを取得する
+   * key: プロパティ名
+   * value: プロパティのデータ
+   */
+  public rawValue(): any {
+    /**
+     * getPropertiesを用いてpropery修飾子が付与されているプロパティ名を取得し、
+     * getOwnPropertyDescriptorを用いて該当するプロパティ名のvalueを取得して{ key: value }形式のデータにする
+     */
+    const properties = this.getProperties()
+    const values: any = {}
+    for (const key of properties) {
+        const descriptor = Object.getOwnPropertyDescriptor(this, key)
+        if (descriptor) {
+            if (descriptor.value) {
+                const value = descriptor.value
+                console.log(LOG_TAG, 'descriptor.value', value)
+                if (!this.isUndefined(value)) {
+                    if (value instanceof Date) {
+                        console.log(LOG_TAG, 'Date type is not support.')
+                    } else {
+                        values[key] = value
+                    }
+                }
+            }
+        }
+    }
+    return values
+  }
+
+
+  /**
+   * Batchにリクエストするデータをセットする
+   */
+  private pack(type: BatchType): firebase.firestore.WriteBatch {
+    const writeBatch = this.firestore.batch()
+    const documentRef = this.getDocument(this.id)
+    switch (type) {
+      case BatchType.save:
+        const value = this._value()
+        console.log(LOG_TAG, 'value', value)
+        writeBatch.set(documentRef, value, { merge: true })
+        return writeBatch
+      case BatchType.update:
+        /**
+         * updateではなくsetのoptionにMergeをつけて変更のあるフィールドだけ更新するようにする
+         */
+        writeBatch.set(documentRef, this._value(), { merge: true })
+        return writeBatch
+      case BatchType.delete:
+        writeBatch.delete(documentRef)
+        return writeBatch
+    }
   }
 
   /**
    * private methods
    */
+  private _value(): DocumentData {
+    const values: DocumentData = this.rawValue()
+    if (this.isSaved) {
+        const updatedAt: (keyof DocumentData) = 'updatedAt'
+        values[updatedAt] = firebase.firestore.FieldValue.serverTimestamp()
+    } else {
+        const updatedAt: (keyof DocumentData) = 'updatedAt'
+        const createdAt: (keyof DocumentData) = 'createdAt'
+        values[updatedAt] = this.updatedAt || firebase.firestore.FieldValue.serverTimestamp()
+        values[createdAt] = this.updatedAt || firebase.firestore.FieldValue.serverTimestamp()
+    }
+    return values
+  }
+
   private scrapingModelField(snapshot: firebase.firestore.DocumentSnapshot) {
     if (snapshot.exists) {
       const data: firebase.firestore.DocumentData = snapshot.data()!
@@ -132,7 +247,11 @@ class FirebaseBase {
       })
 
       /** 日付 */
+      /**
+       * Object.keysを使ってdataからkeyを取得する
+       */
       const keys = Object.keys(data)
+      console.log(LOG_TAG, 'keys', keys)
       if (keys.includes('createdAt')) {
         const value = data.createdAt
         this.defineProperty('createdAt', value)
@@ -141,9 +260,10 @@ class FirebaseBase {
         const value = data.updatedAt
         this.defineProperty('updatedAt', value)
       }
+      console.log(LOG_TAG, 'prop', this.prop)
 
     } else {
-      console.log(FirebaseBase.logTag, `item is not exist. id: ${snapshot.id}`)
+      console.log(LOG_TAG, `item is not exist. id: ${snapshot.id}`)
       return undefined
     }
   }
@@ -160,7 +280,11 @@ class FirebaseBase {
       },
     }
     Object.defineProperty(this, key, descriptor)
-}
+  }
+
+  private isUndefined(value: any): boolean {
+    return (value === null || value === undefined)
+  }
 
 }
 

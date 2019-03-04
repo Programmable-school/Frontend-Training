@@ -198,9 +198,16 @@ export default class ShopItemBuyPageOriginalModel extends Vue {
     this.isLoading = true
     await ShopItem.getDataSource('shopitems')
     const id = 'YWttTgp2S6J9jor8ko0g'
-    await this.shopItem.get(id)
+    // await this.shopItem.get(id)
     console.log('test', this.shopItem.uid, this.shopItem.name)
-    // await this.shopItem.save()
+
+    /**
+     * 書き込みテスト
+     */
+    const shopItem = new ShopItem('shopitems')
+    shopItem.uid = shopItem.id
+    console.log(shopItem.id, shopItem.uid, shopItem.name, shopItem.remainCount)
+    await shopItem.save()
     // await this.shopItem.update()
     // if (this.isUpdate === true) {
     //   await this.updateFirestore(this.selectItem)
