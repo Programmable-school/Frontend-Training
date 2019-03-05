@@ -18,6 +18,10 @@ const property = <T extends FirebaseBase>(target: T, propertyKey: string) => {
   Reflect.defineMetadata(propertyMetadataKey, properties, target)
 }
 
+const isUndefined = (value: any): boolean => {
+  return (value === null || value === undefined)
+}
+
 /**
  * log
  */
@@ -69,12 +73,21 @@ class FirebaseBase {
   /**
    * private
    */
-  private prop: { [key: string]: any } = {}
+  private _property: { [key: string]: any } = {}
 
   constructor(modelName: string) {
     this.modelName = modelName
     this.path = `version/${this.version}/${this.modelName}`
     this.id = this.firestore.collection(this.path).doc().id
+
+    /**
+     * 予め継承しているモデルクラスがもつプロパティを定義する
+     */
+    const properties: string[] = this.getProperties()
+    properties.forEach((prop: string) => {
+      const key: (keyof DocumentData) = prop as (keyof DocumentData)
+      this._defineProperty(key)
+    })
   }
 
   /**
@@ -113,8 +126,13 @@ class FirebaseBase {
   public async get(id: string) {
     console.log('get', id, this.getDocument(id).path)
     try {
-      const item: firebase.firestore.DocumentSnapshot = await this.getDocument(id).get()
-      this.scrapingModelField(item)
+      const snapshot: firebase.firestore.DocumentSnapshot = await this.getDocument(id).get()
+      if (snapshot.exists) {
+        this.id = snapshot.id
+        this.setData(snapshot)
+      } else {
+        console.log(LOG_TAG, 'get', 'snapshot is not exists.')
+      }
     } catch (error) {
       throw error
     }
@@ -168,30 +186,60 @@ class FirebaseBase {
      */
     const properties = this.getProperties()
     const values: any = {}
-    for (const key of properties) {
-        const descriptor = Object.getOwnPropertyDescriptor(this, key)
-        if (descriptor) {
-            if (descriptor.value) {
-                const value = descriptor.value
-                console.log(LOG_TAG, 'descriptor.value', value)
-                if (!this.isUndefined(value)) {
-                    if (value instanceof Date) {
-                        console.log(LOG_TAG, 'Date type is not support.')
-                    } else {
-                        values[key] = value
-                    }
-                }
+    properties.forEach((key: string) => {
+      const descriptor = Object.getOwnPropertyDescriptor(this, key)
+      if (descriptor) {
+        /** _definePropertyのget関数が登録されているか確認 */
+        if (descriptor.get) {
+            const value = descriptor.get()
+            console.log(LOG_TAG, 'descriptor.value', value)
+            if (!isUndefined(value)) {
+              if (value instanceof Date) {
+                console.log(LOG_TAG, 'Date type is not support.')
+              } else {
+                values[key] = value
+              }
             }
         }
-    }
+      }
+    })
     return values
   }
 
+  /**
+   * firestoreから取得したデータをプロパティへセットする
+   */
+  public setData(snapshot: firebase.firestore.DocumentSnapshot) {
+    // this._property.id = snapshot.id
+    if (!isUndefined(snapshot.data())) {
+      const data = snapshot.data()!
+      if (data.createdAt) {
+        this._defineProperty('createdAt')
+        this._property.createdAt = data.createdAt
+      }
+      if (data.updatedAt) {
+          this._defineProperty('updatedAt')
+          this._property.updatedAt = data.updatedAt
+      }
+      const properties: string[] = this.getProperties()
+      properties.forEach((prop: string) => {
+        const key: (keyof DocumentData) = prop as (keyof DocumentData)
+        const value = data[key]
+        if (!isUndefined(value)) {
+          this._property[key] = value
+          /**
+           * constructorで予めプロパティは定義済みなのでここでは_definePropertyをしない
+           */
+        }
+      })
+    }
+    console.log(LOG_TAG, 'setData', this._property)
+  }
 
   /**
    * Batchにリクエストするデータをセットする
    */
-  private pack(type: BatchType): firebase.firestore.WriteBatch {
+  public pack(type: BatchType): firebase.firestore.WriteBatch {
     const writeBatch = this.firestore.batch()
     const documentRef = this.getDocument(this.id)
     switch (type) {
@@ -229,7 +277,7 @@ class FirebaseBase {
     return values
   }
 
-  private scrapingModelField(snapshot: firebase.firestore.DocumentSnapshot) {
+  private _scrapingModelField(snapshot: firebase.firestore.DocumentSnapshot) {
     if (snapshot.exists) {
       const data: firebase.firestore.DocumentData = snapshot.data()!
       console.log('data', data)
@@ -243,7 +291,7 @@ class FirebaseBase {
         console.log(prop)
         const key: (keyof DocumentData) = prop as (keyof DocumentData)
         const value = data.key
-        this.defineProperty(key, value)
+        this._defineProperty(key, value)
       })
 
       /** 日付 */
@@ -254,13 +302,13 @@ class FirebaseBase {
       console.log(LOG_TAG, 'keys', keys)
       if (keys.includes('createdAt')) {
         const value = data.createdAt
-        this.defineProperty('createdAt', value)
+        this._defineProperty('createdAt', value)
       }
       if (keys.includes('updatedAt')) {
         const value = data.updatedAt
-        this.defineProperty('updatedAt', value)
+        this._defineProperty('updatedAt', value)
       }
-      console.log(LOG_TAG, 'prop', this.prop)
+      console.log(LOG_TAG, 'prop', this._property)
 
     } else {
       console.log(LOG_TAG, `item is not exist. id: ${snapshot.id}`)
@@ -268,24 +316,24 @@ class FirebaseBase {
     }
   }
 
-  private defineProperty<T extends keyof ThisType<this>>(key: T | DateType, value?: any) {
+  private _defineProperty<T extends keyof ThisType<this>>(key: T | DateType, value?: any) {
     const descriptor: PropertyDescriptor = {
       enumerable: true,
       configurable: true,
       get: () => {
-          return this.prop[key]
+          return this._property[key]
       },
       set: (newValue) => {
-          this.prop[key] = newValue
+          this._property[key] = newValue
       },
     }
+    /**
+     * Object.definePropertyは自インスタンスに対してkeyとdescriptorを定義する。
+     * これは継承しているモデルクラスのプロパティを定義するという意味、keyは各プロパティ、descriptorはgetやsetの操作オブジェクトである。
+     * setする場合はdescriptorのsetが呼ばれ、getする場合はdescriptorのgetが呼ばれる。
+     */
     Object.defineProperty(this, key, descriptor)
   }
-
-  private isUndefined(value: any): boolean {
-    return (value === null || value === undefined)
-  }
-
 }
 
 export { FirebaseBase, property }

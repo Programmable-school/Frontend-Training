@@ -196,10 +196,14 @@ export default class ShopItemBuyPageOriginalModel extends Vue {
    */
   async onRegist() {
     this.isLoading = true
-    await ShopItem.getDataSource('shopitems')
-    const id = 'YWttTgp2S6J9jor8ko0g'
+    // await ShopItem.getDataSource('shopitems')
+
+    /**
+     * 読み込みテスト
+     */
+    // const id = 'YWttTgp2S6J9jor8ko0g'
     // await this.shopItem.get(id)
-    console.log('test', this.shopItem.uid, this.shopItem.name)
+    // console.log('test', this.shopItem.uid, this.shopItem.name, this.shopItem.createdAt.toDate(), this.shopItem.updatedAt.toDate())
 
     /**
      * 書き込みテスト
@@ -216,6 +220,10 @@ export default class ShopItemBuyPageOriginalModel extends Vue {
     // }
     // await this.getItems()
     // this.clear()
+
+    /**
+     * 削除テスト
+     */
     this.isLoading = false
   }
 
