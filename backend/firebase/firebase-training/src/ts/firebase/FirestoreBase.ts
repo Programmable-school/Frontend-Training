@@ -40,9 +40,41 @@ class FirebaseBase {
   /**
    * static
    */
+  public static getPath(modelName: string): string {
+    return `version/${this.getVersion()}/${modelName}`
+  }
+
+  public static getVersion(): number {
+    return 1
+  }
 
   /**
    * request to firestore static methods
+   */
+
+  /**
+   * Firestoreからドキュメントデータを取得する
+   */
+  public static async get<T extends typeof FirebaseBase>(this: T, modelName: string, id: string) {
+    try {
+      console.log('get', modelName, id)
+      const firestore = firebase.firestore()
+      const snapshot: firebase.firestore.DocumentSnapshot = await firestore.collection(this.getPath(modelName)).doc(id).get()
+      if (snapshot.exists) {
+        const documentModel = new this(modelName, snapshot.id) as InstanceType<T>
+        documentModel.setData(snapshot)
+        return documentModel
+      } else {
+        console.log(LOG_TAG, 'get', 'snapshot is not exists.')
+        return undefined
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  /**
+   * Firestoreからコレクションデータを取得する
    */
   public static async getDataSource(modelName: string, version: number = 1) {
     console.log('getDataSource')
@@ -75,10 +107,14 @@ class FirebaseBase {
    */
   private _property: { [key: string]: any } = {}
 
-  constructor(modelName: string) {
+  constructor(modelName: string, id?: string) {
     this.modelName = modelName
-    this.path = `version/${this.version}/${this.modelName}`
-    this.id = this.firestore.collection(this.path).doc().id
+    this.path = this.getPath()
+    if (isUndefined(id)) {
+      this.id = id!
+    } else {
+      this.id = this.firestore.collection(this.path).doc().id
+    }
 
     /**
      * 予め継承しているモデルクラスがもつプロパティを定義する
@@ -94,7 +130,7 @@ class FirebaseBase {
    * set methods
    */
   public setPath() {
-    this.path = `version/${this.version}/${this.modelName}`
+    this.path = this.getPath()
   }
 
   public setModelName(modelName: string) {
@@ -120,23 +156,7 @@ class FirebaseBase {
     return Reflect.getMetadata(propertyMetadataKey, this) || []
   }
 
-  /**
-   * Firestoreからデータを取得する
-   */
-  public async get(id: string) {
-    console.log('get', id, this.getDocument(id).path)
-    try {
-      const snapshot: firebase.firestore.DocumentSnapshot = await this.getDocument(id).get()
-      if (snapshot.exists) {
-        this.id = snapshot.id
-        this.setData(snapshot)
-      } else {
-        console.log(LOG_TAG, 'get', 'snapshot is not exists.')
-      }
-    } catch (error) {
-      throw error
-    }
-  }
+
 
   /**
    * Firestoreへデータを書き込む

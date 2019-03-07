@@ -201,17 +201,19 @@ export default class ShopItemBuyPageOriginalModel extends Vue {
     /**
      * 読み込みテスト
      */
-    // const id = 'YWttTgp2S6J9jor8ko0g'
-    // await this.shopItem.get(id)
-    // console.log('test', this.shopItem.uid, this.shopItem.name, this.shopItem.createdAt.toDate(), this.shopItem.updatedAt.toDate())
+    const id = 'YWttTgp2S6J9jor8ko0g'
+    const shopItem = await ShopItem.get('shopitems', id)
+    if (shopItem) {
+      console.log('shopItem', shopItem.uid, shopItem.name, shopItem.createdAt.toDate(), shopItem.updatedAt.toDate())
+    }
 
     /**
      * 書き込みテスト
      */
-    const shopItem = new ShopItem('shopitems')
-    shopItem.uid = shopItem.id
-    console.log(shopItem.id, shopItem.uid, shopItem.name, shopItem.remainCount)
-    await shopItem.save()
+    // const shopItem = new ShopItem('shopitems')
+    // shopItem.uid = shopItem.id
+    // console.log(shopItem.id, shopItem.uid, shopItem.name, shopItem.remainCount)
+    // await shopItem.save()
     // await this.shopItem.update()
     // if (this.isUpdate === true) {
     //   await this.updateFirestore(this.selectItem)
