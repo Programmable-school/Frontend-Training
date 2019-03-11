@@ -8,8 +8,18 @@
 - [商品登録と購入機能を作成（トランザクション）](#Lesson4)
 - [便利！Firestoreモデルクラスを作る](#Lesson5)
 
+### Firebase Authantication 
+- [匿名認証](#Lesson6)
+- [メール認証](#Lesson7)
+- [認証情報を利用してFirestoreへユーザー情報を作成](#Lesson8)
+- [Firestoreセキュリティルールを利用](#Lesson9)
+- [SNS認証](#Lesson10)
+
 ## Firebase 公式ページ
-[https://firebase.google.com/docs/firestore/quickstart?hl=ja](https://firebase.google.com/docs/firestore/quickstart?hl=ja)
+[https://firebase.google.com/docs/web/setup?hl=ja](https://firebase.google.com/docs/web/setup?hl=ja)
+
+- [Firestore](https://firebase.google.com/docs/firestore/quickstart?hl=ja)
+- [Firebase Authantication](https://firebase.google.com/docs/auth/?hl=ja)
 
 ## 環境構築
 ### トレーニング用Vueテンプレートを作成
@@ -103,19 +113,9 @@ Vue.use(Vuetify, {
   theme: {
     original: colors.purple.base,
     theme: '#5982EE',
-    background: '#ffffff',
-    whiteCloud: '#F8F9FB',
-    grayTheme: '#79838C',
-    blueTheme: '#5982EE',
-    sky: '#A2DCED',
-    sea: '#698FF0',
-    blackFlat: '#202223',
     twitter: '#00aced',
     facebook: '#305097',
     line: '#5ae628',
-    gold: '#FFD700',
-    goldenrod: '#DAA520',
-    red: '#F26964',
     error: '#F26964',
     succcess: '#698FF0',
   },
@@ -163,7 +163,82 @@ Vue.use(Vuetify, {
 ## Lesson5
 ### 便利！Firestoreモデルクラスを作る
 <br>
-<br>
+
+
+## Lesson6
+### 匿名認証
+#### スクリーンショット
+<a href="https://imgur.com/oVFEFwn"><img src="https://i.imgur.com/oVFEFwn.png" width="50%" height="50%" /></a>
+
+
+<a href="https://imgur.com/cr8xVhT"><img src="https://i.imgur.com/cr8xVhT.png" width="50%" height="50%" /></a>
+
+#### 匿名認証を許可する
+Firebaseコンソールで認証設定より匿名認証を許可してください。
+
+<a href="https://imgur.com/NpxKdkj"><img src="https://i.imgur.com/NpxKdkj.png" width="50%" height="50%" /></a>
+
+
+<a href="https://imgur.com/x6c01dN"><img src="https://i.imgur.com/x6c01dN.png" width="50%" height="50%" /></a>
+
+
+#### 実装
+firebase/auth を使ってログインとログアウトを実装します。
+
+```ts
+/** 匿名認証でログインする */
+async signInAnonymously() {
+  try {
+    const result = await firebase.auth().signInAnonymously()
+    console.log(result)
+  } catch (error) {
+    console.error('firebase error', error)
+  }
+}
+
+/** ログアウトする */
+async signOut() {
+  try {
+    const result = await firebase.auth().signOut()
+    console.log(result)
+  } catch (error) {
+    console.error('firebase error', error)
+  }
+}
+```
+
+匿名認証が完了するとユーザ情報が作成されます。以下のようにFirebaseコンソール上で作成されたユーザ情報が確認できます。
+
+<a href="https://imgur.com/b8BBIEC"><img src="https://i.imgur.com/b8BBIEC.png" width="50%" height="50%" /></a>
+
+
+[AnonymouslyPage](./src/views/authentication/AnonymouslyPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
+
+
+## Lesson7
+### メール認証
+#### スクリーンショット
+#### メール認証を許可する
+#### 実装
+
+
+## Lesson8
+### 認証情報を利用してFirestoreへユーザー情報を作成
+#### スクリーンショット
+#### 実装
+
+
+## Lesson9
+### Firestoreセキュリティルールを利用
+#### スクリーンショット
+#### 実装
+
+
+## Lesson10
+### SNS認証
+#### スクリーンショット
+#### 実装
+
 
 ## Project setup
 ```

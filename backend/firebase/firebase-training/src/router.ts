@@ -6,6 +6,8 @@ import RosterListPage from './views/firestore/RosterListPage.vue'
 import UserHealthListPage from './views/firestore/UserHealthListPage.vue'
 import ShopItemBuyPage from './views/firestore/ShopItemBuyPage.vue'
 import ShopItemBuyPageOriginalModel from './views/firestore/ShopItemBuyPageOriginalModel.vue'
+import AnonymouslyPage from './views/authentication/AnonymouslyPage.vue'
+import SignInFinishPage from './views/authentication/SignInFinishPage.vue'
 
 Vue.use(Router)
 
@@ -42,6 +44,16 @@ export default new Router({
       path: '/shop_item_buy_page_original_model',
       name: 'shop_item_buy_page_original_model',
       component: ShopItemBuyPageOriginalModel,
+    },
+    {
+      path: '/anonymously_page',
+      name: 'anonymously_page',
+      component: AnonymouslyPage,
+    },
+    {
+      path: '/sign_in_finish_page',
+      name: 'sign_in_finish_page',
+      component: SignInFinishPage,
     },
   ],
 })

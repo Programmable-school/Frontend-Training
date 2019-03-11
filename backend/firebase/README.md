@@ -4,7 +4,7 @@
 
 ## 目次
 - [Cloud Firestore](./firebase-training/README.md)
-- Firebase Authantication
+- [Firebase Authantication](./firebase-training/README.md)
 - Cloud Functions
 - Cloud Storage
 - Firebase Hosting
