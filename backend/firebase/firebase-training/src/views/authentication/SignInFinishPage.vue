@@ -25,7 +25,9 @@
               </tr>
               <tr>
                 <td width="20%" class="table__key">本人確認</td>
-                <td width="80%" class="table__value">{{ emailVerified }}</td>
+                <td width="80%" class="table__value">
+                  <span v-if="emailVerified!=null">{{ emailVerified }}</span>
+                </td>
               </tr>
               <tr>
                 <td width="20%" class="table__key">電話番号</td>
@@ -34,6 +36,18 @@
               <tr>
                 <td width="20%" class="table__key">写真URL</td>
                 <td width="80%" class="table__value">{{ photoURL }}</td>
+              </tr>
+              <tr>
+                <td width="20%" class="table__key">作成日</td>
+                <td width="80%" class="table__value">
+                  <span v-if="createdAt!=null">{{ createdAt | dateFormat }}</span>
+                </td>
+              </tr>
+              <tr>
+                <td width="20%" class="table__key">最終ログイン</td>
+                <td width="80%" class="table__value">
+                  <span v-if="lastLoginAt!=null">{{ lastLoginAt | dateFormat }}</span>
+                </td>
               </tr>
             </table>
           </v-flex>
@@ -62,9 +76,11 @@ export default class SignInFinishPage extends Vue {
   uid: string = ''
   displayName: string = ''
   email: string = ''
-  emailVerified: boolean = false
+  emailVerified: boolean | null = null
   phoneNumber: string = ''
   photoURL: string = ''
+  createdAt: Date | null = null
+  lastLoginAt: Date | null = null
 
   mounted() {
     this.getItems()
@@ -78,7 +94,7 @@ export default class SignInFinishPage extends Vue {
      */
     firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
-        console.log('user', user)
+        console.log('user', user.toJSON())
         if (user.isAnonymous) {
           this.authType = '匿名認証'
         } else {
@@ -90,6 +106,17 @@ export default class SignInFinishPage extends Vue {
         this.emailVerified = user.emailVerified
         this.phoneNumber = user.phoneNumber ? user.phoneNumber : 'なし'
         this.photoURL = user.photoURL ? user.photoURL : 'なし'
+
+        if ('createdAt' in user.toJSON()) {
+          const createdAt = Number((user.toJSON() as any).createdAt)
+          this.createdAt = new Date(createdAt)
+          console.log('createdAt', this.createdAt)
+        }
+        if ('lastLoginAt' in user.toJSON()) {
+          const lastLoginAt = Number((user.toJSON() as any).lastLoginAt)
+          this.lastLoginAt = new Date(lastLoginAt)
+          console.log('lastLoginAt', this.lastLoginAt)
+        }
       }
     })
   }

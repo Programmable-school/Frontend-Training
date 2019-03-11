@@ -5,8 +5,8 @@
         <v-flex>
           <h2>匿名認証</h2>
           <v-flex style="margin: 24px;">
-            <span v-if="isLoginStatus"><b>ログイン中</b></span>
-            <span v-else>ログアウト中</span>
+            <span v-if="isLoginStatus==true"><b>ログイン中</b></span>
+            <span v-else-if="isLoginStatus==false">ログアウト中</span>
           </v-flex>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <v-btn
@@ -45,7 +45,7 @@ export default class AnonymouslyPage extends Vue {
    * ローディングフラグ
    */
   isLoading: boolean = false
-  isLoginStatus: boolean = false
+  isLoginStatus: boolean | null = null
 
   mounted() {
     this.getItems()
