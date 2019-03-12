@@ -99,6 +99,13 @@ export default class SignInFinishPage extends Vue {
           this.authType = '匿名認証'
         } else {
           this.authType = ''
+          user.providerData.forEach((item) => {
+            if (item !== null) {
+              if (item.email !== null && item.providerId === 'password') {
+                this.authType += 'メール認証'
+              }
+            }
+          })
         }
         this.uid = user.uid
         this.displayName = user.displayName ? user.displayName : 'なし'

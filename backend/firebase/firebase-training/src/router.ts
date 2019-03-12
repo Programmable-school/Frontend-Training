@@ -8,6 +8,7 @@ import ShopItemBuyPage from './views/firestore/ShopItemBuyPage.vue'
 import ShopItemBuyPageOriginalModel from './views/firestore/ShopItemBuyPageOriginalModel.vue'
 import AnonymouslyPage from './views/authentication/AnonymouslyPage.vue'
 import SignInFinishPage from './views/authentication/SignInFinishPage.vue'
+import EmailAuthPage from './views/authentication/EmailAuthPage.vue'
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
       path: '/sign_in_finish_page',
       name: 'sign_in_finish_page',
       component: SignInFinishPage,
+    },
+    {
+      path: '/email_auth_page',
+      name: 'email_auth_page',
+      component: EmailAuthPage,
     },
   ],
 })

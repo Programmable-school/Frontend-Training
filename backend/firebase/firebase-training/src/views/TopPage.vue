@@ -44,7 +44,7 @@
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">
-            <router-link to="">
+            <router-link to="./email_auth_page">
               <div><b>メール認証</b></div>
             </router-link>
           </v-flex>

@@ -207,7 +207,7 @@ async signOut() {
 }
 ```
 
-匿名認証が完了するとユーザ情報が作成されます。以下のようにFirebaseコンソール上で作成されたユーザ情報が確認できます。
+匿名認証が完了するとユーザ情報が登録されます。以下のようにFirebaseコンソール上で作成されたユーザ情報が確認できます。
 
 <a href="https://imgur.com/b8BBIEC"><img src="https://i.imgur.com/b8BBIEC.png" width="50%" height="50%" /></a>
 
@@ -218,9 +218,57 @@ async signOut() {
 ## Lesson7
 ### メール認証
 #### スクリーンショット
-#### メール認証を許可する
-#### 実装
+<a href="https://imgur.com/Zc6BP7z"><img src="https://i.imgur.com/Zc6BP7z.png" width="50%" height="50%" /></a>
 
+
+#### メール認証を許可する
+Firebaseコンソールで認証設定よりメール認証を許可してください。
+
+
+<a href="https://imgur.com/nBZf2rC"><img src="https://i.imgur.com/nBZf2rC.png" width="50%" height="50%" /></a>
+
+
+本人確認メールのテンプレートの変更できます。変更する場合はFirebaseコンソールより変更してください。
+
+
+<a href="https://imgur.com/te0JsfD"><img src="https://i.imgur.com/te0JsfD.png" width="50%" height="50%" /></a>
+
+#### 実装
+メール認証を行う場合は「サインアップ」「ログイン」機能を実装します。
+```ts
+/** サインアップする */
+async signUp(email: string, password: string) {
+  try {
+    const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    console.log(result)
+    const user = firebase.auth().currentUser
+    if (user !== null) {
+      /** 本人確認メールを送信 */
+      await user.sendEmailVerification()
+    }
+  } catch (error) {
+    console.error('firebase error', error)
+  }
+}
+
+/** ログインする */
+async login(email: string, password: string)) {
+  try {
+    const result = await firebase.auth().signInWithEmailAndPassword(email, password)
+    console.log(result)
+  } catch (error) {
+    console.error('firebase error', error)
+  }
+}
+```
+
+サインアップが完了するとユーザ情報が登録されます。
+
+
+<a href="https://imgur.com/AlGZSv4"><img src="https://i.imgur.com/AlGZSv4.png" width="50%" height="50%" /></a>
+
+
+[EmailAuthPage](./src/views/authentication/EmailAuthPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
 
 ## Lesson8
 ### 認証情報を利用してFirestoreへユーザー情報を作成
