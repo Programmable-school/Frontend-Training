@@ -326,7 +326,7 @@ async createUser(userId: string) {
 以下のようにユーザーデータが保存されます。
 
 
-<a href="https://imgur.com/eYyWgMy"><img src="https://i.imgur.com/eYyWgMy.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/eYyWgMy"><img src="https://i.imgur.com/eYyWgMy.png" width="80%" height="80%" /></a>
 
 
 
