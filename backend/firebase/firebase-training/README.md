@@ -275,7 +275,7 @@ async login(email: string, password: string)) {
 
 #### 実装
 
-[Lesson7](#Lesson7)の機能にユーザーデータをFirestoreは保存する機能を実装します。
+[Lesson7](#Lesson7)の機能に対して、Firestoreへユーザーデータを保存する機能を実装します。
 
 
 サインアップ完了後、userコレクションへユーザーデータを保存します。
