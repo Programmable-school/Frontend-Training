@@ -176,10 +176,10 @@ Vue.use(Vuetify, {
 #### 匿名認証を許可する
 Firebaseコンソールで認証設定より匿名認証を許可してください。
 
-<a href="https://imgur.com/NpxKdkj"><img src="https://i.imgur.com/NpxKdkj.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/NpxKdkj"><img src="https://i.imgur.com/NpxKdkj.png" width="65%" height="65%" /></a>
 
 
-<a href="https://imgur.com/x6c01dN"><img src="https://i.imgur.com/x6c01dN.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/x6c01dN"><img src="https://i.imgur.com/x6c01dN.png" width="65%" height="65%" /></a>
 
 
 #### 実装
@@ -209,7 +209,7 @@ async signOut() {
 
 匿名認証が完了するとユーザ情報が登録されます。以下のようにFirebaseコンソール上で作成されたユーザ情報が確認できます。
 
-<a href="https://imgur.com/b8BBIEC"><img src="https://i.imgur.com/b8BBIEC.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/b8BBIEC"><img src="https://i.imgur.com/b8BBIEC.png" width="65%" height="65%" /></a>
 
 
 [AnonymouslyPage](./src/views/authentication/AnonymouslyPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
@@ -225,13 +225,13 @@ async signOut() {
 Firebaseコンソールで認証設定よりメール認証を許可してください。
 
 
-<a href="https://imgur.com/nBZf2rC"><img src="https://i.imgur.com/nBZf2rC.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/nBZf2rC"><img src="https://i.imgur.com/nBZf2rC.png" width="65%" height="65%" /></a>
 
 
 本人確認メールのテンプレートの変更できます。変更する場合はFirebaseコンソールより変更してください。
 
 
-<a href="https://imgur.com/te0JsfD"><img src="https://i.imgur.com/te0JsfD.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/te0JsfD"><img src="https://i.imgur.com/te0JsfD.png" width="65%" height="65%" /></a>
 
 #### 実装
 メール認証を行う場合は「サインアップ」「ログイン」機能を実装します。
@@ -265,7 +265,7 @@ async login(email: string, password: string)) {
 サインアップが完了するとユーザ情報が登録されます。
 
 
-<a href="https://imgur.com/AlGZSv4"><img src="https://i.imgur.com/AlGZSv4.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/AlGZSv4"><img src="https://i.imgur.com/AlGZSv4.png" width="65%" height="65%" /></a>
 
 
 [EmailAuthPage](./src/views/authentication/EmailAuthPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
