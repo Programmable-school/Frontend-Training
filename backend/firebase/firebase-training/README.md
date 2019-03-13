@@ -11,7 +11,7 @@
 ### Firebase Authantication 
 - [匿名認証](#Lesson6)
 - [メール認証](#Lesson7)
-- [認証情報を利用してFirestoreへユーザー情報を作成](#Lesson8)
+- [認証情報を利用してFirestoreへユーザーデータを保存](#Lesson8)
 - [Firestoreセキュリティルールを利用](#Lesson9)
 - [SNS認証](#Lesson10)
 
@@ -271,10 +271,66 @@ async login(email: string, password: string)) {
 [EmailAuthPage](./src/views/authentication/EmailAuthPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
 
 ## Lesson8
-### 認証情報を利用してFirestoreへユーザー情報を作成
-#### スクリーンショット
+### 認証情報を利用してFirestoreへユーザーデータを保存
+
 #### 実装
 
+[Lesson7](#Lesson7)の機能にユーザーデータをFirestoreは保存する機能を実装します。
+
+
+サインアップ完了後、userコレクションへユーザーデータを保存します。
+
+認証情報とユーザーデータを紐づけるために、ユーザーデータのドキュメントIDを認証情報のuidにします（user.uid）。
+
+
+```ts
+/** サインアップする */
+async signUp(email: string, password: string) {
+  try {
+    const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    console.log(result)
+    const user = firebase.auth().currentUser
+    if (user !== null) {
+      /** 本人確認メールを送信 */
+      await user.sendEmailVerification()
+      /** Firestoreへユーザーデータを保存 */
+      await this.createUser(user.uid)
+    }
+  } catch (error) {
+    console.error('firebase error', error)
+  }
+}
+
+/**
+ * ユーザーデータを作成する。
+ */
+async createUser(userId: string) {
+  try {
+    const db: firebase.firestore.Firestore = firebase.firestore()
+    const batch: firebase.firestore.WriteBatch = db.batch()
+    const ref: firebase.firestore.DocumentReference = db.collection('version/3/user').doc(userId)
+    batch.set(ref, {
+      uid: userId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      name: 'ゲスト',
+    }, { merge: true} )
+    await batch.commit()
+  } catch (error) {
+    console.error('firebase error', error)
+  }
+}
+```
+
+
+以下のようにユーザーデータが保存されます。
+
+
+<a href="https://imgur.com/eYyWgMy"><img src="https://i.imgur.com/eYyWgMy.png" width="50%" height="50%" /></a>
+
+
+
+[EmailAuthWithCreateUserPage](./src/views/authentication/EmailAuthWithCreateUserPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
 
 ## Lesson9
 ### Firestoreセキュリティルールを利用

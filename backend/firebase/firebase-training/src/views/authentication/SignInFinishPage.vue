@@ -52,6 +52,24 @@
             </table>
           </v-flex>
         </v-flex>
+
+      </v-card>
+      <v-card class="container">
+        <h2>操作</h2>
+        <v-flex style="margin-top: 16px;">
+          <v-flex v-if="isShowSendEmailVerification">
+            <v-btn
+              color="blue"
+              class="white--text"
+              :loading="isLoading"
+              :disabled="isLoading"
+              @click="onEmailVerification">本人確認メール送信</v-btn>
+          </v-flex>
+          <v-flex style="margin: 20px 0px;">
+            <h3>メッセージ</h3>
+            <p style="margin: 10px;" v-html="resultMessage"/>
+          </v-flex>
+        </v-flex>
       </v-card>
     </v-flex>
   </div>
@@ -82,6 +100,10 @@ export default class SignInFinishPage extends Vue {
   createdAt: Date | null = null
   lastLoginAt: Date | null = null
 
+  user: firebase.User | null = null
+  isLoading: boolean = false
+  resultMessage: string = ''
+
   mounted() {
     this.getItems()
   }
@@ -95,6 +117,7 @@ export default class SignInFinishPage extends Vue {
     firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
         console.log('user', user.toJSON())
+        this.user = user
         if (user.isAnonymous) {
           this.authType = '匿名認証'
         } else {
@@ -126,6 +149,28 @@ export default class SignInFinishPage extends Vue {
         }
       }
     })
+  }
+
+  async onEmailVerification() {
+    this.isLoading = true
+    try {
+      this.resultMessage = ''
+      if (this.user !== null) {
+        await this.user.sendEmailVerification()
+        this.resultMessage = '本人確認メールを送信しました。'
+      }
+    } catch (error) {
+      this.resultMessage = error.message
+    }
+    this.isLoading = false
+  }
+
+  get isShowSendEmailVerification() {
+    if (this.user !== null && this.user.email !== null && this.user.emailVerified !== true) {
+      return true
+    } else {
+      return false
+    }
   }
 }
 </script>

@@ -356,7 +356,7 @@ export default class ShopItemBuyPageOriginalModel extends Vue {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
       const batch: firebase.firestore.WriteBatch = db.batch()
-      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitems')
+      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitem')
       const itemRef: firebase.firestore.DocumentReference = itemCollection.doc(item.uid)
       batch.update(itemRef, {
         updatedAt: new Date(),

@@ -49,8 +49,8 @@
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">
-            <router-link to="">
-              <div><b>認証情報を利用してFirestoreへユーザー情報を作成</b></div>
+            <router-link to="./email_auth_with_create_user_page">
+              <div><b>認証情報を利用してFirestoreへユーザーデータを保存</b></div>
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">

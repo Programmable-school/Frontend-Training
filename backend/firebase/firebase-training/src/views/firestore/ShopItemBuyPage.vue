@@ -306,7 +306,7 @@ export default class ShopItemBuyPage extends Vue {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
       const batch: firebase.firestore.WriteBatch = db.batch()
-      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitems')
+      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitem')
       const itemUid: string = itemCollection.doc().id
       const itemRef: firebase.firestore.DocumentReference = itemCollection.doc(itemUid)
       batch.set(itemRef, {
@@ -330,7 +330,7 @@ export default class ShopItemBuyPage extends Vue {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
       const batch: firebase.firestore.WriteBatch = db.batch()
-      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitems')
+      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitem')
       const itemRef: firebase.firestore.DocumentReference = itemCollection.doc(item.uid)
       batch.update(itemRef, {
         updatedAt: new Date(),
@@ -360,7 +360,7 @@ export default class ShopItemBuyPage extends Vue {
        * https://firebase.google.com/docs/firestore/manage-data/transactions?hl=ja
        */
       return db.runTransaction(async (tr: firebase.firestore.Transaction) => {
-        const collection: firebase.firestore.CollectionReference = db.collection('version/1/shopitems')
+        const collection: firebase.firestore.CollectionReference = db.collection('version/1/shopitem')
         const ref: firebase.firestore.DocumentReference = collection.doc(item.uid)
         const doc = await tr.get(ref)
         /**
@@ -396,7 +396,7 @@ export default class ShopItemBuyPage extends Vue {
     try {
       this.items = []
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitems')
+      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitem')
       const items: firebase.firestore.QuerySnapshot = await itemCollection.get()
       await items.docs.forEach(async (item: firebase.firestore.QueryDocumentSnapshot) => {
         const itemData: any = item.data()
@@ -415,7 +415,7 @@ export default class ShopItemBuyPage extends Vue {
   async readFirestoreItem(uid: string): Promise<any> {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitems')
+      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitem')
       const item: firebase.firestore.DocumentSnapshot = await itemCollection.doc(uid).get()
       console.log(item)
       if (item.exists) {
@@ -435,7 +435,7 @@ export default class ShopItemBuyPage extends Vue {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
       const batch: firebase.firestore.WriteBatch = db.batch()
-      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitems')
+      const itemCollection: firebase.firestore.CollectionReference = db.collection('version/1/shopitem')
       const itemRef: firebase.firestore.DocumentReference = itemCollection.doc(item.uid)
       batch.delete(itemRef)
       await batch.commit()

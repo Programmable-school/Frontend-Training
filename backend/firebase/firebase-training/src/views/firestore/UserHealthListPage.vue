@@ -275,7 +275,7 @@ export default class UserHealthListPage extends Vue {
       const batch: firebase.firestore.WriteBatch = db.batch()
 
       // ユーザーコレクション
-      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
+      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/user')
       const userId: string = userCollection.doc().id
       const userRef: firebase.firestore.DocumentReference = userCollection.doc(userId)
 

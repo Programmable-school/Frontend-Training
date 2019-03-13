@@ -146,7 +146,7 @@ export default class CreateFormPage extends Vue {
   async writeFirestore() {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection: firebase.firestore.CollectionReference = db.collection('version/1/memos')
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/memo')
       const id: string = collection.doc().id
       const result = await collection.doc(id).set({
         uid: id,
@@ -166,7 +166,7 @@ export default class CreateFormPage extends Vue {
     try {
       this.items = []
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const items: firebase.firestore.QuerySnapshot = await db.collection('version/1/memos').get()
+      const items: firebase.firestore.QuerySnapshot = await db.collection('version/1/memo').get()
       items.docs.forEach((item: firebase.firestore.QueryDocumentSnapshot) => {
         this.items.push(item.data())
       })

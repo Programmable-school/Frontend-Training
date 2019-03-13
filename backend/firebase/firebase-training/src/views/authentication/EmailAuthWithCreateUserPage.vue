@@ -1,11 +1,12 @@
 <template>
   <div class="top">
     <v-flex xs12 sm6 offset-sm3>
-      <h2>メール認証</h2>
+      <h2>認証情報を利用してFirestoreへユーザーデータを保存</h2>
       <!-- ログインフォーム -->
       <v-card class="container">
         <v-flex style="margin: 20px 0px;">
           <h3>ログイン</h3>
+          <p>ログインした時間をUser情報を更新します。</p>
           <v-text-field
             v-model="loginEmail"
             type="text"
@@ -41,6 +42,7 @@
       <v-card class="container">     
         <v-flex style="margin: 30px 0px;">
           <h3>アカウント作成</h3>
+          <p>User情報をFirestoreへ書き込みます。</p>
           <v-text-field
             v-model="signUpEmail"
             label="メールアドレス"
@@ -93,9 +95,9 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 
 @Component({
-  name: 'EmailAuthPage',
+  name: 'EmailAuthWithCreateUserPage',
 })
-export default class EmailAuthPage extends Vue {
+export default class EmailAuthWithCreateUserPage extends Vue {
   /**
    * ローディングフラグ
    */
@@ -179,11 +181,35 @@ export default class EmailAuthPage extends Vue {
       const user = firebase.auth().currentUser
       if (user !== null) {
         console.log('user', user.uid)
+        /** Firestoreのユーザーデータを更新 */
+        await this.updateUser(user.uid)
       }
       this.$router.push({ name: 'sign_in_finish_page' })
     } catch (error) {
       console.error('firebase error', error)
       this.loginResultMessage = error.message
+    }
+  }
+
+  /**
+   * ユーザーデータを更新する。
+   */
+  async updateUser(userId: string) {
+    try {
+      const db: firebase.firestore.Firestore = firebase.firestore()
+      const batch: firebase.firestore.WriteBatch = db.batch()
+      const ref: firebase.firestore.DocumentReference = db.collection('version/3/user').doc(userId)
+      const item = await ref.get()
+      if (item.exists) {
+        batch.set(ref, {
+          updatedAt: new Date(),
+        }, { merge: true } )
+        await batch.commit()
+      } else {
+        throw new Error('ユーザ情報がありません。新しいアカウントでサインアップしてください。')
+      }
+    } catch (error) {
+      throw error
     }
   }
 
@@ -214,11 +240,33 @@ export default class EmailAuthPage extends Vue {
         console.log('user', user.uid)
         /** 本人確認メールを送信 */
         await user.sendEmailVerification()
+        /** Firestoreへユーザーデータを保存 */
+        await this.createUser(user.uid)
         this.signUpResultMessage = '本人確認メールを送信しました。本人確認をしてログインしてください。'
       }
     } catch (error) {
       console.error('firebase error', error)
       this.signUpResultMessage = error.message
+    }
+  }
+
+  /**
+   * ユーザーデータを作成する。
+   */
+  async createUser(userId: string) {
+    try {
+      const db: firebase.firestore.Firestore = firebase.firestore()
+      const batch: firebase.firestore.WriteBatch = db.batch()
+      const ref: firebase.firestore.DocumentReference = db.collection('version/3/user').doc(userId)
+      batch.set(ref, {
+        uid: userId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        name: 'ゲスト',
+      }, { merge: true } )
+      await batch.commit()
+    } catch (error) {
+      console.error('firebase error', error)
     }
   }
 
