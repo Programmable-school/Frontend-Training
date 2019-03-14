@@ -1,0 +1,67 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // match /{document=**} {
+    //   allow read, write;
+    // }
+    match /version/{versionId} {
+
+      // ユーザーデータ
+      match /user/{userId} {
+        // 「ログイン状態」であれば、誰でも読み込みを許容する。
+        allow read: if request.auth != null;
+
+        // 「ログイン状態」且つ「ログインしたユーザーがFirestoreのドキュメントIDと同じ」であれば、書き込みを許容する。
+        allow write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // 関数にまとめることができる。
+      function isAuthenticated() {
+        return request.auth != null;
+      }
+      function isUserAuthenticated(id) {
+        return request.auth.uid == id;
+      }
+
+      // シークレットデータ
+      match /secret/{secretId} {
+        // 「ログイン状態」且つ「ログインしたユーザーがFirestoreのドキュメントIDと同じ」であれば、読み込み＆書き込みを許容する。
+        allow read, write: if isAuthenticated() && isUserAuthenticated(secretId);
+      }
+
+      // 他のドキュメントの情報を取得できる
+      function getUserAccount(userID) {
+        return get(/databases/$(database)/documents/version/$(versionId)/user/$(userID));
+      }
+
+      // グループデータ
+      match /group/{groupId} {
+        allow read: if isAuthenticated();
+
+        // 「ログイン状態」且つ「userコレクションにログイン状態のユーザーデータ」があれば、作成と更新を許容する。
+        allow create, update: if isAuthenticated() && 
+                                 isUserAuthenticated(getUserAccount(request.auth.uid).data.uid);
+
+        // 削除は許容しない。
+        allow delete: if false;
+      }
+
+      // バリデーションの確認は一応できる
+      function articleValidation() {
+        return request.resource.data.text != '';
+      }
+
+      // 記事データ
+      match /article/{articleId} {
+        allow read: if isAuthenticated();
+
+        // 「ログイン状態」且つ「userコレクションにログイン状態のユーザーデータが存在」且つ「バリデーションがOK」であれば、作成と更新を許容する。
+        allow create, update: if isAuthenticated() && 
+                                 isUserAuthenticated(getUserAccount(request.auth.uid).data.uid) &&
+                                 articleValidation();
+        
+        allow delete: if isAuthenticated() &&
+                         isUserAuthenticated(getUserAccount(request.auth.uid).data.uid);
+      }
+    }
+  }
+}

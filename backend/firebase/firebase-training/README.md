@@ -334,9 +334,99 @@ async createUser(userId: string) {
 
 ## Lesson9
 ### Firestoreセキュリティルールを利用
-#### スクリーンショット
-#### 実装
+[公式スタートガイド](https://firebase.google.com/docs/firestore/security/get-started?hl=ja)
 
+Firebase CLIを使ってDeploy環境を構築します。
+
+以下のコマンドで必要な環境を構築します。
+
+```sh
+$ firebase init firestore
+```
+ファイルが生成されます。
+
+| ファイル | 内容 |
+| :------- | :--- |
+| firestore.rules | firestoreのセキュリティルールの記述ファイル |
+| firestore.indexes.json | firestoreのindex管理の記述ファイル（[公式ガイド](https://firebase.google.com/docs/firestore/query-data/indexing?hl=ja)）|
+| firebase.json | firebase deployコマンドの設定ファイル |
+| .firebaserc| deploy先のプロジェクトが書かれた設定ファイル |
+
+
+以下のコマンドでdeploy対象のプロジェクトを確認できます。
+
+```sh
+# 現在のプロジェクトを確認
+$ firebase use
+Active Project: fir-training-ae8b1
+firebase-training:
+
+* default (fir-training-ae8b1)
+
+```
+
+firestore.rulesを確認します。
+
+```js
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+       allow read, write;
+    }
+  }
+}
+```
+
+
+firestoreのセキュリティルールをdeployします。
+```sh
+$ firebase deploy --only firestore:rules
+```
+
+Firebaseコンソールより、deployしたセキュリティルールの内容を確認できます。
+
+
+#### セキュリティルールを設定
+
+firestore.rulesにセキュリティルールを記述していきます。
+
+セキュリティルールを記述することでデータベースへのアクセス制限を設定することができます。
+
+- [セキュリティ ルールの構造化](https://firebase.google.com/docs/firestore/security/rules-structure?hl=ja)
+- [セキュリティ ルールの記述条件](https://firebase.google.com/docs/firestore/security/rules-conditions?hl=ja)
+
+以下はルールを抜粋したものです。
+
+```js
+// 全ての許容する。
+allow read, write: if true;
+
+// 許容しない。
+allow read, write: if false;
+
+// ログイン状態のユーザーであれば許容する。
+allow read, write: if request.auth != null;
+
+// 「ログイン状態」且つ「ログインしたユーザーがFirestoreのドキュメントIDと同じ」であれば、許容する。
+match /user/{userId} {
+  allow read, write: if request.auth.uid == userId;
+}
+
+// セキュリティルールは細かく設定ができます。
+match /user/{userId} {
+  // ログイン状態であれば誰でも取得できる。
+  allow read: if request.auth != null;
+
+  // 「ログイン状態」且つ「ログインしたユーザーがFirestoreのドキュメントIDと同じ」であれば、作成と更新ができる。
+  allow create, update: if request.auth != null && request.auth.uid == userId;
+
+  // ログイン状態のユーザーから削除できないようにする。
+  allow delete: if false;
+}
+
+```
+
+まだ途中...
 
 ## Lesson10
 ### SNS認証

@@ -1,0 +1,26 @@
+{
+  "indexes": [
+    {
+      "collectionId": "users",
+      "state": "READY",
+      "fields": [
+        {
+          "fieldPath": "age",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "isPublished",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "sex",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "mode": "DESCENDING"
+        }
+      ]
+    }
+  ]
+}
