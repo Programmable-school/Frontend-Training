@@ -418,15 +418,18 @@ match /user/{userId} {
   allow delete: if false;
 }
 
-// request.resource.data でリクエストされたデータの確認ができる。
-// この場合は uid が空じゃなかったら書き込みを許容する。
-allow write: if request.resource.data.uid != '';
-
-// resource.data で既に存在するデータの確認ができる。
-// リクエストされたデータの比較ができる。
-// この場合は既に存在する uid に変更がなければ更新を許容する
+// バリデーションする
 match /user/{userId} {
-  allow update: if request.resource.data.uid == resource.data.uid;
+  // request.resource.data でリクエストされたデータを確認できる。
+  // この場合は uid が空じゃなかったら作成を許容する。
+  allow create: if request.resource.data.uid != '' &&
+                   request.auth != null && request.auth.uid == userId;
+
+  // resource.data で既に存在するデータを確認できる。
+  // リクエストされたデータの比較ができる。
+  // この場合は既に存在する uid に変更がなければ更新を許容する
+  allow update: if request.resource.data.uid == resource.data.uid &&
+                   request.auth != null && request.auth.uid == userId;
 }
 ```
 
