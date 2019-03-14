@@ -356,13 +356,7 @@ $ firebase init firestore
 以下のコマンドでdeploy対象のプロジェクトを確認できます。
 
 ```sh
-# 現在のプロジェクトを確認
 $ firebase use
-Active Project: fir-training-ae8b1
-firebase-training:
-
-* default (fir-training-ae8b1)
-
 ```
 
 firestore.rulesを確認します。
