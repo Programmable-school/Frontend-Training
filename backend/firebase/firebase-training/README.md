@@ -406,7 +406,7 @@ match /user/{userId} {
   allow read, write: if request.auth.uid == userId;
 }
 
-// セキュリティルールは細かく設定ができます。
+// セキュリティルールは細かく設定できる。
 match /user/{userId} {
   // ログイン状態であれば誰でも取得できる。
   allow read: if request.auth != null;
@@ -418,6 +418,16 @@ match /user/{userId} {
   allow delete: if false;
 }
 
+// request.resource.data でリクエストされたデータの確認ができる。
+// この場合は uid が空じゃなかったら書き込みを許容する。
+allow write: if request.resource.data.uid != '';
+
+// resource.data で既に存在するデータの確認ができる。
+// リクエストされたデータの比較ができる。
+// この場合は既に存在する uid に変更がなければ更新を許容する
+match /user/{userId} {
+  allow update: if request.resource.data.uid == resource.data.uid;
+}
 ```
 
 まだ途中...
