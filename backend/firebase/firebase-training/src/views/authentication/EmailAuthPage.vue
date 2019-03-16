@@ -188,7 +188,7 @@ export default class EmailAuthPage extends Vue {
   }
 
   /**
-   * メール認証でログインする
+   * メール認証でアカウントを作成する
    */
   async signUp() {
     try {

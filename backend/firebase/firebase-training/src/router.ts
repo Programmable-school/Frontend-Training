@@ -10,6 +10,7 @@ import AnonymouslyPage from './views/authentication/AnonymouslyPage.vue'
 import SignInFinishPage from './views/authentication/SignInFinishPage.vue'
 import EmailAuthPage from './views/authentication/EmailAuthPage.vue'
 import EmailAuthWithCreateUserPage from './views/authentication/EmailAuthWithCreateUserPage.vue'
+import SecurityRuleLessonPage from './views/authentication/SecurityRuleLessonPage.vue'
 
 Vue.use(Router)
 
@@ -66,6 +67,11 @@ export default new Router({
       path: '/email_auth_with_create_user_page',
       name: 'email_auth_with_create_user_page',
       component: EmailAuthWithCreateUserPage,
+    },
+    {
+      path: '/security_rule_lesson_page',
+      name: 'security_rule_lesson_page',
+      component: SecurityRuleLessonPage,
     },
   ],
 })

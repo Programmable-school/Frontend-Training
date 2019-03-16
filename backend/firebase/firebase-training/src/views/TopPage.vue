@@ -54,7 +54,7 @@
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">
-            <router-link to="">
+            <router-link to="./security_rule_lesson_page">
               <div><b>Firestoreセキュリティルールを利用</b></div>
             </router-link>
           </v-flex>

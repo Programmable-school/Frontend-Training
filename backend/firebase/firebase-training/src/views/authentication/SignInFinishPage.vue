@@ -14,7 +14,6 @@
                 <td width="20%" class="table__key">認証ID</td>
                 <td width="80%" class="table__value">{{ uid }}</td>
               </tr>
-
               <tr>
                 <td width="20%" class="table__key">名前</td>
                 <td width="80%" class="table__value">{{ displayName }}</td>
@@ -52,7 +51,6 @@
             </table>
           </v-flex>
         </v-flex>
-
       </v-card>
       <v-card class="container">
         <h2>操作</h2>
