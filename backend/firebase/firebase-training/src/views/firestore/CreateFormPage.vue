@@ -39,7 +39,7 @@
                   slot-scope="props">
                   <tr>
                     <td>{{ props.item.uid }}</td>
-                    <td>{{ props.item.memo }}</td>
+                    <td><span v-html="props.item.memo"/></td>
                     <td>{{ props.item.createdAt.toDate() | dateFormat }}</td>
                     <td>{{ props.item.updatedAt.toDate() | dateFormat }}</td>
                   </tr>
@@ -168,7 +168,13 @@ export default class CreateFormPage extends Vue {
       const db: firebase.firestore.Firestore = firebase.firestore()
       const items: firebase.firestore.QuerySnapshot = await db.collection('version/1/memo').get()
       items.docs.forEach((item: firebase.firestore.QueryDocumentSnapshot) => {
-        this.items.push(item.data())
+        if (item.exists) {
+          const data = item.data()
+          if ('memo' in data) {
+            data.memo = data.memo.replace(/\n/g, '<br>')
+          }
+          this.items.push(data)
+        }
       })
       console.log(this.items)
     } catch (error) {

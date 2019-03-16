@@ -35,6 +35,21 @@ service cloud.firestore {
 
 
       // --- Lesson9ではこれ以降のセキュリティールールは使わない ---
+      match /memo/{memoId} {
+        allow read, write: if true;
+      }
+
+      match /shopitem/{shopitemId} {
+        allow read, write: if true;
+      }
+
+      match /userpractice/{userpracticeId} {
+        allow read, write: if true;
+        match /health/{healthId} {
+          allow read, write: if true;
+        }
+      }
+
       // 他のドキュメントの情報を取得できる
       function getUserAccount(userID) {
         return get(/databases/$(database)/documents/version/$(versionId)/user/$(userID));

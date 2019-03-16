@@ -330,7 +330,7 @@ export default class RosterListPage extends Vue {
   async writeFirestore() {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection: firebase.firestore.CollectionReference = db.collection('version/1/user')
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/userpractice')
       const id: string = collection.doc().id
       await collection.doc(id).set({
         uid: id,
@@ -353,7 +353,7 @@ export default class RosterListPage extends Vue {
     try {
       this.items = []
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection: firebase.firestore.CollectionReference = db.collection('version/1/user')
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/userpractice')
       const items: firebase.firestore.QuerySnapshot = await collection.get()
       items.docs.forEach((item: firebase.firestore.QueryDocumentSnapshot) => {
         console.log('uid', item.id)
@@ -371,7 +371,7 @@ export default class RosterListPage extends Vue {
   async updateFirestore(id: string) {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection: firebase.firestore.CollectionReference = db.collection('version/1/user')
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/userpractice')
       await collection.doc(id).update({
         updatedAt: new Date(),
         name: this.name,
@@ -390,7 +390,7 @@ export default class RosterListPage extends Vue {
   async deleteFirestore(id: string) {
     try {
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const collection: firebase.firestore.CollectionReference = db.collection('version/1/user')
+      const collection: firebase.firestore.CollectionReference = db.collection('version/1/userpractice')
       await collection.doc(id).delete()
     } catch (error) {
       console.error('firebase error', error)
@@ -478,7 +478,7 @@ export default class RosterListPage extends Vue {
        * 複合クエリのインデックスがないためエラーがでるので、
        * エラー文の従いFirebase Firestoreコンソールより複合インデックスを追加する
        */
-      const query: firebase.firestore.Query = db.collection('version/1/user')
+      const query: firebase.firestore.Query = db.collection('version/1/userpractice')
                       .where('age', '==', Number(this.queryAge))  // v-text-fieldで入力するとString型になるためNumber型へ変換
                       .where('sex', '==', this.querySex)
                       .where('isPublished', '==', this.queryIsPublished)

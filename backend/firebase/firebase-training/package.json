@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "firetore-rules": "firebase deploy --only firestore:rules"
+    "firestore-rules": "firebase deploy --only firestore:rules"
   },
   "dependencies": {
     "axios": "^0.18.0",

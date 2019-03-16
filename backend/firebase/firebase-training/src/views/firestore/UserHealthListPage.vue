@@ -275,7 +275,7 @@ export default class UserHealthListPage extends Vue {
       const batch: firebase.firestore.WriteBatch = db.batch()
 
       // ユーザーコレクション
-      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/user')
+      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/userpractice')
       const userId: string = userCollection.doc().id
       const userRef: firebase.firestore.DocumentReference = userCollection.doc(userId)
 
@@ -322,7 +322,7 @@ export default class UserHealthListPage extends Vue {
     try {
       this.items = []
       const db: firebase.firestore.Firestore = firebase.firestore()
-      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
+      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/userpractice')
       const items: firebase.firestore.QuerySnapshot = await userCollection.get()
       await items.docs.forEach(async (item: firebase.firestore.QueryDocumentSnapshot) => {
         /**
@@ -357,7 +357,7 @@ export default class UserHealthListPage extends Vue {
       const batch: firebase.firestore.WriteBatch = db.batch()
 
       // ユーザーコレクション
-      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
+      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/userpractice')
       const userRef: firebase.firestore.DocumentReference = userCollection.doc(item.uid)
       batch.update(userRef, {
         updatedAt: new Date(),
@@ -396,7 +396,7 @@ export default class UserHealthListPage extends Vue {
       const batch: firebase.firestore.WriteBatch = db.batch()
 
       // ユーザーコレクション
-      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/users')
+      const userCollection: firebase.firestore.CollectionReference = db.collection('version/2/userpractice')
       const userRef: firebase.firestore.DocumentReference = userCollection.doc(item.uid)
       batch.delete(userRef)
 
