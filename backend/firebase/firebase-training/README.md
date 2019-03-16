@@ -441,6 +441,14 @@ match /user/{userId} {
 <a href="https://imgur.com/TMu5yrj"><img src="https://i.imgur.com/TMu5yrj.png" width="50%" height="50%" /></a>
 
 
+セキュリティールールの仕様は以下の通りです。
+
+| データベース | 本人 <br>（読み込み）| 本人 <br>（書き込み）| 他人 <br>（読み込み）| 他人 <br>（書き込み）|
+| :------- | :---: | :---: | :---: | :---: |
+| user/{userId} | ○ | ○ | ○ | × |
+| user/{userId}/secret/{secretId} | ○ | ○ | × | × |
+
+
 [firestore.rules](./firestore.rules)と[SecurityRuleLessonPage](./src/views/authentication/SecurityRuleLessonPage.vue)を写経してページを作成してください。
 
 動作確認する際はfirestore.rulesを<font color="red">deploy</font>して確認してください。
