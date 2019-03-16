@@ -60,7 +60,7 @@
               color="blue"
               class="white--text"
               :loading="isLoading"
-              :disabled="isLoading"
+              :disabled="isLoading||authType==0"
               @click="onEmailLogin">ログイン</v-btn>
           </v-flex>
           <!-- データ登録フォーム -->
@@ -110,12 +110,52 @@
             <v-btn
               @click="onAnoLogin"
               :loading="isLoading"
-              :disabled="isLoading"
+              :disabled="isLoading||authType==1"
               color="blue"
               class="white--text">
               ログインする
             </v-btn>
           </v-flex>
+          <v-flex style="margin: 20px 0px;">
+            <h3>取得したデータ</h3>
+            <table border="1" class="table__list">
+              <tr>
+                <td width="20%" class="table__key">ユーザーデータ</td>
+                <td width="80%" class="table__value"><span v-html="userFromAnonymously"/></td>
+              </tr>
+              <tr>
+                <td width="20%" class="table__key">ユーザー秘密データ</td>
+                <td width="80%" class="table__value"><span v-html="userSecretFromAnonymously"/></td>
+              </tr>
+            </table>
+          </v-flex>
+         <!-- データ登録フォーム -->
+          <v-card
+            v-if="authType!==null&&authType==1" 
+            class="container">
+            <v-flex style="margin-top: 10px;">
+              <h3>ユーザーデータ</h3>
+              <v-flex style="margin-top: 20px;">
+                <v-btn
+                  color="blue"
+                  class="white--text"
+                  :loading="isLoading"
+                  :disabled="isLoading"
+                  @click="onUpdateOtherUser('匿名認証さんだよーん')">他人のデータを更新する</v-btn>
+              </v-flex>
+            </v-flex>
+            <v-flex style="margin-top: 20px;">
+              <h3>ユーザー秘密データ</h3>
+              <v-flex style="margin-top: 20px;">
+                <v-btn
+                  color="blue"
+                  class="white--text"
+                  :loading="isLoading"
+                  :disabled="isLoading"
+                  @click="onUpdateSecretOtherUser('匿名認証さんだよーん')">他人のデータを更新する</v-btn>
+              </v-flex>
+            </v-flex>
+          </v-card>
         </v-flex>
       </v-card>
     </v-flex>
@@ -148,6 +188,9 @@ export default class SecurityRuleLessonPage extends Vue {
   authType: number | null = null      // 0: メール認証, 1: 匿名認証, null: ログアウト状態
   user: firebase.User | null = null
 
+  userFromAnonymously: string = ''
+  userSecretFromAnonymously: string = ''
+
   /**
    * フォームデータ
    */
@@ -169,16 +212,18 @@ export default class SecurityRuleLessonPage extends Vue {
       this.authType = null
       this.isLoginStatus = false
       this.userFormClear()
-
       if (user !== null) {
         this.isLoginStatus = true
         console.log('user', user.uid)
         await this.getUserData(user.uid)
+        /** 匿名認証の場合 */
         if (user.isAnonymous) {
           this.authType = 1
+          await this.getUserDataFromAnonymously()
         } else {
           user.providerData.forEach((item) => {
             if (item !== null) {
+              /** メール認証の場合 */
               if (item.email !== null && item.providerId === 'password') {
                 this.authType = 0
               }
@@ -244,7 +289,6 @@ export default class SecurityRuleLessonPage extends Vue {
       } else {
         this.resultMessage = error.message
       }
-      this.resultMessage = error.message
     }
     this.isLoading = false
   }
@@ -272,6 +316,86 @@ export default class SecurityRuleLessonPage extends Vue {
       } else {
         this.resultMessage = error.message
       }
+    }
+    this.isLoading = false
+  }
+
+  /**
+   * 他人のユーザーデータを更新
+   */
+  async onUpdateOtherUser(text: string) {
+    this.isLoading = true
+    try {
+      this.resultMessage = ''
+      if (this.user !== null) {
+        const db: firebase.firestore.Firestore = firebase.firestore()
+        const collection: firebase.firestore.CollectionReference = db.collection('version/3/user')
+        const users = await collection.get()
+        users.forEach(async (item) => {
+          try {
+            /** 自分のユーザーID以外のIDを更新させに行く */
+            if (item.exists && this.user!.uid !== item.id) {
+              await this.updateUser(item.id, text)
+            }
+          } catch (error) {
+            console.error('firebase error', error)
+            /***
+             * Missing or insufficient permissions. のメッセージの場合は
+             * セキュリティールールによりアクセスできないという意味
+             */
+            if (this.isSecureBlock(error.message)) {
+              this.resultMessage = 'セキュリティルールによりアクセスできませんでした。'
+            } else {
+              this.resultMessage = error.message
+            }
+          }
+        })
+      } else {
+        this.resultMessage = 'ログインしてください。'
+      }
+    } catch (error) {
+      console.error('firebase error', error)
+      this.resultMessage = error.message
+    }
+    this.isLoading = false
+  }
+
+  /**
+   * 他人のユーザー秘密データを更新
+   */
+  async onUpdateSecretOtherUser(text: string) {
+    this.isLoading = true
+    try {
+      this.resultMessage = ''
+      if (this.user !== null) {
+        const db: firebase.firestore.Firestore = firebase.firestore()
+        const collection: firebase.firestore.CollectionReference = db.collection('version/3/user')
+        const users = await collection.get()
+        users.forEach(async (item) => {
+          try {
+            /** 自分のユーザーID以外のIDを更新させに行く */
+            if (item.exists && this.user!.uid !== item.id) {
+              await this.postSecret(item.id, text)
+            }
+          } catch (error) {
+            console.error('firebase error', error)
+            /***
+             * Missing or insufficient permissions. のメッセージの場合は
+             * セキュリティールールによりアクセスできないという意味
+             */
+            if (this.isSecureBlock(error.message)) {
+              this.resultMessage = 'セキュリティルールによりアクセスできませんでした。'
+            } else {
+              this.resultMessage = error.message
+            }
+          }
+        })
+      } else {
+        this.resultMessage = 'ログインしてください。'
+      }
+    } catch (error) {
+      console.error('firebase error', error)
+      this.resultMessage = error.message
     }
     this.isLoading = false
   }
@@ -314,7 +438,7 @@ export default class SecurityRuleLessonPage extends Vue {
   }
 
   /**
-   * ユーザーデータを取得する。
+   * ユーザーデータと秘密データを取得する。
    */
   async getUserData(userId: string) {
     try {
@@ -348,6 +472,45 @@ export default class SecurityRuleLessonPage extends Vue {
       throw error
     }
   }
+
+  /**
+   * ユーザーデータと秘密データを取得する（匿名ユーザーより）
+   */
+  async getUserDataFromAnonymously() {
+    try {
+      if (this.user !== null) {
+        this.userFromAnonymously = ''
+        this.userSecretFromAnonymously = ''
+        const db: firebase.firestore.Firestore = firebase.firestore()
+        const batch: firebase.firestore.WriteBatch = db.batch()
+        const userRef: firebase.firestore.CollectionReference = db.collection('version/3/user')
+        const userItems = await userRef.get()
+        userItems.forEach(async (user) => {
+          try {
+            if (user.exists && this.user!.uid !== user.id) {
+              if ('name' in user.data()) {
+                this.userFromAnonymously += `${user.id}<br>${user.data().name}`
+              }
+              const secret = await user.ref.collection('secret').doc('1').get()
+              if (secret.exists) {
+                this.userSecretFromAnonymously += secret.data()
+              }
+            }
+          } catch (error) {
+            if (this.isSecureBlock(error.message)) {
+              this.userSecretFromAnonymously = 'セキュリティルールによりアクセスできませんでした。'
+            } else {
+              this.userSecretFromAnonymously = error.message
+            }
+          }
+        })
+      }
+    } catch (error) {
+      console.error('firebase error', error)
+      this.resultMessage = error.message
+    }
+  }
+
   /**
    * ユーザーデータを更新する。
    */
@@ -371,6 +534,7 @@ export default class SecurityRuleLessonPage extends Vue {
         throw new Error('ユーザ情報がありません。新しいアカウントでサインアップしてください。')
       }
     } catch (error) {
+      console.log('aaaaaaa')
       throw error
     }
   }

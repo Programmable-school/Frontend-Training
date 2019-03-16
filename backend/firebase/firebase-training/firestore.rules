@@ -24,11 +24,17 @@ service cloud.firestore {
       function isAuthenticated() {
         return request.auth != null;
       }
-      
+
       function isUserAuthenticated(id) {
         return request.auth.uid == id;
       }
 
+
+
+
+
+
+      // --- Lesson9ではこれ以降のセキュリティールールは使わない ---
       // 他のドキュメントの情報を取得できる
       function getUserAccount(userID) {
         return get(/databases/$(database)/documents/version/$(versionId)/user/$(userID));

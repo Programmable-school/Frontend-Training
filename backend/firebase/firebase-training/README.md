@@ -167,12 +167,6 @@ Vue.use(Vuetify, {
 
 ## Lesson6
 ### 匿名認証
-#### スクリーンショット
-<a href="https://imgur.com/oVFEFwn"><img src="https://i.imgur.com/oVFEFwn.png" width="50%" height="50%" /></a>
-
-
-<a href="https://imgur.com/cr8xVhT"><img src="https://i.imgur.com/cr8xVhT.png" width="50%" height="50%" /></a>
-
 #### 匿名認証を許可する
 Firebaseコンソールで認証設定より匿名認証を許可してください。
 
@@ -183,6 +177,13 @@ Firebaseコンソールで認証設定より匿名認証を許可してくださ
 
 
 #### 実装
+#### スクリーンショット
+<a href="https://imgur.com/oVFEFwn"><img src="https://i.imgur.com/oVFEFwn.png" width="50%" height="50%" /></a>
+
+
+<a href="https://imgur.com/cr8xVhT"><img src="https://i.imgur.com/cr8xVhT.png" width="50%" height="50%" /></a>
+
+
 firebase/auth を使ってログインとログアウトを実装します。
 
 ```ts
@@ -217,9 +218,6 @@ async signOut() {
 
 ## Lesson7
 ### メール認証
-#### スクリーンショット
-<a href="https://imgur.com/Zc6BP7z"><img src="https://i.imgur.com/Zc6BP7z.png" width="50%" height="50%" /></a>
-
 
 #### メール認証を許可する
 Firebaseコンソールで認証設定よりメール認証を許可してください。
@@ -234,6 +232,10 @@ Firebaseコンソールで認証設定よりメール認証を許可してくだ
 <a href="https://imgur.com/te0JsfD"><img src="https://i.imgur.com/te0JsfD.png" width="65%" height="65%" /></a>
 
 #### 実装
+#### スクリーンショット
+<a href="https://imgur.com/Zc6BP7z"><img src="https://i.imgur.com/Zc6BP7z.png" width="50%" height="50%" /></a>
+
+
 メール認証を行う場合は「サインアップ」「ログイン」機能を実装します。
 ```ts
 /** サインアップする */
@@ -333,6 +335,7 @@ async createUser(userId: string) {
 [EmailAuthWithCreateUserPage](./src/views/authentication/EmailAuthWithCreateUserPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
 
 ## Lesson9
+
 ### Firestoreセキュリティルールを利用
 [公式スタートガイド](https://firebase.google.com/docs/firestore/security/get-started?hl=ja)
 
@@ -433,7 +436,14 @@ match /user/{userId} {
 }
 ```
 
-まだ途中...
+#### 実装
+#### スクリーンショット
+<a href="https://imgur.com/TMu5yrj"><img src="https://i.imgur.com/TMu5yrj.png" width="50%" height="50%" /></a>
+
+
+[firestore.rules](./firestore.rules)と[SecurityRuleLessonPage](./src/views/authentication/SecurityRuleLessonPage.vue)を写経してページを作成してください。
+
+動作確認する際はfirestore.rulesを<font color="red">deploy</font>して確認してください。
 
 ## Lesson10
 ### SNS認証
