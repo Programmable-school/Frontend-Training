@@ -5,11 +5,21 @@
 ## 概要
 簡単にWebアプリケーションを作れるカリキュラムです。<br><br>
 ・フロントエンド<br>
-フレームワークVue.jsを採用。<br>
-HTML + JavaScript(TypeScript) + CSS(Stylus)を学習します。<br><br>
+フレームワークVue.jsを採用、合わせて以下の言語を学習します。<br>
+- HTML
+- JavaScript(TypeScript)
+- CSS(Stylus)
+
+
 ・バックエンド<br>
-Firebaseを採用。<br>
-Firebase Authentication, Cloud Firestore、Cloud Storage、Cloud Functions、Firebase Hostingを学習します。<br><br>
+Firebaseを採用、以下の技術を学習します。<br>
+- Cloud Firestore
+- Firebase Authentication
+- Cloud Storage
+- Cloud Functions
+- Firebase Hosting
+
+
 ・ブロックチェーン<br>
 NEMプロトコルを採用。<br>
 NEMの基本機能や独自トークンの送受信方法を学習します。<br>
@@ -44,8 +54,8 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 1. [Firebase](./backend/firebase-training/README.md)<br>
 [Cloud Firestore](./backend/firebase-training/README_1.md)<br>
 [Firebase Authantication](./backend/firebase-training/README_1.md)<br>
-Cloud Functions<br>
 Cloud Storage<br>
+Cloud Functions<br>
 Firebase Hosting<br>
 2. Vue.js + Firebaseでメッセージ共有アプリ作成<br>
 
