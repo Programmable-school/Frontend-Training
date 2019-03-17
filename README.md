@@ -41,9 +41,9 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 6. [SPAの作成](./frontend/spa/README.md)<br>
    
 ## Backend
-1. [Firebase](./backend/firebase/README.md)<br>
-[Cloud Firestore](./backend/firebase/firebase-training/README.md)<br>
-[Firebase Authantication](./backend/firebase/firebase-training/README.md)<br>
+1. [Firebase](./backend/firebase-training/README.md)<br>
+[Cloud Firestore](./backend/firebase-training/README_1.md)<br>
+[Firebase Authantication](./backend/firebase-training/README_1.md)<br>
 Cloud Functions<br>
 Cloud Storage<br>
 Firebase Hosting<br>
