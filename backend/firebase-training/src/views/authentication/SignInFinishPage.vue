@@ -8,7 +8,7 @@
             <table border="1" class="table__list">
               <tr>
                 <td width="20%" class="table__key">認証タイプ</td>
-                <td width="80%" class="table__value">{{ authType }}</td>
+                <td width="80%" class="table__value">{{ authStatusText }}</td>
               </tr>
               <tr>
                 <td width="20%" class="table__key">認証ID</td>
@@ -88,7 +88,7 @@ import { format } from 'date-fns'
 })
 export default class SignInFinishPage extends Vue {
 
-  authType: string = ''
+  authType: number | null = null  // 0: メール認証, 1: 匿名認証, null: ログアウト状態
   uid: string = ''
   displayName: string = ''
   email: string = ''
@@ -113,17 +113,17 @@ export default class SignInFinishPage extends Vue {
      * 認証状態が変わると処理される
      */
     firebase.auth().onAuthStateChanged((user) => {
+      this.authType = null
       if (user !== null) {
         console.log('user', user.toJSON())
         this.user = user
         if (user.isAnonymous) {
-          this.authType = '匿名認証'
+          this.authType = 0
         } else {
-          this.authType = ''
           user.providerData.forEach((item) => {
             if (item !== null) {
               if (item.email !== null && item.providerId === 'password') {
-                this.authType += 'メール認証'
+                this.authType = 1
               }
             }
           })
@@ -168,6 +168,21 @@ export default class SignInFinishPage extends Vue {
       return true
     } else {
       return false
+    }
+  }
+
+  get authStatusText() {
+    if (this.authType !== null) {
+      switch (this.authType) {
+        case 0:
+          return 'メール認証'
+        case 1:
+          return '匿名認証'
+        default:
+          return '不明'
+      }
+    } else {
+      return '-'
     }
   }
 }

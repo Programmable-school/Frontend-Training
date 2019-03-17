@@ -59,7 +59,7 @@
             </router-link>
           </v-flex>
           <v-flex style="margin: 24px;">
-            <router-link to="">
+            <router-link to="./social_login_page">
               <div><b>SNS認証</b></div>
             </router-link>
           </v-flex>

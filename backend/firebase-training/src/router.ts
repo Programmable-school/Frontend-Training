@@ -11,6 +11,7 @@ import SignInFinishPage from './views/authentication/SignInFinishPage.vue'
 import EmailAuthPage from './views/authentication/EmailAuthPage.vue'
 import EmailAuthWithCreateUserPage from './views/authentication/EmailAuthWithCreateUserPage.vue'
 import SecurityRuleLessonPage from './views/authentication/SecurityRuleLessonPage.vue'
+import SocialLoginPage from './views/authentication/SocialLoginPage.vue'
 
 Vue.use(Router)
 
@@ -72,6 +73,11 @@ export default new Router({
       path: '/security_rule_lesson_page',
       name: 'security_rule_lesson_page',
       component: SecurityRuleLessonPage,
+    },
+    {
+      path: '/social_login_page',
+      name: 'social_login_page',
+      component: SocialLoginPage,
     },
   ],
 })

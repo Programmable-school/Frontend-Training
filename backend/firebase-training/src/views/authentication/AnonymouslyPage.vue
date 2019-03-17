@@ -1,12 +1,11 @@
 <template>
   <div class="top">
-    <v-flex>
+   <v-flex xs12 sm6 offset-sm3>
+      <h2>匿名認証</h2>
       <v-card class="container">
         <v-flex>
-          <h2>匿名認証</h2>
           <v-flex style="margin: 24px;">
-            <span v-if="isLoginStatus==true"><b>ログイン中</b></span>
-            <span v-else-if="isLoginStatus==false">ログアウト中</span>
+            <span>{{ loginStatusText }}</span>
           </v-flex>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <v-btn
@@ -112,6 +111,9 @@ export default class AnonymouslyPage extends Vue {
     }
   }
 
+  get loginStatusText() {
+    return this.isLoginStatus === true ? 'ログイン中' : 'ログアウト中'
+  }
 }
 </script>
 <style lang="stylus">
