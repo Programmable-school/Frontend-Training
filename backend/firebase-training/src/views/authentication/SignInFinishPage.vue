@@ -118,12 +118,18 @@ export default class SignInFinishPage extends Vue {
         console.log('user', user.toJSON())
         this.user = user
         if (user.isAnonymous) {
-          this.authType = 0
+          this.authType = 1
         } else {
           user.providerData.forEach((item) => {
             if (item !== null) {
               if (item.email !== null && item.providerId === 'password') {
-                this.authType = 1
+                this.authType = 0
+              }
+              if (item.providerId === 'twitter.com') {
+                this.authType = 2
+              }
+              if (item.providerId === 'facebook.com') {
+                this.authType = 3
               }
             }
           })
@@ -178,6 +184,10 @@ export default class SignInFinishPage extends Vue {
           return 'メール認証'
         case 1:
           return '匿名認証'
+        case 2:
+          return 'Twitter認証'
+        case 3:
+          return 'Facebook認証'
         default:
           return '不明'
       }

@@ -455,8 +455,44 @@ match /user/{userId} {
 
 ## Lesson10
 ### SNS認証
-#### スクリーンショット
+#### Twitter API Keyを取得
+TwitterとFacebookでログインできるようにします。
+
+
+Twitter Developerより設定を行います。
+
+
+[https://developer.twitter.com/](https://developer.twitter.com/)
+
+
+
+<a href="https://imgur.com/QiyNzUJ"><img src="https://i.imgur.com/QiyNzUJ.png" width="70%" height="70%" /></a>
+
+
+必要な項目を入力して登録します。<br>
+
+Callback URLsはFirebase Authanticationのコンソールから取ってきたものを入力します。
+
+<a href="https://imgur.com/gwFnmTi"><img src="https://i.imgur.com/gwFnmTi.png" width="70%" height="70%" /></a>
+
+
+Twitter API keyとSecret keyをFirebase Authanticationへ登録します。
+<a href="https://imgur.com/UwJ6dn1"><img src="https://i.imgur.com/UwJ6dn1.png" width="70%" height="70%" /></a>
+
+
+Callback URLsは以下の箇所に書かれています。
+
+<a href="https://imgur.com/Ghsh6DU"><img src="https://i.imgur.com/Ghsh6DU.png" width="70%" height="70%" /></a>
+
+
+#### Facebook API Keyを取得
+
+
 #### 実装
+#### スクリーンショット
+<a href="https://imgur.com/wXwKz0j"><img src="https://i.imgur.com/wXwKz0j.png" width="70%" height="70%" /></a>
+
+[SocialLoginPage](./src/views/authentication/SocialLoginPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
 
 
 ## Project setup
