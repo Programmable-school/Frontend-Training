@@ -1,4 +1,4 @@
-# vue-library-training
+# Vue.js 実践
 
 ## 目次
 - [VueRouter](#VueRouter)

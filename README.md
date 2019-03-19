@@ -40,7 +40,7 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 3. [TypeScriptの基礎](https://github.com/Programmable-school/TypeScript-Training)<br>
 4. CSS（Stylus）の基礎<br>
 簡単なプロフィール画面作成<br>
-5. [必須ライブラリ](./frontend/vue-library-training/README.md)<br>
+5. [Vue.js 実践](./frontend/vue-library-training/README.md)<br>
 ・[環境構築](./frontend/vue-library-training/README.md#環境構築)<br>
 ・[VueRouter](./frontend/vue-library-training/README.md#VueRouter)<br>
 ・[Vuex](./frontend/vue-library-training/README.md#Vuex)<br>
