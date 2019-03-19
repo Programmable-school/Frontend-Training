@@ -455,10 +455,9 @@ match /user/{userId} {
 
 ## Lesson10
 ### SNS認証
-#### Twitter API Keyを取得
 TwitterとFacebookでログインできるようにします。
 
-
+#### Twitter API Keyを取得
 Twitter Developerより設定を行います。
 
 
@@ -486,6 +485,29 @@ Callback URLsは以下の箇所に書かれています。
 
 
 #### Facebook API Keyを取得
+Facebook Developerより設定を行います。
+
+
+[https://developers.facebook.com/](https://developers.facebook.com/)
+
+
+<a href="https://imgur.com/tdpAj3H"><img src="https://i.imgur.com/tdpAj3H.png" width="70%" height="70%" /></a>
+
+
+アプリIDとSecret Keyを取得します。
+
+<a href="https://imgur.com/jmP8Jey"><img src="https://i.imgur.com/jmP8Jey.png" width="70%" height="70%" /></a>
+
+
+Firebase Authanticationに登録します。
+
+OAuthリダイレクトURIを取得します。
+
+<a href="https://imgur.com/5LyjdQ0"><img src="https://i.imgur.com/5LyjdQ0.png" width="70%" height="70%" /></a>
+
+OAuthリダイレクトURIをFacebookDeveloperへ登録します。
+
+<a href="https://imgur.com/SrT6mGn"><img src="https://i.imgur.com/SrT6mGn.png" width="70%" height="70%" /></a>
 
 
 #### 実装
