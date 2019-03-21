@@ -15,6 +15,10 @@
 - [Firestoreセキュリティルールを利用](#Lesson9)
 - [SNS認証](#Lesson10)
 
+### Task
+- [掲示板を作ろう](#Task1)
+- [チャットアプリを作ろう](#Task2)
+
 ## Firebase 公式ページ
 [https://firebase.google.com/docs/web/setup?hl=ja](https://firebase.google.com/docs/web/setup?hl=ja)
 
@@ -163,7 +167,6 @@ Vue.use(Vuetify, {
 ## Lesson5
 ### 便利！Firestoreモデルクラスを作る
 <br>
-
 
 ## Lesson6
 ### 匿名認証
@@ -515,6 +518,53 @@ OAuthリダイレクトURIをFacebookDeveloperへ登録します。
 <a href="https://imgur.com/wXwKz0j"><img src="https://i.imgur.com/wXwKz0j.png" width="70%" height="70%" /></a>
 
 [SocialLoginPage](./src/views/authentication/SocialLoginPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
+
+
+## Task
+### 掲示板を作ろう
+FirestoreとAuthanticationを利用して掲示板を作ってください。
+
+仕様は以下の通りです。
+
+#### 仕様
+- ページ数は4ページ
+  - ログインページ
+  - 投稿フォームページ
+  - 一覧ページ
+  - 詳細ページ
+- ログインページ
+  - メール（又はSNS）認証でログインできるようにする
+- 投稿フォームページ
+  - 名前、日付、タイトル、内容を入力できるフォームを作成
+  - 投稿、編集、削除がきる。
+- 一覧ページ
+  - 投稿された掲示タイトルを一覧表示する、投稿日の新しい順に表示する。
+  - 選択すると詳細ページへ遷移する
+- 詳細ページ
+  - 投稿された内容全てを表示する。
+  - 「いいね」ができること。
+
+
+セキュリティ仕様は以下の通り。
+
+| データベース | 本人 <br>（読み込み）| 本人 <br>（書き込み）| 他人 <br>（読み込み）| 他人 <br>（書き込み）|
+| :------- | :---: | :---: | :---: | :---: |
+| 投稿内容（article） | ○ | ○ | ○ | × |
+| いいね（like） | ○ | ○ | ○ | ○ |
+
+
+#### スクリーンショット
+T.B.D
+
+#### 答え
+T.B.D
+
+
+### チャットアプリを作る
+#### 仕様
+#### スクリーンショット
+#### 答え
+T.B.D
 
 
 ## Project setup

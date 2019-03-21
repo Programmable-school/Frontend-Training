@@ -249,9 +249,15 @@ export default class RosterListPage extends Vue {
     } else {
       await this.writeFirestore()
     }
-    await this.readQueryFirestore()
-    this.clear()
-    this.isLoading = false
+    Promise.all([
+      this.readQueryFirestore(),
+      this.readFirestore(),
+    ]).then((results) => {
+      this.clear()
+      this.isLoading = false
+    }).catch((error) => {
+      this.isLoading = false
+    })
   }
 
   /**
