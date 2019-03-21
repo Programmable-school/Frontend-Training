@@ -15,9 +15,9 @@
 - [Firestoreセキュリティルールを利用](#Lesson9)
 - [SNS認証](#Lesson10)
 
-### Task
-- [掲示板を作ろう](#Task1)
-- [チャットアプリを作ろう](#Task2)
+### 課題
+- [掲示板を作ろう](#掲示板を作ろう)
+- [チャットアプリを作ろう](#チャットアプリを作ろう)
 
 ## Firebase 公式ページ
 [https://firebase.google.com/docs/web/setup?hl=ja](https://firebase.google.com/docs/web/setup?hl=ja)
@@ -520,7 +520,7 @@ OAuthリダイレクトURIをFacebookDeveloperへ登録します。
 [SocialLoginPage](./src/views/authentication/SocialLoginPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
 
 
-## Task
+## 課題
 ### 掲示板を作ろう
 FirestoreとAuthanticationを利用して掲示板を作ってください。
 
@@ -560,7 +560,7 @@ T.B.D
 T.B.D
 
 
-### チャットアプリを作る
+### チャットアプリを作ろう
 #### 仕様
 #### スクリーンショット
 #### 答え
