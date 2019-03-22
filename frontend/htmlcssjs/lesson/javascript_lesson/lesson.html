@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript レッスン</title>
+  <!-- CSS style.cssにCSSを実装する -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- JavaScript main.jsにJavaScriptを実装する -->
+  <!-- main.jsを読み込む。deferはHTMLパース後に読み込まれるようにするための定義。-->
+  <script src="js/main.js" defer></script>
+</head>
+<!-- HTML Bodyの中にHTML構文を記述 -->
+<body>
+  <!-- Lesson 1 -->
+  <div class="container">
+    <h3>Lesson 1</h3>
+    <div class="container__content lesson1">
+      <div id="log"></div>
+    </div>
+  </div>
+  <!-- Lesson 2 -->
+  <div class="container">
+    <h3>Lesson 2</h3>
+    <div class="container__content lesson2">
+      <button class="action" type="button">ボタン</button>
+      <div class="log" style="margin-top: 8px;"></div>
+    </div>
+  </div>
+  <!-- Lesson 3 -->
+  <div class="container">
+    <h3>Lesson 3</h3>
+    <div class="container__content lesson3">
+      Windowサイズを変更すると表示されます。
+      <div class="value-dpr" style="margin-top: 8px;"></div>
+      <div class="value-width" style="margin-top: 8px;"></div>
+      <div class="value-height" style="margin-top: 8px;"></div>
+    </div>
+  </div>
+  <!-- Lesson 4 -->
+  <div class="container">
+    <h3>Lesson 4</h3>
+    <div class="container__content lesson4">
+      <div class="log"></div>
+    </div>
+  </div>
+  <!-- Lesson 5 -->
+  <div class="container">
+    <h3>Lesson 5</h3>
+    <div class="container__content lesson5">
+      <button class="action__next" type="button">次のページへ遷移</button>
+      <button class="action__reload" type="button">画面更新</button>
+      <button class="action__show" type="button">別タブで表示</button>
+    </div>
+  </div>
+  <!-- Lesson 6 -->
+  <div class="container">
+    <h3>Lesson 6</h3>
+    <div class="container__content lesson6">
+      Windowのスクロール
+      <div>
+        <button class="action__scroll" type="button">下へスクロール</button>
+      </div>
+      <div style="margin-top: 8px;">
+        <span class="value-scrollX" style="margin-left: 8px;"></span>
+        <span class="value-scrollY" style="margin-left: 8px;"></span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

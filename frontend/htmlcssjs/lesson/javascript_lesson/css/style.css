@@ -1,0 +1,13 @@
+/* CSS */
+
+body {
+  margin: 10px;
+}
+
+.container {
+  margin: 20px;
+}
+
+.container__content {
+  margin: 10px;
+}
