@@ -34,6 +34,9 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 - FireFox 62.0
 
 # カリキュラム
+## 基礎
+1. [HTML/CSS/JavaScript](./frontend/htmlcssjs/README.md)
+
 ## Frontend
 1. [環境構築](./frontend/environment/README.md)<br>
 2. [Vue.jsの基礎](./frontend/vuejs/README.md)<br>

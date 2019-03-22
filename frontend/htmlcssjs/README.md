@@ -15,7 +15,7 @@
 ### 課題
 
 ## JavaScript
-[こちらのコード](./javascript_lesson)を写経してページを作成してください。 
+[こちらのコード](./lesson/javascript_lesson/)を写経してページを作成してください。 
 
 ### 課題
 
