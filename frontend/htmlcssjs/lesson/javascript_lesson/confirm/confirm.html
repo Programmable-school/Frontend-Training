@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript 確認用</title>
+  <style>
+    .area {
+      position: relative;
+    }
+    .charactor {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: wheat;
+    }
+  </style>
+</head>
+<body>
+  <div class="area">
+      <div class="charactor"></div>
+  </div>
+</body>
+<script>
+  console.log('mounted');
+  const charactor = document.querySelector('.charactor');
+  charactor.addEventListener('mousedown', () => {
+    // マウスの動きに合わせてエリアを動かせる
+    document.addEventListener('mousemove', onMouseMove);
+    // ページ上でマウスボタンを話したらキャラクターの移動を終了する
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', onMouseMove);
+    });
+  })
+  function onMouseMove(event) {
+    charactor.style.left = `${event.clientX - 100}px`;
+    charactor.style.top = `${event.clientY - 100}px`;
+    console.log('onMouseMove', charactor.style.left, charactor.style.top);
+  }
+</script>
+</html>
