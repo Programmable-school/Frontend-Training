@@ -78,14 +78,24 @@ document.querySelector('.lesson5 .action__show').addEventListener('click', (even
  *  Lesson 6 Window画面サイズの表示
  **/
 window.addEventListener('resize', resizeHandler);
-function resizeHandler(event) { 
-  const dpr = window.devicePixelRatio
-  document.querySelector('.value-dpr').innerHTML = `デバイスピクセル比は ${dpr} です。`;
 
-  const w = innerWidth;
-  const h = innerHeight;
-  document.querySelector('.value-width').innerHTML = `横幅 ${w}px です。`;
-  document.querySelector('.value-height').innerHTML = `高さ ${h}px です。`; 
+// 処理負荷軽減のためタイマーで処理を行う。
+let resizeTimer;
+function resizeHandler(event) { 
+  // resizeTimerがあればタイマーを解除
+  if (resizeTimer != null) {
+    clearTimeout(resizeTimer);
+  }
+  // 1秒後にonResize()を実行する
+  resizeTimer = setTimeout(() => {
+    const dpr = window.devicePixelRatio
+    document.querySelector('.value-dpr').innerHTML = `デバイスピクセル比は ${dpr} です。`;
+  
+    const w = innerWidth;
+    const h = innerHeight;
+    document.querySelector('.value-width').innerHTML = `横幅 ${w}px です。`;
+    document.querySelector('.value-height').innerHTML = `高さ ${h}px です。`; 
+  }, 1000)
 }
 
 /**
@@ -147,8 +157,7 @@ function onMouseMove(event) {
   // 移動可能なエリア領域を取得
   const area = document.getElementsByClassName('container__content lesson10')
   const areaRect = area[0].getBoundingClientRect();
-  // console.log(areaRect);
-  
+
   // Windowの位置によってマウスの座標も変わるため、エリアの位置の差+調整値との差分を移動距離とする。
   const moveX = event.clientX - areaRect.left - 40;
   const moveY = event.clientY - areaRect.top - 40;
@@ -156,6 +165,8 @@ function onMouseMove(event) {
     areaLesson10.style.left = `${moveX}px`;
     areaLesson10.style.top = `${moveY}px`;
   }
+
+  // console.log(areaRect);
   // console.log('onMouseMove', areaLesson10.style.left, areaLesson10.style.top);  
 }
 
@@ -170,4 +181,118 @@ window.onscroll = () => {
   const y = window.scrollY;
   document.querySelector('.value-scrollX').innerHTML = `X ${x}`;
   document.querySelector('.value-scrollY').innerHTML = `Y ${y}`;
+}
+
+/**
+ *  Lesson 12 テキスト選択時に処理
+ **/
+const balloon = document.querySelector('.lesson12 .balloon');
+const paragraph = document.querySelector('.lesson12 .paragraph');
+
+// 選択開始したときの処理
+paragraph.addEventListener('selectstart', () => {
+  // マウスを離したときの処理
+  paragraph.addEventListener('mouseup', (event) => {
+    // 選択されている文字列を取得する
+    const selectionCharacters = window.getSelection().toString();
+    if (selectionCharacters.length > 0) {
+      balloon.innerHTML = selectionCharacters;
+      balloon.classList.add('on');
+      balloon.style.left = `${event.clientX - balloon.clientWidth / 2}px`;
+      balloon.style.top = `${event.clientY - balloon.clientHeight * 2}px`;
+    } else {
+      // 選択文字列がなければ吹き出しを閉じる
+      removePopup();
+    }
+  }, { once: true });
+});
+// 吹き出しをクリックしたら閉じる
+balloon.addEventListener('click', removePopup);
+
+function removePopup() {
+  balloon.classList.remove('on');
+}
+
+/**
+ *  Lesson 13 タッチ操作時のイベント発生情報を取得（スマフォのみ）
+ **/
+document.querySelector('.lesson13 .area').addEventListener('touchmove', (event) => {
+  const touch = event.changedTouches;
+  const log = document.querySelector('.lesson13 .log');
+  log.innerHTML = `${touch[0].pageX.toFixed(2)}<br>${touch[0].pageY.toFixed(2)}`;
+})
+
+/**
+ *  Lesson 14 画面サイズのブレークポイントを超えた時の処理
+ **/
+const rectAngle = document.querySelector('.lesson14 .rectangle');
+
+// メディアクエリ情報
+const mediaQueryList = matchMedia('(min-width: 600px)');
+
+// メディアクエリ変更されたタイミングで処理
+mediaQueryList.addListener(onMediaQueryChange);
+
+// ブレークポイントを超えると big-size classに付与してデザインを変えている。
+function onMediaQueryChange(mediaQueryList) {
+  if (mediaQueryList.matches === true) {
+    rectAngle.classList.add('big-size');
+    rectAngle.innerHTML = 'ウインドウサイズが600pxを超えました。';
+  } else {
+    rectAngle.classList.remove('big-size');
+    rectAngle.innerHTML = 'ウインドウサイズが600pxを下回りました。';
+  }
+}
+onMediaQueryChange(mediaQueryList);
+
+
+/**
+ *  Lesson 15 ドロップ&ドラッグ
+ **/
+const fileZone = document.querySelector('.file-zone');  // ファイルアップロードゾーン
+const className = 'on'; // ファイルアップロードゾーンに着脱するクラス
+
+// ドラッグした要素が重なったときの処理
+fileZone.addEventListener('dragover', (event) => {
+  event.preventDefault();             // デフォルトの挙動を停止
+  fileZone.classList.add(className);  // 'on'を付与して .file-zone.on にする
+});
+
+// ドラッグした要素が離れたときの処理
+fileZone.addEventListener('dragleave', () => {
+  event.preventDefault();               // デフォルトの挙動を停止
+  fileZone.classList.remove(className); // 'on'を削除する
+});
+
+// ドロップした時の処理
+fileZone.addEventListener('drop', (event) => {
+  event.preventDefault();                         // デフォルトの挙動を停止
+  fileZone.classList.remove(className);             // 'on'を削除する
+  const transferdFiles = event.dataTransfer.files;  // Fileオブジェクトを参照
+  displayImages(transferdFiles);                    // 画像を表示する
+});
+
+// 画像の表示処理 
+function displayImages(transferdFiles) {
+  const imageFileList = [];               // 画像ファイルの格納配列
+  const fileNum = transferdFiles.length;  // ファイル数
+  for (let i = 0; i < fileNum; i++) {
+    // ファイルが画像のもののみを配列に格納する
+    if (transferdFiles[i].type.match('image.*') === false) { return; }
+    imageFileList.push(transferdFiles[i]);
+  }
+
+  const imagePreviewArea = document.querySelector('.image-list'); // 画像表示エリアの参照
+
+  // 各画像ファイルについて処理
+  for (const imageFile of imageFileList) {
+    // 画像ファイルの読み込み処理
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(imageFile);
+    fileReader.addEventListener('load', (event) => {
+      const image = new Image();
+      image.src = event.target.result;
+      imagePreviewArea.insertBefore(image, imagePreviewArea.firstChild);  // 表示エリアの先頭に画像ファイルを表示
+    });
+  }
 }

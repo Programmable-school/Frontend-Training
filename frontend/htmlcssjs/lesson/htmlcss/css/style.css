@@ -1,0 +1,87 @@
+/* CSS */
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #cccccc;
+  color: #333333; /* フォント色 */
+  font-size: 15px;  /* フォントサイズ */
+  line-height: 2;   /* 行間の高さ */
+}
+
+p, h1, h2, h3 ,h4 ,h5, h6 {
+  margin-top: 0;
+}
+
+img {
+  vertical-align: bottom; /* 垂直方向の位置揃え */
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #3583aa;
+  text-decoration: none; /* リンクの下線部を非表示 */
+}
+
+/* aタグで訪問済の時の処理 */
+a:visited {
+  color: #788d98;
+}
+
+/* aタグ上にマウスポインタを乗った時の処理 */
+a:hover {
+  text-decoration: underline; /* リンクの下線部を表示 */
+}
+
+header {
+  width: 960px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.logo {
+  float: left;  /* ボックスを左に寄せる */
+  margin-top: 50px;
+}
+
+.global-nav {
+  float: right; /* ボックスを右に寄せる */
+  margin-top: 60px;
+}
+.global-nav li {
+  float: left;
+  margin: 0 20px;
+  font-size: 20px;
+  list-style: none; /* liのstyleで点を非表示にする */
+}
+.global-nav li a {
+  color: #ffffff;
+}
+.global-nav li a:hover {
+  border-bottom: 2px solid #ffffff; /* ボックスの下辺の境界線 */
+  padding-bottom: 3px;
+  text-decoration: none;
+}
+
+#wrap {
+  clear: both;  /* floatプロパティで指定された要素の回り込みを解除する */
+}
+
+.content {
+  width: 960px;
+  margin: 0 auto;
+}
+
+footer {
+  text-align: center;
+  color: #ffffff;
+  padding: 20px 0;
+}
+footer small {
+  font-size: 12px;
+}
