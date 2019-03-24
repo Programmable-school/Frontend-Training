@@ -135,3 +135,81 @@ body {
   display: block;
   object-fit: cover;
 }
+
+.lesson16 .area {
+  display: flex;
+  border: 2px dotted wheat;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.lesson16 .area:first-child {
+  margin-top: 0;
+}
+
+.lesson16 .area .box {
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 2px dotted wheat;
+}
+
+.lesson16 .new-box {
+  text-align: center;
+  background-color: #d03939;
+  color: wheat;
+}
+
+.lesson17 .area .child {
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 2px dotted wheat;
+}
+
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal .inner {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 10px;
+  display: block;
+  width: 960px;
+  height: 540px;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  max-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #333;
+  font-size: 1.5rem;
+  animation: fadeInAnimation 200ms ease-out;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

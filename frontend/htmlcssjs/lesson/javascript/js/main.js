@@ -250,24 +250,24 @@ onMediaQueryChange(mediaQueryList);
  *  Lesson 15 ドロップ&ドラッグ
  **/
 const fileZone = document.querySelector('.file-zone');  // ファイルアップロードゾーン
-const className = 'on'; // ファイルアップロードゾーンに着脱するクラス
+const lesson15ClassName = 'on'; // ファイルアップロードゾーンに着脱するクラス
 
 // ドラッグした要素が重なったときの処理
 fileZone.addEventListener('dragover', (event) => {
   event.preventDefault();             // デフォルトの挙動を停止
-  fileZone.classList.add(className);  // 'on'を付与して .file-zone.on にする
+  fileZone.classList.add(lesson15ClassName);  // 'on'を付与して .file-zone.on にする
 });
 
 // ドラッグした要素が離れたときの処理
 fileZone.addEventListener('dragleave', () => {
   event.preventDefault();               // デフォルトの挙動を停止
-  fileZone.classList.remove(className); // 'on'を削除する
+  fileZone.classList.remove(lesson15ClassName); // 'on'を削除する
 });
 
 // ドロップした時の処理
 fileZone.addEventListener('drop', (event) => {
   event.preventDefault();                         // デフォルトの挙動を停止
-  fileZone.classList.remove(className);             // 'on'を削除する
+  fileZone.classList.remove(lesson15ClassName);             // 'on'を削除する
   const transferdFiles = event.dataTransfer.files;  // Fileオブジェクトを参照
   displayImages(transferdFiles);                    // 画像を表示する
 });
@@ -295,4 +295,65 @@ function displayImages(transferdFiles) {
       imagePreviewArea.insertBefore(image, imagePreviewArea.firstChild);  // 表示エリアの先頭に画像ファイルを表示
     });
   }
+}
+
+/**
+ *  Lesson 16 HTMLコードを要素として挿入
+ **/
+function lesson16() {
+  const area = document.querySelector('.lesson16 .area');
+  const newBox = `<div class="new-box box">.new-box要素</div>`;
+  setTimeout(() => {
+    area.insertAdjacentHTML('afterbegin', newBox);  // .area要素内先頭に.new-box要素を追加する
+    area.insertAdjacentHTML('afterend', newBox);    // .area要素の直後に.new-box要素を追加する
+  }, 2000)
+}
+lesson16()
+
+/**
+ *  Lesson 17 要素を動的に削除する
+ **/
+function lesson17() {
+
+  // 親エレメントを使って削除
+  setTimeout(() => {
+    const parentElement = document.querySelector('.lesson17 .area');
+    const childElement = document.querySelector('.lesson17 .child.one');
+    parentElement.removeChild(childElement);
+  }, 3000)
+
+  // 自分自身を削除
+  setTimeout(() => {
+    const childElement = document.querySelector('.lesson17 .child.two');
+    childElement.remove();
+  }, 4000)
+}
+lesson17()
+
+/**
+ *  Lesson 18 要素を生成する
+ **/
+document.querySelector('.lesson18 .create-modal').addEventListener('click', displayModalWindow);
+
+// モーダルウインドウを開く
+function displayModalWindow() {
+  const modalElement = document.createElement('div');
+  modalElement.classList.add('modal');
+
+  const innerElement = document.createElement('div');
+  innerElement.classList.add('inner');
+  innerElement.innerHTML = `<p>モーダルウインドウの中身です</p>`;
+  modalElement.appendChild(innerElement);
+  
+  // body要素にモーダルウインドウを配置する
+  document.body.appendChild(modalElement);
+
+  innerElement.addEventListener('click', () => {
+    closeModalWindow(modalElement);
+  });
+}
+
+// モーダルウインドウを閉じる
+function closeModalWindow(modalElement) {
+  document.body.removeChild(modalElement)
 }
