@@ -57,7 +57,8 @@ header {
   float: left;
   margin: 0 20px;
   font-size: 20px;
-  list-style: none; /* liのstyleで点を非表示にする */
+  list-style: none;                         /* liのstyleで点を非表示にする */
+  font-family: 'Noto Sans SC', sans-serif;  /* font種類の設定 */
 }
 .global-nav li a {
   color: #ffffff;
@@ -84,4 +85,59 @@ footer {
 }
 footer small {
   font-size: 12px;
+}
+
+/***************************
+ * -- Lesson 2はここから --  * 
+ ***************************/
+/* #indexをつけることで、idがindex内のh1だけ適応になる */
+#index h1 {
+  font-size: 100px;
+  line-height: 1;
+  color: #ffffff;
+  font-family: 'Noto Sans SC', sans-serif;
+  margin-bottom: 50px;
+}
+
+#index .content {
+  margin-top: 150px;
+}
+
+#index p {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.btn a {
+  background-color: #009cd3;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 'Noto Sans SC', sans-serif;
+  width: 185px;
+  display: block;             /* ボックスの表示形式を指定する */
+  text-align: center;
+  line-height: 50px;
+  margin-top: 20px;
+  border-radius: 5px;         /* ボーダーの角を丸める */
+  border: 3px solid #009cd3 /* ボタンに枠線をつける */
+}
+
+.btn a:hover {
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #009cd3;
+}
+
+#index footer {
+  width: 960px;
+  margin: 150px auto 0 auto;    /* 上 左 下 右 */
+  text-align: left;
+}
+
+#index {
+  background-image: url(../image/bg.jpg); /* 要素の背景を指定する */
+  background-repeat: no-repeat;           /* 背景画像の繰り返しパターンを指定する */
+  background-position: center center;     /* 背景画像の表示位置を指定する */
+  background-attachment: fixed;           /* 背景画像のスクロールを指定する fixedにすると背景は固定化される */
+  background-size: cover;                 /* 背景画像の大きさを指定する。 */
 }
