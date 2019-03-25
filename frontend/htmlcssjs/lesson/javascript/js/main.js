@@ -357,3 +357,68 @@ function displayModalWindow() {
 function closeModalWindow(modalElement) {
   document.body.removeChild(modalElement)
 }
+
+/**
+ *  Lesson 19 要素を置き換える
+ **/
+function lesson19() {
+  setTimeout(() => {
+    const area = document.querySelector('.lesson19 .area');
+    const oldBox = document.querySelector('.lesson19 .old-box.box');
+    const newBox = document.createElement('div');
+    newBox.textContent = '新ボックス';
+    newBox.classList.add('new-box', 'box');
+
+    // oldBoxをnewBoxのelementに置き換える
+    area.replaceChild(newBox, oldBox);
+  }, 3000);
+}
+lesson19();
+
+/**
+ *  Lesson 20 要素内のテキストを取得したり書き換えたりする
+ **/
+function lesson20() {
+  const weatherInfomation = document.querySelector('#weather-infomation');
+  console.log(weatherInfomation.textContent);
+
+  const weatherElement = document.querySelector('#weather');
+  setTimeout(() => {
+    weatherElement.innerHTML = '気温は<strong>24度</strong>の予想です。'
+  }, 3000);
+}
+lesson20();
+
+/**
+ *  Lesson 21 要素のクラス属性の追加や削除
+ **/
+function lesson21() {
+  // 要素の追加と削除
+  const box = document.querySelector('.lesson21 .area');
+  box.classList.add('blue');
+  box.classList.remove('red');
+  box.classList.add('blue', 'yellow', 'pink');
+  box.classList.remove('blue', 'yellow');
+  console.log(box.classList.contains('blue'), box.classList.contains('red'), box.classList.contains('yellow'), box.classList.contains('pink')); // false false false true
+
+  // 要素の確認
+  const box1 = document.querySelector('#box1');
+  const box2 = document.querySelector('#box2');
+  console.log('#box1', box1.classList.contains('red'), box2.classList.contains('red'));  // #box1 true false
+}
+lesson21();
+
+/**
+ *  Lesson 22 要素のクラス属性の追加や削除
+ **/
+function lesson22() {
+  // .button要素すべてについて処理をする
+  document.querySelectorAll('.button').forEach((button) => {
+    // .button要素をクリックしたときの処理を設定する
+    button.addEventListener('click', () => {
+      // .button要素の次の要素のクラスを切り替える
+      button.nextElementSibling.classList.toggle('show');
+    });
+  });
+}
+lesson22();

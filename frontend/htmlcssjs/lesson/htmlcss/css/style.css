@@ -71,6 +71,9 @@ header {
 
 #wrap {
   clear: both;  /* floatプロパティで指定された要素の回り込みを解除する */
+  background-color: #ffffff;
+  margin-top: 220px;
+  padding: 35px 0;
 }
 
 .content {
@@ -140,4 +143,23 @@ footer small {
   background-position: center center;     /* 背景画像の表示位置を指定する */
   background-attachment: fixed;           /* 背景画像のスクロールを指定する fixedにすると背景は固定化される */
   background-size: cover;                 /* 背景画像の大きさを指定する。 */
+}
+
+#about {
+  background-image: url(../image/bg-about.jpg); /* 要素の背景を指定する */
+  background-repeat: no-repeat;                 /* 背景画像の繰り返しパターンを指定する */
+  background-position: center top;           /* 背景画像の表示位置を指定する */
+  background-attachment: fixed;                 /* 背景画像のスクロールを指定する fixedにすると背景は固定化される */
+  background-size: 100% auto;                   /* 背景画像の大きさを指定する。 */
+}
+
+h1 {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 36px;
+  border-bottom: 1px solid #cccccc;
+}
+
+h2 {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 24px;
 }
