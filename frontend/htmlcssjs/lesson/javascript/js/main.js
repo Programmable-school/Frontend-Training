@@ -422,3 +422,102 @@ function lesson22() {
   });
 }
 lesson22();
+
+/**
+ *  Lesson 23 テキストボックスの情報を取得する
+ **/
+function lesson23() {
+  const element = document.querySelector('#myText');
+  document.querySelector('.lesson23 .log').innerHTML = element.value;
+
+  // イベントを登録
+  element.addEventListener('input', handleChange)
+  function handleChange(event) {
+    document.querySelector('.lesson23 .log').innerHTML = event.target.value;
+  }
+}
+lesson23();
+
+
+/**
+ *  Lesson 24 テキストエリアの情報を取得する
+ **/
+function lesson24() {
+  const element = document.querySelector('#myTextArea');
+  const value = element.value.split('\n').join('<br />'); // \n に <br/>を連結させる
+  console.log('lesson24', value);
+  document.querySelector('.lesson24 .log').innerHTML = value;
+  
+  // イベントを登録
+  element.addEventListener('input', handleChange);
+  function handleChange(event) {
+    const httmlStr = event.target.value.split('\n').join('<br />');
+    document.querySelector('.lesson24 .log').innerHTML = httmlStr;
+  }
+}
+lesson24();
+
+
+/**
+ *  Lesson 25 チェックボックスの情報を取得したい
+ **/
+function lesson25() {
+  const checkedA = document.querySelector('#cbA').checked;
+  const checkedB = document.querySelector('#cbB').checked;
+  const checkedC = document.querySelector('#cbC').checked;
+  console.log('lesson25', "checkedA", checkedA);
+  console.log('lesson25', "checkedB", checkedB);
+  console.log('lesson25', "checkedC", checkedC);
+
+  document.querySelector('#cbA').addEventListener('change', handleChange)
+  document.querySelector('#cbB').addEventListener('change', handleChange)
+  document.querySelector('#cbC').addEventListener('change', handleChange)
+
+  function handleChange(event) {
+    const value = event.target.checked;
+    const log = `Check${event.target.value}は ${value} になりました`;
+    document.querySelector('.lesson25 .log').innerHTML = log;
+  }
+  
+}
+lesson25();
+
+/**
+ *  Lesson 26 ローカルファイルの情報を取得する
+ **/
+function lesson26() {
+  const element = document.querySelector('#myFile');
+  const pEl = document.querySelector('.lesson26 .log');
+
+  element.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    console.log('lesson26', file.name);
+    
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      pEl.textContent = reader.result;  // 結果をp要素に出力する。
+    });
+    // テキストファイルとして読み込み
+    reader.readAsText(file);
+  })
+}
+lesson26();
+/**
+ *  Lesson 27
+ **/
+
+/**
+ *  Lesson 28
+ **/
+
+/**
+ *  Lesson 29
+ **/
+
+/**
+ *  Lesson 30
+ **/
+
+/**
+ *  Lesson 31
+ **/

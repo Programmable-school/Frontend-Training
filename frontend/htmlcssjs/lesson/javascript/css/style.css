@@ -284,3 +284,9 @@ body {
 .lesson22 .button + .content dd {
   margin: 0;
 }
+
+
+.lesson24 #myTextArea {
+  width: 150px;
+  height: 150px;
+}

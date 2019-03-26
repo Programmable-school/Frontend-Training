@@ -1,6 +1,9 @@
 /* CSS */
 @charset "utf-8";
 
+/***************************
+ * ------ Lesson 1 ------  * 
+ ***************************/
 body {
   margin: 0;
   padding: 0;
@@ -28,13 +31,12 @@ a {
   text-decoration: none; /* リンクの下線部を非表示 */
 }
 
-/* aタグで訪問済の時の処理 */
-a:visited {
+
+a:visited { /* aタグで訪問済の時の処理 */
   color: #788d98;
 }
 
-/* aタグ上にマウスポインタを乗った時の処理 */
-a:hover {
+a:hover { /* aタグ上にマウスポインタを乗った時の処理 */
   text-decoration: underline; /* リンクの下線部を表示 */
 }
 
@@ -81,25 +83,27 @@ header {
   margin: 0 auto;
 }
 
+/** フッターエリアのスタイル設定 */
 footer {
   text-align: center;
   color: #ffffff;
   padding: 20px 0;
+  background-color: #767671;
 }
 footer small {
   font-size: 12px;
 }
 
 /***************************
- * -- Lesson 2はここから --  * 
+ * ------ Lesson 2 ------  * 
  ***************************/
-/* #indexをつけることで、idがindex内のh1だけ適応になる */
-#index h1 {
+#index h1 { /* #indexをつけることで、idがindex内のh1だけ適応になる */
   font-size: 100px;
   line-height: 1;
   color: #ffffff;
   font-family: 'Noto Sans SC', sans-serif;
   margin-bottom: 50px;
+  border: none;
 }
 
 #index .content {
@@ -109,6 +113,12 @@ footer small {
 #index p {
   font-size: 16px;
   color: #ffffff;
+}
+
+#index #wrap {  /* index.htmlの影響を修正する */
+  background-color: transparent;
+  margin-top: 0;
+  padding: 0;
 }
 
 .btn a {
@@ -135,6 +145,7 @@ footer small {
   width: 960px;
   margin: 150px auto 0 auto;    /* 上 左 下 右 */
   text-align: left;
+  background-color: transparent;
 }
 
 #index {
@@ -153,6 +164,7 @@ footer small {
   background-size: 100% auto;                   /* 背景画像の大きさを指定する。 */
 }
 
+/** 見出しの装飾 */
 h1 {
   font-family: 'Noto Sans SC', sans-serif;
   font-size: 36px;
@@ -162,4 +174,53 @@ h1 {
 h2 {
   font-family: 'Noto Sans SC', sans-serif;
   font-size: 24px;
+}
+
+/** プロフィールセクションのレイアウト設定 */
+.icon:before {
+  content: "";    /* :before擬似要素 :after擬似要素の前後に仮想的に文字列や画像を生成する */
+  padding-right: 10px;
+  border-left: 7px solid #9cb4a4;
+}
+
+#about .profile-txt { 
+  width: 540px;
+  float: left;
+}
+
+#about .profile-txt span {
+  font-weight: bold;
+}
+
+#about .profile-image {
+  float: right;
+}
+
+.clearfix:after { /* floatの回り込みを解除する */
+  content: "";
+  display: block;
+  clear: both;      
+}
+
+section {
+  margin-bottom: 35px;
+}
+
+/** 経歴の表を装飾する */
+#about .career th { /* 見出しセル */
+  width: 240px;
+  background-color: #f0f0f0;
+  padding: 12px 0;
+  border: 1px solid #cccccc;
+}
+
+#about .career td { /* データセル */
+  width: 660px;
+  padding: 12px 0 12px 40px;
+  border: 1px solid #cccccc;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;  /* 隣り合うセルのボーダーを結合するか分離するかを指定する */
 }
