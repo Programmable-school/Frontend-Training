@@ -1,0 +1,25 @@
+/* CSS */
+/**
+ * common
+ **/
+body {
+  margin: 10px;
+  display: block;
+  overflow: scroll;
+}
+
+.container {
+  margin: 20px;
+}
+
+.container__content {
+  margin: 10px;
+}
+
+.ul.newsticker {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: 100%;
+}

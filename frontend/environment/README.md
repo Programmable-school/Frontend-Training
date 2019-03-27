@@ -156,15 +156,52 @@ GitHubからリモートリポジトリを作成。<br>
 $ git clone https://github.com/hukusuke1007/nem-wallet
 ```
 
-## リポジトリへデプロイ
+## 基本パターン
 ``` bash
-# デプロイするファイルを追加
-$ git add *
+# ブランチ作成
+$ git branch  <ブランチ名>
+# 例）$ git branch hoge
 
-# ファイルをコミットする（ローカル上へデプロイ）
+# 作成したブランチをチェックアウトする
+$ git checkout  <ブランチ名>
+# 例）$ git checkout hoge
+
+# 空コミットする（ローカル）
+$ git commit --allow-empty -m "first commit"
+
+# コミットする（ローカル）
 $ git commit -a -m "comment"
 
-# ファイルをプッシュする（リポジトリへデプロイ）
+# 指定のブランチへプッシュする（リモート）
+$ git push origin <ブランチ名>
+# 例）$ git push origin hoge
+
+# ブランチ名を変更
+$ git branch -m <古いブランチ名> <新しいブランチ名>
+# 例）$ git branch -m hoge feat/hoge
+
+# ブランチ名を変更（今開いているブランチを変更）
+$ git branch -m <新しいブランチ名>
+# 例）$ git branch -m feat/hoge
+
+# 古いブランチ名を削除
+$ git push origin :<古いブランチ名>
+# 例）$ git push origin :hoge
+
+# ブランチを変更したらリモートプッシュを忘れずに
+$ git push origin <新しいブランチ名>
+# 例）$ git push origin feat/hoge
+```
+
+## masterへプッシュ
+```bash
+# プッシュするファイルを追加
+$ git add *
+
+# コミット（ローカル）
+$ git commit -a -m "comment"
+
+# masterへプッシュする（リモート）
 $ git push origin master
 ```
 
