@@ -35,7 +35,7 @@ jQuery.fn.liScroll = function(settings) {
 				}
 				scrollnews(totalTravel, defTiming);				
 				$strip.hover(function(){
-				// jQuery(this).stop(); /* こいつをコメントアウトすると止まらない */
+				jQuery(this).stop(); /* こいつをコメントアウトすると止まらない */
 				},
 				function(){
 				var offset = jQuery(this).offset();

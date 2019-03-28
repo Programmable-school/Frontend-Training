@@ -158,6 +158,9 @@ $ git clone https://github.com/hukusuke1007/nem-wallet
 
 ## 基本パターン
 ``` bash
+# ブランチ情報を確認
+$ git branch -a
+
 # ブランチ作成
 $ git branch  <ブランチ名>
 # 例）$ git branch hoge
@@ -191,6 +194,22 @@ $ git push origin :<古いブランチ名>
 # ブランチを変更したらリモートプッシュを忘れずに
 $ git push origin <新しいブランチ名>
 # 例）$ git push origin feat/hoge
+
+```
+
+## マージする
+```bash
+# マージ先のブランチへcheckout
+$ git checkout <マージ先のブランチ名>
+
+# マージ先のブランチを最新にする
+$ git pull origin <マージ先のブランチ名>
+
+# マージする --no-ffオプション：fast-forwardの関係であっても、必ずマージコミットを作る
+$ git merge --no-ff <マージしたいブランチ名>
+
+# プッシュする
+$ git push origin <マージ先のブランチ名>
 ```
 
 ## masterへプッシュ
@@ -207,6 +226,12 @@ $ git push origin master
 
 ## コミットの取り消し
 ``` bash
+# コミットログ
+$ git log
+
+# ハッッシュIDから取り消す
+$ git reset --hard <ハッシュID>
+
 # 最新コミットの1件分のワークディレクトリを保持した状態でコミットを取り消す
 $ git reset --soft HEAD~1
 
