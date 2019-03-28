@@ -510,6 +510,8 @@ OAuthリダイレクトURIを取得します。
 
 OAuthリダイレクトURIをFacebookDeveloperへ登録します。
 
+Facebookのコンソール画面 -> 左メニューのプロダクト欄 ->  Facebookログイン -> 設定
+
 <a href="https://imgur.com/SrT6mGn"><img src="https://i.imgur.com/SrT6mGn.png" width="70%" height="70%" /></a>
 
 
