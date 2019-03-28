@@ -319,9 +319,10 @@
   <div class="container">
     <h3>Lesson 27</h3>
     <div class="container__content lesson27">
-
+      DataURLとして読み込む
       <div class="area">
-
+        <input type="file" id="myFileDataUrl" accept=".png, .jpg"/>
+        <p class="log"><img /></p>
       </div>
     </div>
   </div>
@@ -329,9 +330,14 @@
   <div class="container">
     <h3>Lesson 28</h3>
     <div class="container__content lesson28">
-
+      ラジオボタンの情報を取得
       <div class="area">
-
+        <form id="radioGroup">
+          <label><input type="radio" name="fruit" value="apple" checked /></label>
+          <label><input type="radio" name="fruit" value="orange" /></label>
+          <label><input type="radio" name="fruit" value="grape" /></label>
+        </form>
+        <p class="log"></p>
       </div>
     </div>
   </div>
@@ -339,9 +345,14 @@
   <div class="container">
     <h3>Lesson 29</h3>
     <div class="container__content lesson29">
-
+      ドロップダウンメニューの情報を取得したい
       <div class="area">
-
+        <select id="mySelect">
+          <option value="apple">apple</option>
+          <option value="orange">orange</option>
+          <option value="grape" selected>grape</option>
+        </select>
+        <p class="log"></p>
       </div>
     </div>
   </div>
@@ -349,9 +360,10 @@
   <div class="container">
     <h3>Lesson 30</h3>
     <div class="container__content lesson30">
-
+      スライダーの情報を取得したい
       <div class="area">
-
+        <input type="range" id="myRange" min="0" max="100" value="50" />
+        <p class="log"></p>
       </div>
     </div>
   </div>
@@ -359,9 +371,10 @@
   <div class="container">
     <h3>Lesson 31</h3>
     <div class="container__content lesson31">
-
+      プルダウンをJavaScriptから作る
       <div class="area">
-
+        <select id="pref"></select>
+        <p class="log"></p>
       </div>
     </div>
   </div>
@@ -369,9 +382,15 @@
   <div class="container">
     <h3>Lesson 32</h3>
     <div class="container__content lesson32">
-
+      フォーム送信時に処理を行う
       <div class="area">
-
+        <form>
+          <label for="myText">テキストを入力してください。</label>
+          <div>
+            <input type="text" name="myText" id="myTextForm">
+          </div>
+          <button>送信する</button>
+        </form>
       </div>
     </div>
   </div>

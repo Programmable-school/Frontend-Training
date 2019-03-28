@@ -285,8 +285,12 @@ body {
   margin: 0;
 }
 
-
 .lesson24 #myTextArea {
   width: 150px;
   height: 150px;
+}
+
+.lesson27 .log img {
+  width: 50%;
+  height: 50%;
 }

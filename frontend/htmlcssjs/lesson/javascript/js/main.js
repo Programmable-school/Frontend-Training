@@ -502,22 +502,154 @@ function lesson26() {
   })
 }
 lesson26();
-/**
- *  Lesson 27
- **/
 
 /**
- *  Lesson 28
+ *  Lesson 27 DataURLとして読み込む
  **/
+function lesson27() {
+  const element = document.querySelector('#myFileDataUrl');
+  const imgEl = document.querySelector('.lesson27 .log img');
+
+  element.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    console.log('lesson27', file.name);
+    
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      imgEl.src = reader.result;
+    });
+    // 画像ファイルとして読み込み
+    reader.readAsDataURL(file);
+  })
+}
+lesson27();
 
 /**
- *  Lesson 29
+ *  Lesson 28  ラジオボタンの情報を取得
  **/
+function lesson28() {
+  const element = document.querySelector('form#radioGroup');
+
+  // 現在の選択状態を取得
+  const value = element.fruit.value;
+  document.querySelector('.lesson28 .log').innerHTML = `fruitの値は ${value}`;
+
+  // 変化したら反映させる
+  element.addEventListener('change', (event) => {
+    document.querySelector('.lesson28 .log').innerHTML = `fruitの値は ${event.target.value}`;
+  })
+}
+lesson28();
 
 /**
- *  Lesson 30
+ *  Lesson 29 ドロップダウンメニューの情報を取得したい
  **/
+function lesson29() {
+  const element = document.querySelector('#mySelect');
 
+  // 現在の選択状態を取得
+  const value = element.value;
+  document.querySelector('.lesson29 .log').innerHTML = `選択されているのは ${value}`;
+
+  // 変化したら反映させる
+  element.addEventListener('change', (event) => {
+    document.querySelector('.lesson29 .log').innerHTML = `選択されているのは ${event.target.value}`;
+  })
+}
+lesson29();
+
+/**
+ *  Lesson 30 スライダーの情報を取得したい
+ **/
+function lesson30() {
+  const element = document.querySelector('#myRange');
+
+  // 現在の選択状態を取得
+  const value = element.value;
+  document.querySelector('.lesson30 .log').innerHTML = `選択されているのは ${value}`;
+
+  // 変化したら反映させる
+  element.addEventListener('input', (event) => {
+    document.querySelector('.lesson30 .log').innerHTML = `選択されているのは ${event.target.value}`;
+  })
+}
+lesson30();
 /**
  *  Lesson 31
+ **/
+function lesson31() {
+  const PREF_LIST = [
+    { value: 1, name: '北海道' },
+    { value: 2, name: '青森県' },
+    { value: 3, name: '岩手県' },
+    { value: 4, name: '宮城県' },
+    { value: 5, name: '秋田県' },
+    { value: 6, name: '山形県' },
+  ]
+  
+  // 現在の選択状態を取得
+  const element = document.querySelector('#pref');
+  let optionString = '<option value="">選択してください</option>';
+  PREF_LIST.forEach((item) => {
+    optionString += `<option value="${item.value}">${item.name}</option>`;
+  });
+  element.innerHTML = optionString;
+
+  // 変化したら反映させる
+  element.addEventListener('change', (event) => {
+    const value = event.target.value
+    const selectedPref = PREF_LIST.filter(item => item.value == value)[0]
+    const message = value === '' ? '選択されてません' : `選択されているのは ${selectedPref.value}: ${selectedPref.name} です`;
+    document.querySelector('.lesson31 .log').innerHTML = message;
+  })
+}
+lesson31();
+
+/**
+ *  Lesson 32
+ **/
+function lesson32() {
+  const formElement = document.querySelector('.lesson32 form');
+  formElement.addEventListener('submit', handleSubmit);
+  function handleSubmit(event) {
+    console.log(event)
+    const isYes = confirm(`この内容で送信していいですか？\n${event.target[0].value}`);
+    if (isYes == true) {
+      // 送信されたらページが更新される。
+    } else {
+      event.preventDefault(); // 挙動をキャンセル
+    }
+  }
+}
+lesson32();
+/**
+ *  Lesson 33
+ **/
+
+/**
+ *  Lesson 34
+ **/
+
+/**
+ *  Lesson 35
+ **/
+
+/**
+ *  Lesson 36
+ **/
+
+/**
+ *  Lesson 37
+ **/
+
+/**
+ *  Lesson 38
+ **/
+
+/**
+ *  Lesson 39
+ **/
+
+/**
+ *  Lesson 40
  **/
