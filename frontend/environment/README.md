@@ -192,8 +192,13 @@ $ git push origin :<古いブランチ名>
 # 例）$ git push origin :hoge
 
 # ブランチを変更したらリモートプッシュを忘れずに
+# プッシュ（現在のブランチ）
+$ git push origin HEAD
+
+# プッシュ（ブランチを指定）
 $ git push origin <新しいブランチ名>
 # 例）$ git push origin feat/hoge
+
 
 ```
 
