@@ -266,3 +266,34 @@ table {
 a img:hover {
   opacity: 0.8;
 }
+
+/***************************
+ * ------ Lesson 4 ------  * 
+ ***************************/
+ #photograph {
+  background-image: url(../image/bg.jpg); /* 要素の背景を指定する */
+  background-repeat: no-repeat;           /* 背景画像の繰り返しパターンを指定する */
+  background-position: center top;        /* 背景画像の表示位置を指定する */
+  background-attachment: fixed;           /* 背景画像のスクロールを指定する fixedにすると背景は固定化される */
+  background-size: 100% auto;             /* 背景画像の大きさを指定する。 */
+}
+
+#photograph .photograph-list li {
+  float: left;
+  list-style: none;
+  margin: 0 20px 15px 0;
+}
+#photograph .photograph-list li:nth-child(3n) {
+  margin-right: 0;
+}
+
+/***************************
+ * ------ Lesson 5 ------  * 
+ ***************************/
+ #video {
+  background-image: url(../image/bg.jpg); /* 要素の背景を指定する */
+  background-repeat: no-repeat;           /* 背景画像の繰り返しパターンを指定する */
+  background-position: center top;        /* 背景画像の表示位置を指定する */
+  background-attachment: fixed;           /* 背景画像のスクロールを指定する fixedにすると背景は固定化される */
+  background-size: 100% auto;             /* 背景画像の大きさを指定する。 */
+}
