@@ -7,7 +7,7 @@
   
   width: 100px;
   height: 100px;
-  background: url('../image/loading.svg');
+  background: url('./image/loading.svg');
 }
 
 .rect.state-show {

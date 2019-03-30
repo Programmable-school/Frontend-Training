@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact（HTML/CSS レッスン）</title>
+  <!-- fontを設置する https://fonts.google.com/ -->
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC" rel="stylesheet">
+  <!-- CSS style.cssにCSSを実装する -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<!-- HTML Bodyの中にHTML構文を記述 -->
+<body id="contact">
+  <!-- header start -->
+  <header>
+    <div class="logo">
+      <a href="https://github.com/hukusuke1007" target="__blank">
+        <img src="../image/logo.jpg" alt="logo">
+      </a>
+    </div>
+    <nav>
+      <ul class="global-nav">
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- header end -->
+  <!-- wrap start -->
+  <div id="wrap">
+    <div class="content">
+      <div class="main-center">
+        <h1>Contact</h1>
+        <p>コメント コメント コメント コメント コメント コメント コメント コメント コメント コメント コメント コメント</p>
+        <section class="access clearfix">
+          <h2 class="icon">Access</h2>
+          <table>
+            <tr>
+              <th>所在地住所</th>
+              <td>〒123-4567<br>徳島県徳島市 XXXX XXXX</td>
+            </tr>
+            <tr>
+              <th>電話番号</th>
+              <td>090-XXXX-XXXX</td>
+            </tr>
+            <tr>
+              <th>電車でのアクセス</th>
+              <td>徳島駅より徒歩1分</td>
+            </tr>
+            <tr>
+              <th>お車でのアクセス</th>
+              <td>徳島道ICより国道11号線経由で5分</td>
+            </tr>
+          </table>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.7659522117074!2d134.5557742152095!3d34.075513530599586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35536d650f0c9e39%3A0xca37d5d1489c1a21!2z44CSNzcwLTA4NTIg5b6z5bO255yM5b6z5bO25biC5b6z5bO255S677yT5LiB55uu!5e0!3m2!1sja!2sjp!4v1553903944351!5m2!1sja!2sjp" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </section>
+        <section>
+          <h2 class="icon">Contact form</h2>
+          <div class="form">
+            <form>
+              <dl>
+                <dt><span class="required">お名前</span></dt>
+                <dd><input type="text" name="name" class="name" required></dd>
+                <dt><span class="required">メールアドレス</span></dt>
+                <dd><input type="email" name="email" class="email" required></dd>
+                <dt>お電話番号</dt>
+                <dd><input type="tel" name="tel" class="tel" required></dd>
+                <dt>お問い合わせ種別</dt>
+                <dd>
+                  <select name="type" class="type">
+                    <option value="お問い合わせA">お問い合わせA</option>
+                    <option value="お問い合わせB">お問い合わせB</option>
+                    <option value="お問い合わせC">お問い合わせC</option>
+                  </select>
+                </dd>
+                <dt>ご希望のご連絡方法</dt>
+                <dd>
+                  <input type="radio" name="contact" value="Eメール">Eメール
+                  <input type="radio" name="contact" value="お電話">お電話
+                </dd>
+                <dt>メッセージ</dt>
+                <dd><textarea name="message" class="message"></textarea></dd>
+              </dl>
+              <button type="submit" class="btn">送信</button>
+            </form>
+            <div class="attention">
+              <p>※「<span class="required"></span>」の付いている項目は必須項目です。<br>
+                 ※メッセージ送信後、48時間以内に担当者よりご連絡致します。</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- wrap end -->
+  <!-- footer start -->
+  <footer>
+    <small>(C) htmlcss-lesson</small>
+  </footer>
+  <!-- footer end -->
+</body>
+</html>
