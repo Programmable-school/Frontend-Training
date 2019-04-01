@@ -243,23 +243,23 @@ table {
   float: left;
 }
 
-.slider {
+.sidebar {
   width: 200px;
   margin: 0 10px 0 30px;
   float: right;
   font-family: 'Noto Sans SC', sans-serif;  /* font種類の設定 */
 }
 
-.slider h2 {
+.sidebar h2 {
   margin-bottom: 10px;
 }
 
-.slider ul {
+.sidebar ul {
   font-size: 16px;
   margin-left: 20px;
 }
 
-.slider ul a {
+.sidebar ul a {
   color: #333333;
 }
 
@@ -399,3 +399,75 @@ a img:hover {
 #contact .form .attention {
   margin: 20px 0 0 165px;
 }
+
+/***************************
+ * ------ Lesson 7 ------  * 
+ ***************************/
+ @media screen and (max-width:600px) {
+   /* 画面サイズが600px以下の場合に適用 */
+   body {
+     font-size: 3.5vw;
+   }
+
+   h1 {
+     font-size: 7.2vw;
+   }
+
+   h2 {
+     font-size: 6vw;
+   }
+
+   header {
+     width: auto;
+     height: 100px;
+     margin: 0 5%;
+   }
+
+   .logo {
+     float: none;
+     margin-top: 60px;
+     text-align: center;
+   }
+
+   .global-nav {
+     float: none;
+     margin-top: 10px;
+     text-align: center;
+   }
+
+   .global-nav li {
+     display: inline;
+     float: none;
+     margin: 0 8px;
+   }
+
+   #wrap {
+     margin-top: 40px;
+     padding: 35px 0 0;
+   }
+
+   .content {
+     width: 100%;
+   }
+
+   .main {
+     float: none;
+     width: auto;
+     margin: 0 5%;
+   }
+
+   h2 img {
+     max-width: 100%;
+   }
+
+   #portfolio {}
+
+   .sidebar {
+     width: auto;
+     float: none;
+     margin: 0;
+     padding: 30px 10% 10px;
+     background-color: #f7f6f4;
+   }
+
+ }
