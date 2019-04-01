@@ -198,8 +198,6 @@ $ git push origin HEAD
 # プッシュ（ブランチを指定）
 $ git push origin <新しいブランチ名>
 # 例）$ git push origin feat/hoge
-
-
 ```
 
 ## マージする
@@ -213,9 +211,47 @@ $ git pull origin <マージ先のブランチ名>
 # マージする --no-ffオプション：fast-forwardの関係であっても、必ずマージコミットを作る
 $ git merge --no-ff <マージしたいブランチ名>
 
+# リモートリポジトリとの差分を確認する
+$ git diff HEAD..<リモート名/ブランチ名>
+
 # プッシュする
 $ git push origin <マージ先のブランチ名>
 ```
+
+## 特定のファイルだけをマージする
+```bash
+# 全部マージして特定のファイル以外は全てリセットする
+$ git checkout <マージ先のブランチ名>
+$ git merge --no-commit -Xtheirs <mergeしたいブランチ名>
+$ git reset HEAD <mergeしたくないファイル名>
+$ git checkout <mergeしたくないファイル名>
+$ git commit
+
+
+# 特定のファイルだけチェックアウトして取り入れる
+$ git checkout <マージ先のブランチ名>
+$ git checkout <マージ元のブランチ名> <取り入れたいファイル名>
+```
+
+## 差分の確認
+```bash
+# 現在チェックアウトしているブランチと指定したブランチとの差分を確認
+$ git diff --name-status <差分を確認したいブランチ名>
+
+# リモートリポジトリとの差分を確認する
+$ git diff HEAD..<リモート名/ブランチ名>
+
+# 今回コミットした変更点を見る
+$ git diff HEAD^
+
+# コミット同士を比較する
+$ git diff <変更前のハッシュ>..<変更後のハッシュ>
+
+# ブランチ同士を比較する
+$ git diff <ブランチA>..<ブランチB>
+```
+
+[参考文献](https://qiita.com/shibukk/items/8c9362a5bd399b9c56be)
 
 ## masterへプッシュ
 ```bash

@@ -131,8 +131,8 @@ footer small {
   text-align: center;
   line-height: 50px;
   margin-top: 20px;
-  border-radius: 5px;         /* ボーダーの角を丸める */
-  border: 3px solid #009cd3 /* ボタンに枠線をつける */
+  border-radius: 5px;          /* ボーダーの角を丸める */
+  border: 3px solid #009cd3; /* ボタンに枠線をつける */
 }
 
 .btn a:hover {
@@ -296,4 +296,106 @@ a img:hover {
   background-position: center top;        /* 背景画像の表示位置を指定する */
   background-attachment: fixed;           /* 背景画像のスクロールを指定する fixedにすると背景は固定化される */
   background-size: 100% auto;             /* 背景画像の大きさを指定する。 */
+}
+
+/***************************
+ * ------ Lesson 6 ------  * 
+ ***************************/
+ #contact {
+  background-image: url(../image/bg.jpg); /* 要素の背景を指定する */
+  background-repeat: no-repeat;           /* 背景画像の繰り返しパターンを指定する */
+  background-position: center top;        /* 背景画像の表示位置を指定する */
+  background-attachment: fixed;           /* 背景画像のスクロールを指定する fixedにすると背景は固定化される */
+  background-size: 100% auto;             /* 背景画像の大きさを指定する。 */
+}
+
+#contact .access table {
+  float: left;
+} 
+
+#contact .access th,
+#contact .access td {
+  text-align: left;
+  vertical-align: top;
+  line-height: 2.5;
+}
+
+#contact .access td {
+  padding-left: 30px;
+}
+
+#contact .access iframe {
+  width: 460px;
+  float: right;
+}
+
+#contact .form {
+  background-color: #eaeaea;
+  padding: 30px 50px;
+}
+
+#contact .form dl dt {
+  width: 165px;
+  padding: 10px 0;
+  float: left;
+  clear: both;
+}
+
+#contact .form dl dd {
+  padding: 10px 0;
+}
+
+#contact .form .name {
+  width: 240px;
+  height: 30px;
+}
+
+#contact .form .email {
+  width: 300px;
+  height: 30px;
+}
+
+#contact .form .tel {
+  width: 240px;
+  height: 30px;
+}
+
+#contact .form .type {
+  width: 180px;
+  height: 30px;
+}
+
+#contact .form .message {
+  width: 660px;
+  height: 150px;
+}
+
+#contact .form button {
+  background-color: #009cd3;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 'Noto Sans SC', sans-serif;
+  width: 120px;
+  display: block;              /* ボックスの表示形式を指定する */
+  text-align: center;
+  line-height: 50px;
+  margin-top: 20px;
+  border-radius: 5px;          /* ボーダーの角を丸める */
+  border: 3px solid #009cd3; /* ボタンに枠線をつける */
+  margin-left: 165px;
+}
+
+#contact .form button:hover {
+  background-color: #ffffff;
+  color: #009cd3;
+  cursor: pointer;            /* ポインタ（カーソル）の形状を指定する */
+}
+
+#contact .form .required::after {
+  content: " * ";
+  color: #ff0000;
+}
+
+#contact .form .attention {
+  margin: 20px 0 0 165px;
 }

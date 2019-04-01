@@ -30,7 +30,6 @@ JavaScriptのトレーニングです。こちらの[技術書](https://www.amaz
 
 ### 課題
 
-
 ## 参考
 - [HTML＆CSSとWebデザインが 1冊できちんと身につく本](https://www.amazon.co.jp/dp/B0746F9XKD/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)
 - [JavaScript コードレシピ集](https://www.amazon.co.jp/JavaScript-%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AC%E3%82%B7%E3%83%94%E9%9B%86-%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEICS-%E6%B1%A0%E7%94%B0%E6%B3%B0%E5%BB%B6-ebook/dp/B07N8YVCRQ)
