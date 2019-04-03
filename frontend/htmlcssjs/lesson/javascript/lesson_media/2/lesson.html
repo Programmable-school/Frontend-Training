@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript レッスン</title>
+  <!-- CSS style.cssにCSSを実装する -->
+  <link rel="stylesheet" href="../../common/style.css"/>
+  <link rel="stylesheet" href="style.css">
+  <!-- JavaScript main.jsにJavaScriptを実装する -->
+  <!-- main.jsを読み込む。deferはHTMLパース後に読み込まれるようにするための定義。-->
+  <script src="main.js" defer></script>
+</head>
+<!-- HTML Bodyの中にHTML構文を記述 -->
+<body>
+  <main class="centering">
+    <p>
+      <!-- 
+        data-XXX は任意に決められる属性、予め画像データをdata-srcで定義してJS側で確保し、
+        ボタンが押されたタイミングでsrcタグに設定して画像を表示する。
+      -->
+      <img data-src="images/photo_a.jpg"
+           width="320"
+           height="214"/>
+      <img data-src="images/photo_b.jpg"
+           width="320"
+           height="214"/>
+    </p>
+    <button class="btn">読み込む</button>
+  </main>
+</body>
+</html>
