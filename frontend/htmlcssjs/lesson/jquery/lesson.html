@@ -2,17 +2,20 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>JavaScript レッスン</title>
+  <title>jQuery レッスン</title>
   <!-- CSS style.cssにCSSを実装する -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="vender/liscroll/li-scroller.css" type="text/css">
-  <!-- jquery -->
+  <!-- jquery plugin -->
   <script type="text/javascript" src="vender/jquery/jquery-3.3.1.js"></script>
   <script type="text/javascript" src="vender/liscroll/jquery.li-scroller.1.0.js"></script>
-  <!-- JavaScript main.jsにJavaScriptを実装する -->
-  <!-- main.jsを読み込む。deferはHTMLパース後に読み込まれるようにするための定義。-->
+  <!-- js -->
   <script src="js/main.js" defer></script>
-  
+  <script language='JavaScript'>
+    function func1(){
+      console.log('func1')
+    }
+  </script>
 </head>
 <!-- HTML Bodyの中にHTML構文を記述 -->
 <body>
@@ -22,6 +25,11 @@
       <li><span>10/10/2007</span><a href="#">End up doing is ...</a></li>
       <li><span>10/10/2007</span><a href="#">The code that you ...</a></li>
     </ul>
+    <div style="margin-top: 20px;">
+      <a id="link__continue--middle" href="javascript:func1();">リンク1</a>
+      <a id="link__continue--lower" href="javascript:func1();">リンク2</a>
+      <a id="xxxxxx" href="javascript:func1();">リンク3</a>
+    </div>
   </div>
 </body>
 </html>
