@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript レッスン</title>
+  <!-- CSS style.cssにCSSを実装する -->
+  <link rel="stylesheet" href="../../common/style.css"/>
+  <link rel="stylesheet" href="style.css">
+  <!-- JavaScript main.jsにJavaScriptを実装する -->
+  <!-- main.jsを読み込む。deferはHTMLパース後に読み込まれるようにするための定義。-->
+  <script src="main.js" defer></script>
+</head>
+<!-- HTML Bodyの中にHTML構文を記述 -->
+<body>
+  <main class="centering">
+    <button onclick="loadAndPlay()">再生する</button>
+    <button onclick="stop()">停止する</button>
+    <video id="myVideo" width="640" height="480" autoplay></video>
+  </main>
+</body>
+</html>
