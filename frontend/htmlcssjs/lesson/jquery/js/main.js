@@ -3,5 +3,5 @@ $(function() {
   $("#ticker01").off("mouseenter mouseleave");
 })
 
-$("#link__continue--middle").attr("href", "https://github.com/hukusuke1007")
-$("#link__continue--lower").attr("href", "https://github.com/hukusuke1007")
+const link = $("#link__continue--middle, #link__continue--lower");
+link.attr("href", "https://github.com/hukusuke1007")

@@ -5,6 +5,7 @@
   <title>JavaScript レッスン</title>
   <!-- CSS style.cssにCSSを実装する -->
   <link rel="stylesheet" href="../../common/style.css"/>
+  <link rel="stylesheet" href="style.css">
   <!-- JavaScript main.jsにJavaScriptを実装する -->
   <!-- main.jsを読み込む。deferはHTMLパース後に読み込まれるようにするための定義。-->
   <script src="main.js" defer></script>
@@ -12,10 +13,16 @@
 <!-- HTML Bodyの中にHTML構文を記述 -->
 <body>
   <main class="centering">
-    <div>
-      <canvas id="my-canvas-fill" width="100" height="100"></canvas>
-      <canvas id="my-canvas-stroke" width="100" height="100"></canvas>
-    </div>
+    <figure>
+      <canvas id="canvas-original" width="150" height="150"></canvas>
+      <figcaption>▲ 元の画像</figcaption>
+    </figure>
+    <figure>
+      <canvas id="canvas-effected" width="150" height="150"></canvas>
+      <figcaption>▲変換後の画像</figcaption>
+    </figure>
+
+    <button id="btnDownload">ダウンロード<button>
   </main>
 </body>
 </html>
