@@ -1,0 +1,59 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background: #000;
+}
+
+body:before {
+  width: 100%;
+  height: 100%;
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-size: cover;
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+main {
+  background-color: rgba(0, 0, 0, 0.58);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 900px;
+  height: 480px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+main.centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+p {
+  color: #fff;
+}
+
+button {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
