@@ -82,14 +82,14 @@ JSでfor文またはwhile文を使って、0から100までの数字を表示す
 
 実行結果
 
+[index.html](./lesson/javascript/task/6/index.html)
 
 #### 課題 7
 textareaとbuttonを使って入力した項目を列挙して表示する画面を実装してください。
 
-JSで配列管理してください。
-
 実行結果
 
+[index.html](./lesson/javascript/task/7/index.html)
 
 #### 課題 8
 課題 7にチェックボックスを設け、チェックされた項目を削除できる機能を実装してください。
@@ -97,6 +97,7 @@ JSで配列管理してください。
 
 実行結果
 
+[index.html](./lesson/javascript/task/8/index.html)
 
 #### 課題 9
 カウントダウンタイマーを実装してください。
