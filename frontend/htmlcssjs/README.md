@@ -100,16 +100,18 @@ textareaとbuttonを使って入力した項目を列挙して表示する画面
 [index.html](./lesson/javascript/task/8/index.html)
 
 #### 課題 9
-カウントダウンタイマーを実装してください。
-
-実行結果
-
-#### 課題 10
 ストップウォッチを実装してください。
 
 実行結果
 
+[index.html](./lesson/javascript/task/9/index.html)
 
+#### 課題 10
+課題 9をベースにカウントダウンタイマーを実装してください。
+
+実行結果
+
+[index.html](./lesson/javascript/task/10/index.html)
 
 
 ## 参考
