@@ -36,7 +36,7 @@ JSから要素のinnerHTMLへ「こんにちは」を設定して表示してく
 
 実行結果
 
-[index.html](./lesson/javascript/task/1/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/1/index.html)
 
 #### 課題 2
 時間によって挨拶を表示する画面を実装してください。
@@ -50,7 +50,7 @@ JSでDate関数を使ってください。
 
 実行結果
 
-[index.html](./lesson/javascript/task/2/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/2/index.html)
 
 #### 課題 3
 JSでfor文またはwhile文を使って、0から100までの数字を表示する画面を実装してください。
@@ -59,7 +59,7 @@ JSでfor文またはwhile文を使って、0から100までの数字を表示す
 
 実行結果
 
-[index.html](./lesson/javascript/task/3/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/3/index.html)
 
 #### 課題 4
 数字を0から100まで表示する画面を実装してください。
@@ -68,28 +68,28 @@ JSでfor文またはwhile文を使って、0から100までの数字を表示す
 
 実行結果
 
-[index.html](./lesson/javascript/task/4/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/4/index.html)
 
 #### 課題 5
 3つのinputに入力された文字列を連結してが表示する画面を実装してください。
 
 実行結果
 
-[index.html](./lesson/javascript/task/5/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/5/index.html)
 
 #### 課題 6
 足し算、引き算、掛け算、割り算する関数を実装してください。
 
 実行結果
 
-[index.html](./lesson/javascript/task/6/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/6/index.html)
 
 #### 課題 7
 textareaとbuttonを使って入力した項目を列挙して表示する画面を実装してください。
 
 実行結果
 
-[index.html](./lesson/javascript/task/7/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/7/index.html)
 
 #### 課題 8
 課題 7にチェックボックスを設け、チェックされた項目を削除できる機能を実装してください。
@@ -97,21 +97,24 @@ textareaとbuttonを使って入力した項目を列挙して表示する画面
 
 実行結果
 
-[index.html](./lesson/javascript/task/8/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/8/index.html)
 
 #### 課題 9
 ストップウォッチを実装してください。
 
 実行結果
 
-[index.html](./lesson/javascript/task/9/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/9/index.html)
 
 #### 課題 10
 課題 9をベースにカウントダウンタイマーを実装してください。
 
 実行結果
 
-[index.html](./lesson/javascript/task/10/index.html)
+[index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/10/index.html)
+
+
+[答え](./lesson/javascript/task/)
 
 
 ## 参考
