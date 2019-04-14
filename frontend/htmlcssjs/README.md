@@ -102,6 +102,9 @@ textareaとbuttonを使って入力した項目を列挙して表示する画面
 #### 課題 9
 ストップウォッチを実装してください。
 
+[参考サイト](https://qiita.com/ryomaDsakamoto/items/c49a9d4cd2017405af1b)
+
+
 実行結果
 
 [index.html](https://programmable-school.github.io/Frontend-Training/frontend/htmlcssjs/lesson/javascript/task/9/index.html)
