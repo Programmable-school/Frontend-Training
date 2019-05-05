@@ -22,7 +22,7 @@
 - [掲示板を作ろう](#掲示板を作ろう)
 - [チャットアプリを作ろう](#チャットアプリを作ろう)
 
-## Firebase 公式ページ
+## Firebase公式ページ
 [https://firebase.google.com/docs/web/setup?hl=ja](https://firebase.google.com/docs/web/setup?hl=ja)
 
 - [Firestore](https://firebase.google.com/docs/firestore/quickstart?hl=ja)

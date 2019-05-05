@@ -10,6 +10,11 @@
 
 ### 課題
 
+## Firebase公式ページ
+[https://firebase.google.com/docs/web/setup?hl=ja](https://firebase.google.com/docs/web/setup?hl=ja)
+
+- [Cloud Storage](https://firebase.google.com/docs/storage/?hl=ja)
+
 ## 準備
 [環境構築](./README_1.md)を行ってから作業してください。
 

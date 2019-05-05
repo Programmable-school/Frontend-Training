@@ -2,37 +2,6 @@
 
 > Vue.jsでWebアプリケーション開発の基礎と実務スキルを身につけるためのカリキュラム
 
-## 概要
-簡単にWebアプリケーションを作れるカリキュラムです。<br><br>
-・フロントエンド<br>
-フレームワークVue.jsを採用、合わせて以下の言語を学習します。<br>
-- HTML
-- JavaScript(TypeScript)
-- CSS(Stylus)
-
-
-・バックエンド<br>
-Firebaseを採用、以下の技術を学習します。<br>
-- Cloud Firestore
-- Firebase Authentication
-- Cloud Storage
-- Cloud Functions
-- Firebase Hosting
-
-
-・ブロックチェーン<br>
-NEMプロトコルを採用。<br>
-NEMの基本機能や独自トークンの送受信方法を学習します。<br>
-
-## 環境
-以下のバージョン以上を推奨
-- Vue CLI 3.0
-- TypeScript 3.0
-- yarn 1.9.4
-- npm 5.6.0
-- Chrome 69.0
-- FireFox 62.0
-
 # カリキュラム
 ## 基礎
 1. [HTML/CSS/JavaScript](./frontend/htmlcssjs/README.md)
@@ -56,11 +25,10 @@ NEMの基本機能や独自トークンの送受信方法を学習します。<b
 ## Backend
 1. [Firebase](./backend/firebase-training/README.md)<br>
 [Cloud Firestore](./backend/firebase-training/README_1.md)<br>
-[Firebase Authantication](./backend/firebase-training/README_1.md)<br>
-Cloud Storage<br>
+[Firebase Authantication](./backend/firebase-training/README_1.md#Lesson6)<br>
+[Cloud Storage](./backend/firebase-training/README_2.md)<br>
 Cloud Functions<br>
 Firebase Hosting<br>
-2. Vue.js + Firebaseでメッセージ共有アプリ作成<br>
 
 ## Blockchain
 1. NEM<br>
@@ -68,3 +36,35 @@ Firebase Hosting<br>
 
 # その他
 1. GitHubPagesへ公開<br>
+
+## 環境
+以下のバージョン以上を推奨
+- Vue CLI 3.0
+- TypeScript 3.0
+- yarn 1.9.4
+- npm 5.6.0
+- Chrome 69.0
+- FireFox 62.0
+
+
+## 概要
+簡単にWebアプリケーションを作れるカリキュラムです。<br><br>
+・フロントエンド<br>
+フレームワークVue.jsを採用、合わせて以下の言語を学習します。<br>
+- HTML
+- JavaScript(TypeScript)
+- CSS(Stylus)
+
+
+・バックエンド<br>
+Firebaseを採用、以下の技術を学習します。<br>
+- Cloud Firestore
+- Firebase Authentication
+- Cloud Storage
+- Cloud Functions
+- Firebase Hosting
+
+
+・ブロックチェーン<br>
+NEMプロトコルを採用。<br>
+NEMの基本機能や独自トークンの送受信方法を学習します。<br>
