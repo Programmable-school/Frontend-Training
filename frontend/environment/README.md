@@ -281,6 +281,15 @@ $ git commit -a -m "comment"
 $ git push origin master
 ```
 
+## コミット対象から除く
+```bash
+# キャッシュから削除（ファイルは消えない）
+$ git rm --cached <ファイル名>
+
+# 削除（ファイルごと消える）
+$ git rm <ファイル名>
+```
+
 ## コミットの取り消し
 ``` bash
 # コミットログ
