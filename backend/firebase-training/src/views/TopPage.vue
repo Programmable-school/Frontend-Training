@@ -64,6 +64,15 @@
             </router-link>
           </v-flex>
         </v-flex>
+        <!-- Cloud Storage  -->
+        <v-flex>
+          <h2>Cloud Storageトレーニング</h2>
+          <v-flex style="margin: 24px;">
+            <router-link to="./image_operation_page">
+              <div><b>画像の保存、取得、削除</b></div>
+            </router-link>
+          </v-flex>
+        </v-flex>
       </v-card>
     </v-flex>
   </div>

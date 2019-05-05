@@ -12,6 +12,7 @@ import EmailAuthPage from './views/authentication/EmailAuthPage.vue'
 import EmailAuthWithCreateUserPage from './views/authentication/EmailAuthWithCreateUserPage.vue'
 import SecurityRuleLessonPage from './views/authentication/SecurityRuleLessonPage.vue'
 import SocialLoginPage from './views/authentication/SocialLoginPage.vue'
+import ImageOperationPage from './views/storage/ImageOperationPage.vue'
 
 Vue.use(Router)
 
@@ -78,6 +79,11 @@ export default new Router({
       path: '/social_login_page',
       name: 'social_login_page',
       component: SocialLoginPage,
+    },
+    {
+      path: '/image_operation_page',
+      name: 'image_operation_page',
+      component: ImageOperationPage,
     },
   ],
 })
