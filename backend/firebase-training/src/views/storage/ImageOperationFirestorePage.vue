@@ -5,6 +5,12 @@
         <v-flex>
           <h2>Firestoreとの連携</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
+            <v-flex v-if="user!==null">
+              <h3>ファイル名</h3>
+              <v-flex style="margin: 8px">
+                <p v-if="user.image!==undefined">{{ user.image.name }}</p>
+              </v-flex>
+            </v-flex>
             <v-flex>
               <v-flex class="upload-img-container">
                 <img class="uploaded-img" :src="getImage" />
