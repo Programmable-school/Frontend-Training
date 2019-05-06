@@ -72,6 +72,11 @@
               <div><b>画像の保存、取得、削除</b></div>
             </router-link>
           </v-flex>
+          <v-flex style="margin: 24px;">
+            <router-link to="./image_operation_firestore_page">
+              <div><b>Firestoreとの連携</b></div>
+            </router-link>
+          </v-flex>
         </v-flex>
       </v-card>
     </v-flex>

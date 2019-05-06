@@ -13,6 +13,7 @@ import EmailAuthWithCreateUserPage from './views/authentication/EmailAuthWithCre
 import SecurityRuleLessonPage from './views/authentication/SecurityRuleLessonPage.vue'
 import SocialLoginPage from './views/authentication/SocialLoginPage.vue'
 import ImageOperationPage from './views/storage/ImageOperationPage.vue'
+import ImageOperationFirestorePage from './views/storage/ImageOperationFirestorePage.vue'
 
 Vue.use(Router)
 
@@ -84,6 +85,11 @@ export default new Router({
       path: '/image_operation_page',
       name: 'image_operation_page',
       component: ImageOperationPage,
+    },
+    {
+      path: '/image_operation_firestore_page',
+      name: 'image_operation_firestore_page',
+      component: ImageOperationFirestorePage,
     },
   ],
 })
