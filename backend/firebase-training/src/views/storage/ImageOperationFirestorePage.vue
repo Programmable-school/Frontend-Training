@@ -12,6 +12,9 @@
               <v-flex style="margin-top: 8px;">
                 <input type="file" @change="onFileChange" />
               </v-flex>
+              <v-flex>
+                <p style="color: red;">{{ message }}</p>
+              </v-flex>
             </v-flex>
             <v-flex style="margin-top: 52px;">
               <v-btn
@@ -40,20 +43,23 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import firebase from 'firebase/app'
 import 'firebase/storage'
-import { User } from './model/User'
+import { User } from '@/ts/firebase/model/User'
 
 /** ファイル操作で扱うデータをinterfaceで定義して扱いやすくする */
-import { FileInfo } from './FileInfo'
+import { FileInfo } from '@/ts/interface/FileInfo'
 
 @Component({
   name: 'ImageOperationFirestorePage',
 })
 
 export default class ImageOperationFirestorePage extends Vue {
-  /** ローディングフラグ */
-  isLoading: boolean = false
 
+  isLoading: boolean = false
+  message: string = ''
+
+  /** モデルクラス */
   user: User | null = null
+
   /**
    * ファイル
    * data: 画像のバイナリデータ
@@ -62,9 +68,6 @@ export default class ImageOperationFirestorePage extends Vue {
    */
   fileInfo: FileInfo = { data: null, file: null, url: null, isDownloaded: false }
 
-  /** CloudStorageの保存先パス */
-  storagePath: string = '/version/1/folder/'
-
   async mounted() {
     await this.configure()
   }
@@ -72,7 +75,11 @@ export default class ImageOperationFirestorePage extends Vue {
   /** 初期処理 */
   async configure() {
     try {
-      this.user = new User('storage_lesson_user')
+      /**
+       * 本来であればclass名とコレクション名は同じにすることを推奨するが
+       * レッスン用としてコレクション名はuserpracticeにする
+       */
+      this.user = new User('userpractice', 'storage_lesson_user')
       await this.user.get()
       if (this.user.image !== undefined && this.user.image.url !== null) {
         this.fileInfo.url = this.user.image.url
@@ -116,20 +123,19 @@ export default class ImageOperationFirestorePage extends Vue {
   /** 登録 */
   async onRegist() {
     this.isLoading = true
+    this.message = ''
     if (this.fileInfo.file !== null) {
       await this.uploadFile(this.fileInfo.file)
     } else {
-      console.log('imageUrl is not data:image')
+      this.message = '新しいファイルを選択してください。'
     }
-    const user = new User()
-    user.name = 'aiueo'
-    await user.save()
     this.isLoading = false
   }
 
   /** 削除 */
   async onDelete() {
     this.isLoading = true
+    this.message = ''
     console.log(this.fileInfo)
     if (this.fileInfo.isDownloaded === true) {
       await this.deleteFile()

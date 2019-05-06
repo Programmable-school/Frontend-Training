@@ -2,8 +2,13 @@ import firebase from 'firebase/app'
 import 'firebase/storage'
 
 export class Base {
-  /** DocumentID */
-  uid: string
+  /** ドキュメントフィールド */
+  uid: string       // ドキュメントID
+  createdAt?: Date  // 作成日
+  updatedAt?: Date  // 更新日
+
+  /** property */
+  isSaved: boolean = false
 
   /** Firestore */
   path: string
@@ -12,7 +17,6 @@ export class Base {
   db: firebase.firestore.Firestore
   collection: firebase.firestore.CollectionReference
   ref: firebase.firestore.DocumentReference
-  batch: firebase.firestore.WriteBatch
   storage: firebase.storage.Storage
 
   constructor(collectionName: string, id: string | null = null) {
@@ -20,7 +24,6 @@ export class Base {
     this.collectionName = collectionName
     this.path = `version/${this.version}/${this.collectionName}`
     this.collection = this.db.collection(this.path)
-    this.batch = this.db.batch()
     this.storage = firebase.storage()
     if (id !== null) {
       this.uid = id
@@ -29,5 +32,11 @@ export class Base {
     }
     console.log(this.uid)
     this.ref = this.collection.doc(this.uid)
+  }
+
+  protected clear() {
+    this.isSaved = false
+    this.createdAt = undefined
+    this.updatedAt = undefined
   }
 }

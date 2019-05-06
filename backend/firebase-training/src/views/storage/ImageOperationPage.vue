@@ -12,6 +12,9 @@
               <v-flex style="margin-top: 8px;">
                 <input type="file" @change="onFileChange" />
               </v-flex>
+              <v-flex>
+                <p style="color: red;">{{ message }}</p>
+              </v-flex>
             </v-flex>
             <v-flex style="margin-top: 52px;">
               <v-btn
@@ -42,15 +45,16 @@ import firebase from 'firebase/app'
 import 'firebase/storage'
 
 /** ファイル操作で扱うデータをinterfaceで定義して扱いやすくする */
-import { FileInfo } from './FileInfo'
+import { FileInfo } from '@/ts/interface/FileInfo'
 
 @Component({
   name: 'ImageOperationPage',
 })
 
 export default class ImageOperationPage extends Vue {
-  /** ローディングフラグ */
+
   isLoading: boolean = false
+  message: string = ''
 
   /**
    * ファイル
@@ -100,11 +104,12 @@ export default class ImageOperationPage extends Vue {
   /** 登録 */
   async onRegist() {
     this.isLoading = true
+    this.message = ''
     if (this.fileInfo.file !== null) {
       await this.uploadFile(this.fileInfo.file)
       await this.downloadFile()
     } else {
-      console.log('imageUrl is not data:image')
+      this.message = '新しいファイルを選択してください。'
     }
     this.isLoading = false
   }
@@ -112,7 +117,7 @@ export default class ImageOperationPage extends Vue {
   /** 削除 */
   async onDelete() {
     this.isLoading = true
-    console.log(this.fileInfo)
+    this.message = ''
     if (this.fileInfo.isDownloaded === true) {
       await this.deleteFile()
     }

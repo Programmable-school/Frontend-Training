@@ -116,7 +116,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import firebase from 'firebase/app'
 import { format } from 'date-fns'
-import { ShopItem } from '../../ts/firebase/ShopItem'
+import { ShopItem } from '@/ts/firebase/origin_model/ShopItem'
 
 @Component({
   name: 'ShopItemBuyPageOriginalModel',

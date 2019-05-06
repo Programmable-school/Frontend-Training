@@ -4,25 +4,23 @@ import StorageFile from './StorageFile'
 import { Base } from './Base'
 
 export class User extends Base {
+  /** ドキュメントフィールド */
   name?: string
   image?: StorageFile
-  createdAt?: Date
-  updatedAt?: Date
 
-  constructor(id: string | null = null) {
-    /**
-     * 本来であればclass名とコレクション名は同じにすることを推奨するが
-     * レッスン用としてコレクション名はuserpracticeにする
-     */
-    super('userpractice', id)
+  constructor(collectionName: string = 'user', id: string | null = null) {
+    console.log(collectionName, id)
+    super(collectionName, id)
   }
 
   /** Firestore 保存 */
   async save() {
     try {
       const item = this.pack()
-      this.batch.set(this.ref, item, { merge: true })
-      await this.batch.commit()
+      const batch: firebase.firestore.WriteBatch = this.db.batch()
+      batch.set(this.ref, item, { merge: true })
+      await batch.commit()
+      this.isSaved = true
     } catch (error) {
       throw error
     }
@@ -32,8 +30,10 @@ export class User extends Base {
   async update() {
     try {
       const item = this.pack(true)
-      this.batch.set(this.ref, item, { merge: true })
-      await this.batch.commit()
+      const batch: firebase.firestore.WriteBatch = this.db.batch()
+      batch.set(this.ref, item, { merge: true })
+      await batch.commit()
+      this.isSaved = true
     } catch (error) {
       throw error
     }
@@ -42,18 +42,8 @@ export class User extends Base {
   /** Firestore 取得 */
   async get() {
     try {
-      const item: firebase.firestore.DocumentSnapshot  = await this.ref.get()
-      if (item.exists) {
-        const data = item.data()
-        console.log(data)
-        this.uid = item.id
-        if (data !== undefined) {
-          this.name = 'name' in data ? data.name : undefined
-          this.image = 'image' in data ? data.image : undefined
-          this.createdAt = 'createdAt' in data ? data.createdAt : undefined
-          this.updatedAt = 'updatedAt' in data ? data.updatedAt : undefined
-        }
-      }
+      const snapshot: firebase.firestore.DocumentSnapshot = await this.ref.get()
+      this.setProperty(snapshot)
     } catch (error) {
       throw error
     }
@@ -62,8 +52,9 @@ export class User extends Base {
   /** Firestore 削除 */
   async delete() {
     try {
-      this.batch.delete(this.ref)
-      await this.batch.commit()
+      const batch: firebase.firestore.WriteBatch = this.db.batch()
+      batch.delete(this.ref)
+      await batch.commit()
       this.clear()
     } catch (error) {
       throw error
@@ -84,11 +75,7 @@ export class User extends Base {
         url: downloadUrl,
         fileType: meta.contentType !== null && meta.contentType !== undefined ? meta.contentType : '',
       }
-      this.batch.set(this.ref, {
-        image: this.image,
-        updatedAt: new Date(),
-      }, { merge: true })
-      await this.batch.commit()
+      await this.save()
     } catch (error) {
       throw error
     }
@@ -97,18 +84,26 @@ export class User extends Base {
   /** Cloud Storage 削除 */
   async deleteFile(filename: string = 'filename') {
     try {
-      const storagePath: string = this.path + filename
+      const storagePath: string = `${this.path}/${this.uid}/${filename}`
       const ref = this.storage.ref().child(storagePath)
       await ref.delete()
-      this.batch.set(this.ref, {
+      const batch: firebase.firestore.WriteBatch = this.db.batch()
+      batch.set(this.ref, {
         image: firebase.firestore.FieldValue.delete(),
         updatedAt: new Date(),
       }, { merge: true })
-      await this.batch.commit()
+      await batch.commit()
       this.image = undefined
     } catch (error) {
       throw error
     }
+  }
+
+  /** モデルクラスの内部プロパティを初期化する */
+  protected clear() {
+    super.clear()
+    this.name = undefined
+    this.image = undefined
   }
 
   /** 保存するデータをまとめる */
@@ -132,11 +127,13 @@ export class User extends Base {
         item.updatedAt = this.updatedAt
       }
     } else {
-      this.createdAt = date
-      this.updatedAt = date
-      if (this.createdAt !== undefined) {
-        item.createdAt = this.createdAt
+      if (this.isSaved !== true) {
+        this.createdAt = date
+        if (this.createdAt !== undefined) {
+          item.createdAt = this.createdAt
+        }
       }
+      this.updatedAt = date
       if (this.updatedAt !== undefined) {
         item.updatedAt = this.updatedAt
       }
@@ -144,12 +141,20 @@ export class User extends Base {
     return item
   }
 
-  /** 内部プロパティを初期化する */
-  private clear() {
-    this.name = undefined
-    this.image = undefined
-    this.createdAt = undefined
-    this.updatedAt = undefined
+  /** モデルクラスの内部プロパティへセットする */
+  private setProperty(snapshot: firebase.firestore.DocumentSnapshot) {
+    if (snapshot.exists) {
+      const data = snapshot.data()
+      console.log(data)
+      this.uid = snapshot.id
+      if (data !== undefined) {
+        this.name = 'name' in data ? data.name : undefined
+        this.image = 'image' in data ? data.image : undefined
+        this.createdAt = 'createdAt' in data ? data.createdAt : undefined
+        this.updatedAt = 'updatedAt' in data ? data.updatedAt : undefined
+        this.isSaved = true
+      }
+    }
   }
 
 }

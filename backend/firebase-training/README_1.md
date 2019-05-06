@@ -182,14 +182,13 @@ Firebaseコンソールで認証設定より匿名認証を許可してくださ
 <a href="https://imgur.com/x6c01dN"><img src="https://i.imgur.com/x6c01dN.png" width="65%" height="65%" /></a>
 
 
-#### 実装
 #### スクリーンショット
 <a href="https://imgur.com/oVFEFwn"><img src="https://i.imgur.com/oVFEFwn.png" width="50%" height="50%" /></a>
 
 
 <a href="https://imgur.com/cr8xVhT"><img src="https://i.imgur.com/cr8xVhT.png" width="50%" height="50%" /></a>
 
-
+#### 実装
 firebase/auth を使ってログインとログアウトを実装します。
 
 ```ts
@@ -237,11 +236,10 @@ Firebaseコンソールで認証設定よりメール認証を許可してくだ
 
 <a href="https://imgur.com/te0JsfD"><img src="https://i.imgur.com/te0JsfD.png" width="65%" height="65%" /></a>
 
-#### 実装
 #### スクリーンショット
 <a href="https://imgur.com/Zc6BP7z"><img src="https://i.imgur.com/Zc6BP7z.png" width="50%" height="50%" /></a>
 
-
+#### 実装
 メール認証を行う場合は「サインアップ」「ログイン」機能を実装します。
 ```ts
 /** サインアップする */
@@ -442,11 +440,10 @@ match /user/{userId} {
 }
 ```
 
-#### 実装
 #### スクリーンショット
 <a href="https://imgur.com/TMu5yrj"><img src="https://i.imgur.com/TMu5yrj.png" width="50%" height="50%" /></a>
 
-
+#### 実装
 セキュリティールールの仕様は以下の通りです。
 
 | データベース | 本人 <br>（読み込み）| 本人 <br>（書き込み）| 他人 <br>（読み込み）| 他人 <br>（書き込み）|
@@ -518,10 +515,10 @@ Facebookのコンソール画面 -> 左メニューのプロダクト欄 ->  Fac
 <a href="https://imgur.com/SrT6mGn"><img src="https://i.imgur.com/SrT6mGn.png" width="70%" height="70%" /></a>
 
 
-#### 実装
 #### スクリーンショット
 <a href="https://imgur.com/wXwKz0j"><img src="https://i.imgur.com/wXwKz0j.png" width="70%" height="70%" /></a>
 
+#### 実装
 [SocialLoginPage](./src/views/authentication/SocialLoginPage.vue)と[SignInFinishPage](./src/views/authentication/SignInFinishPage.vue)を写経してページを作成してください。
 
 
