@@ -1,0 +1,28 @@
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /version/{versionId} {
+      function isAuthenticated() {
+        return request.auth != null;
+      }
+      function isUserAuthenticated(id) {
+        return request.auth.uid == id;
+      }
+      match /user/{userId} {
+        // 認証有りで操作可
+        match /{fileId} {
+          allow read, write: if isAuthenticated() && isUserAuthenticated(userId);
+        }
+      }
+      match /folder/{fileId} {
+        // 認証無しで操作可
+        allow read, write: if true;
+      }
+      match /userpractice/{userpracticeId} {
+        // 認証無しで操作可
+        match /{fileId} {
+          allow read, write: if true;
+        }
+      }
+    }
+  }
+}

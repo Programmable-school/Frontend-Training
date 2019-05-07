@@ -29,7 +29,7 @@
 #### 実装
 レッスン用に予め、Cloud Storageのセキュリティルールは認証無しに操作できるようにします。
 
-<a href="https://imgur.com/OY6HDFR"><img src="https://i.imgur.com/OY6HDFR.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/OY6HDFR"><img src="https://i.imgur.com/OY6HDFR.png" width="70%" height="70%" /></a>
 
 
 以下のコードを写経してページを作成してください。
@@ -59,17 +59,92 @@ Firestoreのデータ及びビジネスロジックをまとめたモデルク�
 
 Firestoreは以下のようになります。
 
-<a href="https://imgur.com/SHnsG6Q"><img src="https://i.imgur.com/SHnsG6Q.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/SHnsG6Q"><img src="https://i.imgur.com/SHnsG6Q.png" width="70%" height="70%" /></a>
 
 
 Cloud StorageのパスはFirestoreと同様のパスで管理します。
 
-<a href="https://imgur.com/qdeETw4"><img src="https://i.imgur.com/qdeETw4.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/qdeETw4"><img src="https://i.imgur.com/qdeETw4.png" width="70%" height="70%" /></a>
 
 
 ## Lesson13
 ### セキュリティールールの利用（操作、ファイル容量、拡張子の許容制御）
 #### スクリーンショット
+
+#### 実装
+Cloud Storageのstorage.rulesを作成します。
+
+```bash
+$ firebase init
+? Which Firebase CLI features do you want to setup for this folder? Press Space to select features, then Enter to confirm your choices. 
+ ◯ Database: Deploy Firebase Realtime Database Rules
+ ◯ Firestore: Deploy rules and create indexes for Firestore
+ ◯ Functions: Configure and deploy Cloud Functions
+ ◯ Hosting: Configure and deploy Firebase Hosting sites
+❯◉ Storage: Deploy Cloud Storage security rules
+
+? What file should be used for Storage Rules? storage.rules
+i  Writing configuration info to firebase.json...
+i  Writing project information to .firebaserc...
+
+✔  Firebase initialization complete!
+```
+
+storage.rulesを確認します。<br>
+デフォルトでは認証ユーザのみストレージの読み書きを許可するよう設定されています。
+
+```js
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth!=null;
+    }
+  }
+}
+```
+
+セキュリティルールを以下のように書き換えてください。
+
+```js
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /version/{versionId} {
+      function isAuthenticated() {
+        return request.auth != null;
+      }
+      function isUserAuthenticated(id) {
+        return request.auth.uid == id;
+      }
+      match /user/{userId} {
+        // 認証有りで操作可
+        match /{fileId} {
+          allow read, write: if isAuthenticated() && isUserAuthenticated(userId);
+        }
+      }
+      match /folder/{fileId} {
+        // 認証無しで操作可
+        allow read, write: if true;
+      }
+      match /userpractice/{userpracticeId} {
+        // 認証無しで操作可
+        match /{fileId} {
+          allow read, write: if true;
+        }
+      }
+    }
+  }
+}
+```
+
+適用するためにdeployします。
+
+```bash
+$ firebase deploy --only storage:rule
+```
+
+Firebaseコンソールからdeployされていることを確認できます。
+
+<a href="https://imgur.com/cf4hAgx"><img src="https://i.imgur.com/cf4hAgx.png" width="70%" height="70%" /></a>
 
 ## Lesson14
 ### 様々な形式のファイルを扱う（txt、csv、pdfなど）
