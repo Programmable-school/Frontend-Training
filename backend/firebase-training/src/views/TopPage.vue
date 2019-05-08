@@ -82,6 +82,11 @@
               <div><b>セキュリティルールの利用（操作、ファイル容量、拡張子の許容制御）</b></div>
             </router-link>
           </v-flex>
+          <v-flex style="margin: 24px;">
+            <router-link to="./image_operation_various_files_page">
+              <div><b>様々な形式のファイルを扱う</b></div>
+            </router-link>
+          </v-flex>
         </v-flex>
       </v-card>
     </v-flex>

@@ -5,7 +5,7 @@
 - [画像の保存、取得、削除](#Lesson11)
 - [Firestoreとの連携](#Lesson12)
 - [セキュリティルールの利用（操作、ファイル容量、拡張子の許容制御）](#Lesson13)
-- [様々な形式のファイルを扱う（txt、csv、pdfなど）](#Lesson14)
+- [様々な形式のファイルを扱う](#Lesson14)
 
 
 ### 課題
@@ -164,7 +164,7 @@ Lesson12のコードを実装後、以下のコードを写経してページを
 - [ImageOperationSecurePage.vue](./src/views/storage/ImageOperationSecurePage.vue)
 
 ## Lesson14
-### 様々な形式のファイルを扱う（txt、csv、pdfなど）
+### 様々な形式のファイルを扱う
 #### スクリーンショット
 
 

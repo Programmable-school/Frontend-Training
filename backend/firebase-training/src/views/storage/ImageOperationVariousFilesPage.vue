@@ -3,18 +3,9 @@
     <v-flex>
       <v-card class="container">
         <v-flex>
-          <h2>Firestoreとの連携</h2>
+          <h2>様々な形式のファイルを扱う</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
-            <v-flex v-if="user!==null">
-              <h3>ファイル名</h3>
-              <v-flex style="margin: 8px">
-                <p v-if="user.image!==undefined">{{ user.image.name }}</p>
-              </v-flex>
-            </v-flex>
             <v-flex>
-              <v-flex class="upload-img-container">
-                <img class="uploaded-img" :src="imageData" />
-              </v-flex>
               <v-flex style="margin-top: 8px;">
                 <input type="file" @change="onFileChange" />
               </v-flex>
@@ -22,29 +13,48 @@
                 <p style="color: red;">{{ message }}</p>
               </v-flex>
             </v-flex>
-            <v-flex style="margin-top: 36px;">
-              <v-btn
-                @click="onRegist"
-                :loading="isLoading"
-                color="blue"
-                class="white--text">
-                アップロード
-              </v-btn>
-              <v-btn
-                @click="onDownload"
-                :loading="isLoading"
-                color="green"
-                class="white--text">
-                ダウンロード
-              </v-btn>
-              <v-btn
-                @click="onDelete"
-                :loading="isLoading"
-                color="red"
-                class="white--text">
-                削除
-              </v-btn>
-            </v-flex>
+          </v-flex>
+        </v-flex>
+        <v-flex>
+          <v-btn
+            @click="onRegist"
+            :loading="isLoading"
+            color="blue"
+            class="white--text">
+            アップロード
+          </v-btn>
+          <v-btn
+            @click="onReload"
+            :loading="isLoading"
+            color="green"
+            class="white--text">
+            読み込み
+          </v-btn>
+          <v-btn
+            @click="onDelete"
+            :loading="isLoading"
+            color="red"
+            class="white--text">
+            削除
+          </v-btn>
+          <v-flex style="margin: 24px;">
+            <h3>ファイル一覧</h3>
+            <v-data-table
+              :headers="headers"
+              :items="items"
+              :pagination.sync="pagination"
+              no-data-text="">
+              <template 
+                slot="items"
+                slot-scope="props">
+                <tr @click="onClick(props.item)">
+                  <td>{{ props.item.uid }}</td>
+                  <td>{{ props.item.filename }}</td>
+                  <td>{{ props.item.fileType }}</td>
+                  <td>{{ props.item.createdAt.toDate() | dateFormat }}</td>
+                </tr>
+              </template>
+            </v-data-table>
           </v-flex>
         </v-flex>
       </v-card>
@@ -56,22 +66,43 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import firebase from 'firebase/app'
 import 'firebase/storage'
-import { User } from '@/ts/firebase/model/User'
+import { UserStorage } from '@/ts/firebase/model/UserStorage'
 
 /** ファイル操作で扱うデータをinterfaceで定義して扱いやすくする */
 import { FileInfo } from '@/ts/interface/FileInfo'
+import { format } from 'date-fns'
 
 @Component({
-  name: 'ImageOperationFirestorePage',
+  name: 'ImageOperationVariousFilesPage',
+  filters: {
+    dateFormat(date: Date) {
+      return format(date, 'YYYY/MM/DD HH:mm:ss');
+    },
+  },
 })
 
-export default class ImageOperationFirestorePage extends Vue {
+export default class ImageOperationVariousFilesPage extends Vue {
 
   isLoading: boolean = false
   message: string = ''
 
   /** モデルクラス */
-  user: User | null = null
+  userStorage: UserStorage | null = null
+
+  /** リスト */
+  selectRowsPerPage: number = 5
+  selectItem: any = undefined
+  headers: any[] = [
+    { text: 'filename', value: 'filename' },
+    { text: 'fileType', value: 'fileType' },
+    { text: 'createdAt', value: 'createdAt' },
+  ]
+  pagination: any = {
+    sortBy: 'createdAt',
+    descending: true,
+    rowsPerPage: this.selectRowsPerPage,
+  }
+  items: any[] = []
 
   /**
    * ファイル
@@ -88,19 +119,19 @@ export default class ImageOperationFirestorePage extends Vue {
   /** 初期処理 */
   async configure() {
     try {
-      /**
-       * 本来であればclass名とコレクション名は同じにすることを推奨するが
-       * レッスン用としてコレクション名はuserpracticeにする
-       */
-      this.user = new User('userpractice', 'user1')
-      await this.user.get()
-      if (this.user.image !== undefined && this.user.image.url !== null) {
-        this.fileInfo.url = this.user.image.url
-        this.fileInfo.isDownloaded = true
-      }
+      this.userStorage = new UserStorage('userstorage', 'user2')
+      await this.getItems()
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async getItems() {
+    // await this.userStorage.get()
+    // if (this.userStorage.image !== undefined && this.userStorage.image.url !== null) {
+    //   this.fileInfo.url = this.userStorage.image.url
+    //   this.fileInfo.isDownloaded = true
+    // }
   }
 
   get imageData() {
@@ -145,6 +176,13 @@ export default class ImageOperationFirestorePage extends Vue {
     this.isLoading = false
   }
 
+  /** リストを読み込む */
+  async onReload() {
+    this.isLoading = true
+    await this.getItems()
+    this.isLoading = false
+  }
+
   /** ダウンロード */
   async onDownload() {
     this.isLoading = true
@@ -168,8 +206,8 @@ export default class ImageOperationFirestorePage extends Vue {
   /** ファイルのアップロード */
   async uploadFile(file: File) {
     try {
-      if (this.user !== null) {
-        await this.user.uploadFile(file)
+      if (this.userStorage !== null) {
+        await this.userStorage.uploadFile(file, file.name)
       } else {
         console.log('user is null')
       }
@@ -181,15 +219,15 @@ export default class ImageOperationFirestorePage extends Vue {
   /** ファイルのダウンロード */
   async downloadFile() {
     try {
-      if (this.user !== null) {
-        await this.user.downloadFile()
-        if (this.user.image !== undefined && this.user.image.url !== null) {
-          this.clear()
-          this.fileInfo.url = this.user.image.url
-          this.fileInfo.isDownloaded = true
-        }
+      if (this.userStorage !== null) {
+        await this.userStorage.downloadFile()
+        // if (this.user.image !== undefined && this.user.image.url !== null) {
+        //   this.clear()
+        //   this.fileInfo.url = this.user.image.url
+        //   this.fileInfo.isDownloaded = true
+        // }
       } else {
-        console.log('user is null')
+        console.log('userStorage is null')
       }
     } catch (error) {
       console.error(error)
@@ -199,14 +237,20 @@ export default class ImageOperationFirestorePage extends Vue {
   /** ファイルの削除 */
   async deleteFile() {
      try {
-      if (this.user !== null) {
-        await this.user.deleteFile()
+      if (this.userStorage !== null) {
+        await this.userStorage.deleteFile()
       } else {
-        console.log('user is null')
+        console.log('userStorage is null')
       }
     } catch (error) {
       console.error(error)
     }
+  }
+
+  /** データリストを要素をクリック処理 */
+  onClick(item: any) {
+    console.log(item)
+    this.selectItem = item
   }
 
   clear() {
@@ -226,20 +270,4 @@ export default class ImageOperationFirestorePage extends Vue {
 .subtitle
   padding-left 12px
 
-.upload-img-container
-  width 100%
-  height 300px
-  border-radius 2px
-  border solid 1px #ddd
-  cursor pointer
-
-.upload-img-container.upload-img-container--dashed
-  border 2px dashed #ddd
-
-img.uploaded-img
-  margin auto
-  width 100%
-  height 100%
-  object-fit cover
-  border-radius 2px
 </style>

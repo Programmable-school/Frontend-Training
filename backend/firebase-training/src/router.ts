@@ -15,6 +15,7 @@ import SocialLoginPage from './views/authentication/SocialLoginPage.vue'
 import ImageOperationPage from './views/storage/ImageOperationPage.vue'
 import ImageOperationFirestorePage from './views/storage/ImageOperationFirestorePage.vue'
 import ImageOperationSecurePage from './views/storage/ImageOperationSecurePage.vue'
+import ImageOperationVariousFilesPage from './views/storage/ImageOperationVariousFilesPage.vue'
 
 Vue.use(Router)
 
@@ -96,6 +97,11 @@ export default new Router({
       path: '/image_operation_secure_page',
       name: 'image_operation_secure_page',
       component: ImageOperationSecurePage,
+    },
+    {
+      path: '/image_operation_various_files_page',
+      name: 'image_operation_various_files_page',
+      component: ImageOperationVariousFilesPage,
     },
   ],
 })
