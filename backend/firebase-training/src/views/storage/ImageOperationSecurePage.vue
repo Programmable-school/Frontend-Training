@@ -216,6 +216,7 @@ export default class ImageOperationSecurePage extends Vue {
   /** ダウンロード */
   async onDownload() {
     this.isLoading = true
+    this.message = ''
     await this.downloadFile()
     this.isLoading = false
   }
@@ -251,6 +252,11 @@ export default class ImageOperationSecurePage extends Vue {
     try {
       if (this.user !== null) {
         await this.user.downloadFile()
+        if (this.user.image !== undefined && this.user.image.url !== null) {
+          this.clear()
+          this.fileInfo.url = this.user.image.url
+          this.fileInfo.isDownloaded = true
+        }
       } else {
         console.log('user is null')
       }

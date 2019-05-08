@@ -8,15 +8,18 @@ service firebase.storage {
         return request.auth.uid == id;
       }
       function limitSize() {
-        return request.resource.size <= 1 * 1024 * 1024;
+        // ファイルサイズが3Mbyte以下であること
+        return request.resource.size <= 3 * 1024 * 1024;
       }
       function isImageType() {
+        // contentTypeがimageである
         return request.resource.contentType.matches('image/.*');
       }
       match /user/{userId} {
         // 認証有り、規定のファイルサイズとファイル形式で操作可
         match /{fileId} {
-          allow read, write: if isAuthenticated() && isUserAuthenticated(userId);
+          allow read, delete: if isAuthenticated() && isUserAuthenticated(userId);
+          allow write: if isAuthenticated() && isUserAuthenticated(userId) && limitSize() && isImageType();
         }
       }
       match /folder/{fileId} {

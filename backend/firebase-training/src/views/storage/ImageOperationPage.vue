@@ -119,6 +119,8 @@ export default class ImageOperationPage extends Vue {
   /** ダウンロード */
   async onDownload() {
     this.isLoading = true
+    this.message = ''
+    this.clear()
     this.fileInfo.url = await this.downloadFile()
     if (this.fileInfo.url !== undefined) {
       this.fileInfo.isDownloaded = true

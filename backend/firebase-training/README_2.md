@@ -24,7 +24,7 @@
 ## Lesson11
 ### 画像の保存、取得、削除
 #### スクリーンショット
-<a href="https://imgur.com/O6mHRhT"><img src="https://i.imgur.com/O6mHRhT.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/lNN0Dft"><img src="https://i.imgur.com/lNN0Dft.png" width="50%" height="50%" /></a>
 
 #### 実装
 レッスン用に予め、Cloud Storageのセキュリティルールは認証無しに操作できるようにします。
@@ -45,7 +45,7 @@
 ### Firestoreとの連携
 
 #### スクリーンショット
-<a href="https://imgur.com/csDVQiy"><img src="https://i.imgur.com/csDVQiy.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/nlB2Bbj"><img src="https://i.imgur.com/nlB2Bbj.png" width="50%" height="50%" /></a>
 
 #### 実装
 Firestoreのデータ及びビジネスロジックをまとめたモデルクラスを作成し、さらにCloud Storageの操作もモデルクラスで行うよう実装します。
@@ -70,6 +70,7 @@ Cloud StorageのパスはFirestoreと同様のパスで管理します。
 ## Lesson13
 ### セキュリティルールの利用（操作、ファイル容量、拡張子の許容制御）
 #### スクリーンショット
+<a href="https://imgur.com/PMs6sjQ"><img src="https://i.imgur.com/PMs6sjQ.png" width="50%" height="50%" /></a>
 
 #### 実装
 Cloud Storageのstorage.rulesを作成します。
@@ -116,18 +117,18 @@ service firebase.storage {
         return request.auth.uid == id;
       }
       function limitSize() {
-        return request.resource.size <= 1 * 1024 * 1024;
+        // ファイルサイズが3Mbyte以下であること
+        return request.resource.size <= 3 * 1024 * 1024;
       }
       function isImageType() {
+        // contentTypeがimageである
         return request.resource.contentType.matches('image/.*');
-      }
-      function isPermission(userId) {
-        return isAuthenticated() && isUserAuthenticated(userId) && limitSize() && isImageType();
       }
       match /user/{userId} {
         // 認証有り、規定のファイルサイズとファイル形式で操作可
         match /{fileId} {
-          allow read, write: if isPermission();
+          allow read, delete: if isAuthenticated() && isUserAuthenticated(userId);
+          allow write: if isAuthenticated() && isUserAuthenticated(userId) && limitSize() && isImageType();
         }
       }
       match /folder/{fileId} {
@@ -151,19 +152,16 @@ service firebase.storage {
 $ firebase deploy --only storage:rule
 ```
 
-Firebaseコンソールからdeployされていることを確認できます。
-
-<a href="https://imgur.com/cf4hAgx"><img src="https://i.imgur.com/cf4hAgx.png" width="70%" height="70%" /></a>
+Firebaseコンソールの Storage -> ルールでdeployされていることを確認できます。
 
 適用したストレージのセキュリティルールの仕様は以下の通りです
 
 - 読み込み、書き込みは認証した本人のみ
-- ファイルの容量は1Mまで
+- ファイルの容量は3Mbyteまで
 - ファイル形式は画像のみ
 
 Lesson12のコードを実装後、以下のコードを写経してページを作成してください。
 - [ImageOperationSecurePage.vue](./src/views/storage/ImageOperationSecurePage.vue)
-
 
 ## Lesson14
 ### 様々な形式のファイルを扱う（txt、csv、pdfなど）
