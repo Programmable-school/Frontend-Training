@@ -7,7 +7,7 @@
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <v-flex>
               <v-flex class="upload-img-container">
-                <img class="uploaded-img" :src="getImage" />
+                <img class="uploaded-img" :src="imageData" />
               </v-flex>
               <v-flex style="margin-top: 8px;">
                 <input type="file" @change="onFileChange" />
@@ -16,13 +16,20 @@
                 <p style="color: red;">{{ message }}</p>
               </v-flex>
             </v-flex>
-            <v-flex style="margin-top: 52px;">
+            <v-flex style="margin-top: 36px;">
               <v-btn
                 @click="onRegist"
                 :loading="isLoading"
                 color="blue"
                 class="white--text">
-                保存
+                アップロード
+              </v-btn>
+              <v-btn
+                @click="onDownload"
+                :loading="isLoading"
+                color="green"
+                class="white--text">
+                ダウンロード
               </v-btn>
               <v-btn
                 @click="onDelete"
@@ -67,11 +74,7 @@ export default class ImageOperationPage extends Vue {
   /** CloudStorageの保存先パス */
   storagePath: string = '/version/1/folder/'
 
-  mounted() {
-    this.getItems()
-  }
-
-  get getImage() {
+  get imageData() {
     return this.fileInfo.data !== null ? this.fileInfo.data : this.fileInfo.url
   }
 
@@ -101,15 +104,24 @@ export default class ImageOperationPage extends Vue {
     this.fileInfo.file = file
   }
 
-  /** 登録 */
+  /** アップロード */
   async onRegist() {
     this.isLoading = true
     this.message = ''
     if (this.fileInfo.file !== null) {
       await this.uploadFile(this.fileInfo.file)
-      await this.downloadFile()
     } else {
       this.message = '新しいファイルを選択してください。'
+    }
+    this.isLoading = false
+  }
+
+  /** ダウンロード */
+  async onDownload() {
+    this.isLoading = true
+    this.fileInfo.url = await this.downloadFile()
+    if (this.fileInfo.url !== undefined) {
+      this.fileInfo.isDownloaded = true
     }
     this.isLoading = false
   }
@@ -122,16 +134,6 @@ export default class ImageOperationPage extends Vue {
       await this.deleteFile()
     }
     this.clear()
-    this.isLoading = false
-  }
-
-  /** 取得 */
-  async getItems() {
-    this.isLoading = true
-    this.fileInfo.url = await this.downloadFile()
-    if (this.fileInfo.url !== undefined) {
-      this.fileInfo.isDownloaded = true
-    }
     this.isLoading = false
   }
 
@@ -157,7 +159,6 @@ export default class ImageOperationPage extends Vue {
       const path: string = this.storagePath + filename
       const storage: firebase.storage.Storage = firebase.storage()
       const ref = storage.ref(path)
-      /** ファイルが無い場合は404のエラーになるが、今は気にしなくて良い */
       const url = await ref.getDownloadURL()
       console.log('download finish.')
       return url

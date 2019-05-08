@@ -29,11 +29,11 @@
               <div class="subtitle">トランザクション</div>
             </router-link>
           </v-flex>
-          <v-flex style="margin: 24px;">
+          <!-- <v-flex style="margin: 24px;">
             <router-link to="shop_item_buy_page_original_model">
               <div><b>便利！Firestoreモデルクラスを作る</b></div>
             </router-link>
-          </v-flex>
+          </v-flex> -->
         </v-flex>
         <!-- Firebase Authantication  -->
         <v-flex>
@@ -75,6 +75,11 @@
           <v-flex style="margin: 24px;">
             <router-link to="./image_operation_firestore_page">
               <div><b>Firestoreとの連携</b></div>
+            </router-link>
+          </v-flex>
+          <v-flex style="margin: 24px;">
+            <router-link to="./image_operation_secure_page">
+              <div><b>セキュリティルールの利用（操作、ファイル容量、拡張子の許容制御）</b></div>
             </router-link>
           </v-flex>
         </v-flex>

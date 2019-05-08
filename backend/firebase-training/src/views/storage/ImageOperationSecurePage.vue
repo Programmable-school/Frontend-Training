@@ -3,12 +3,16 @@
     <v-flex>
       <v-card class="container">
         <v-flex>
-          <h2>Firestoreとの連携</h2>
+          <h2>セキュリティルールの利用（操作、ファイル容量、拡張子の許容制御）</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
-            <v-flex v-if="user!==null">
+            <v-flex>
+              <h3>ログイン状態</h3>
+              <v-flex style="margin: 8px">
+                <p>{{ loginStatusText}}</p>
+              </v-flex>
               <h3>ファイル名</h3>
               <v-flex style="margin: 8px">
-                <p v-if="user.image!==undefined">{{ user.image.name }}</p>
+                <p v-if="user!==null&&user.image!==undefined">{{ user.image.name }}</p>
               </v-flex>
             </v-flex>
             <v-flex>
@@ -18,8 +22,9 @@
               <v-flex style="margin-top: 8px;">
                 <input type="file" @change="onFileChange" />
               </v-flex>
-              <v-flex>
-                <p style="color: red;">{{ message }}</p>
+              <v-flex style="margin: 20px 0px;">
+                <h3>メッセージ</h3>
+                <p style="margin: 10px;" v-html="message"/>
               </v-flex>
             </v-flex>
             <v-flex style="margin-top: 36px;">
@@ -45,6 +50,46 @@
                 削除
               </v-btn>
             </v-flex>
+            <v-card class="container">
+              <v-flex style="margin: 20px 0px;">
+                <h3>ログイン</h3>
+                <v-text-field
+                  v-model="loginEmail"
+                  type="text"
+                  required
+                  label="メールアドレス"
+                  placeholder=""/>
+                <v-text-field
+                  v-model="loginPassword"
+                  label="パスワード（6文字以上）"
+                  min="6"
+                  maxlength="32"
+                  :append-icon ="isLoginShowPassword ? 'visibility' : 'visibility_off'"
+                  @click:append="() => (isLoginShowPassword = !isLoginShowPassword)"
+                  :type="isLoginShowPassword ? 'text' : 'password'"
+                  required
+                  placeholder=""
+                  pattern="[a-zA-Z0-9]*"/>
+                <v-flex>
+                  <v-btn
+                    color="blue"
+                    class="white--text"
+                    :loading="isLoading"
+                    :disabled="isLoading"
+                    @click="onLogin">ログイン</v-btn>
+                  <v-btn
+                    :loading="isLoading"
+                    :disabled="!isLoginStatus"
+                    color="red"
+                    class="white--text"
+                    @click="onLogout">ログアウト</v-btn>
+                </v-flex>
+                <v-flex style="margin: 20px 0px;">
+                  <h3>ログインメッセージ</h3>
+                  <p style="margin: 10px;" v-html="loginResultMessage"/>
+                </v-flex>
+              </v-flex>
+            </v-card>
           </v-flex>
         </v-flex>
       </v-card>
@@ -54,7 +99,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import firebase from 'firebase/app'
+import firebase, { FirebaseError } from 'firebase/app'
 import 'firebase/storage'
 import { User } from '@/ts/firebase/model/User'
 
@@ -62,13 +107,23 @@ import { User } from '@/ts/firebase/model/User'
 import { FileInfo } from '@/ts/interface/FileInfo'
 
 @Component({
-  name: 'ImageOperationFirestorePage',
+  name: 'ImageOperationSecurePage',
 })
 
-export default class ImageOperationFirestorePage extends Vue {
+export default class ImageOperationSecurePage extends Vue {
 
   isLoading: boolean = false
   message: string = ''
+  isLoginStatus: boolean | null = null
+
+  /**
+   * [ログイン用]
+   * メールとパスワードとログイン結果
+   */
+  loginEmail: string = ''
+  loginPassword: string = ''
+  loginResultMessage: string = ''
+  isLoginShowPassword: boolean = false
 
   /** モデルクラス */
   user: User | null = null
@@ -81,18 +136,27 @@ export default class ImageOperationFirestorePage extends Vue {
    */
   fileInfo: FileInfo = { data: null, file: null, url: null, isDownloaded: false }
 
-  async mounted() {
-    await this.configure()
+  mounted() {
+    this.onAuthState()
+  }
+
+  /** 認証状態を監視する */
+  onAuthState() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user !== null) {
+        this.isLoginStatus = true
+        console.log('user', user.uid)
+        this.configure(user.uid)
+      } else {
+        this.isLoginStatus = false
+      }
+    })
   }
 
   /** 初期処理 */
-  async configure() {
+  async configure(uid: string) {
     try {
-      /**
-       * 本来であればclass名とコレクション名は同じにすることを推奨するが
-       * レッスン用としてコレクション名はuserpracticeにする
-       */
-      this.user = new User('userpractice', 'storage_lesson_user')
+      this.user = new User('user', uid)
       await this.user.get()
       if (this.user.image !== undefined && this.user.image.url !== null) {
         this.fileInfo.url = this.user.image.url
@@ -105,6 +169,10 @@ export default class ImageOperationFirestorePage extends Vue {
 
   get imageData() {
     return this.fileInfo.data !== null ? this.fileInfo.data : this.fileInfo.url
+  }
+
+  get loginStatusText() {
+    return this.isLoginStatus === true ? 'ログイン中' : 'ログアウト中'
   }
 
   /** 画像選択時の処理 */
@@ -174,6 +242,7 @@ export default class ImageOperationFirestorePage extends Vue {
       }
     } catch (error) {
       console.error(error)
+      this.message = error
     }
   }
 
@@ -187,6 +256,7 @@ export default class ImageOperationFirestorePage extends Vue {
       }
     } catch (error) {
       console.error(error)
+      this.message = error
     }
   }
 
@@ -200,6 +270,45 @@ export default class ImageOperationFirestorePage extends Vue {
       }
     } catch (error) {
       console.error(error)
+      this.message = error
+    }
+  }
+
+  /** ログイン */
+  async onLogin() {
+    this.isLoading = true
+    await this.login()
+    this.isLoading = false
+  }
+
+  /** ログアウト */
+  async onLogout() {
+    this.isLoading = true
+    await this.signOut()
+    this.isLoading = false
+  }
+
+  /** メール認証でログインする */
+  async login() {
+    try {
+      this.loginResultMessage = ''
+      const result = await firebase.auth().signInWithEmailAndPassword(this.loginEmail, this.loginPassword)
+      console.log(result)
+      this.loginResultMessage = 'ログインしました'
+    } catch (error) {
+      console.error('firebase error', error)
+      this.loginResultMessage = error.message
+    }
+  }
+
+  /** ログアウトする */
+  async signOut() {
+    try {
+      const result = await firebase.auth().signOut()
+      console.log(result)
+      this.clear()
+    } catch (error) {
+      console.error('firebase error', error)
     }
   }
 

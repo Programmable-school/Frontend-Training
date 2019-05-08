@@ -14,6 +14,7 @@ import SecurityRuleLessonPage from './views/authentication/SecurityRuleLessonPag
 import SocialLoginPage from './views/authentication/SocialLoginPage.vue'
 import ImageOperationPage from './views/storage/ImageOperationPage.vue'
 import ImageOperationFirestorePage from './views/storage/ImageOperationFirestorePage.vue'
+import ImageOperationSecurePage from './views/storage/ImageOperationSecurePage.vue'
 
 Vue.use(Router)
 
@@ -90,6 +91,11 @@ export default new Router({
       path: '/image_operation_firestore_page',
       name: 'image_operation_firestore_page',
       component: ImageOperationFirestorePage,
+    },
+    {
+      path: '/image_operation_secure_page',
+      name: 'image_operation_secure_page',
+      component: ImageOperationSecurePage,
     },
   ],
 })

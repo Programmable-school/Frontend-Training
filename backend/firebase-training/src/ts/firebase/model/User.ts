@@ -43,11 +43,14 @@ export class User extends Base {
    * Firestore 取得と削除は Base.ts で行う
    */
 
-  /** Cloud Storage 保存 */
+  /** Cloud Storage アップロード */
   async uploadFile(file: File, filename: string = 'filename') {
     try {
       const storagePath: string = `${this.path}/${this.uid}/${filename}`
       const ref = this.storage.ref().child(storagePath)
+      // const uploadMetadata: firebase.storage.UploadMetadata = {
+      //   contentType: 'image/jpeg',
+      // }
       const result = await ref.put(file)
       const downloadUrl = await ref.getDownloadURL()
       const meta = result.metadata
@@ -58,6 +61,24 @@ export class User extends Base {
         fileType: meta.contentType !== null && meta.contentType !== undefined ? meta.contentType : '',
       }
       await this.save()
+    } catch (error) {
+      throw error
+    }
+  }
+
+  /** Cloud Storage ダウンロード */
+  async downloadFile(filename: string = 'filename') {
+    try {
+      const storagePath: string = `${this.path}/${this.uid}/${filename}`
+      const ref = this.storage.ref().child(storagePath)
+      const downloadUrl = await ref.getDownloadURL()
+      const meta = await ref.getMetadata()
+      console.log(downloadUrl, meta)
+      this.image = {
+        name: filename,
+        url: downloadUrl,
+        fileType: 'contentType' in meta ? meta.contentType : '',
+      }
     } catch (error) {
       throw error
     }
