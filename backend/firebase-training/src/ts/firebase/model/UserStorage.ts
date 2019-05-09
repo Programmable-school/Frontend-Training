@@ -1,15 +1,16 @@
 import firebase from 'firebase/app'
 import 'firebase/storage'
-import StorageFile from './StorageFile'
+import StorageDetailFile from './StorageDetailFile'
 import { Base } from './Base'
 
 export class UserStorage extends Base {
   /** ドキュメントフィールド */
-  files?: StorageFile[]
+  files: StorageDetailFile[]
 
   constructor(collectionName: string = 'userstorage', id: string | null = null) {
     console.log(collectionName, id)
     super(collectionName, id)
+    this.files = []
   }
 
   /** Firestore 保存 */
@@ -47,18 +48,22 @@ export class UserStorage extends Base {
     try {
       const storagePath: string = `${this.path}/${this.uid}/${filename}`
       const ref = this.storage.ref().child(storagePath)
-      // const uploadMetadata: firebase.storage.UploadMetadata = {
-      //   contentType: 'image/jpeg',
-      // }
       const result = await ref.put(file)
       const downloadUrl = await ref.getDownloadURL()
       const meta = result.metadata
-      console.log(result, meta)
-      // this.image = {
-      //   name: filename,
-      //   url: downloadUrl,
-      //   fileType: meta.contentType !== null && meta.contentType !== undefined ? meta.contentType : '',
-      // }
+      // console.log(result, meta)
+      const fileInfo: StorageDetailFile = {
+        name: filename,
+        url: downloadUrl,
+        fileType: meta.contentType !== null && meta.contentType !== undefined ? meta.contentType : '',
+        size: meta.size,
+      }
+      const filters = this.files.filter((item: StorageDetailFile) => item.name === filename)
+      if (filters.length === 0) {
+        this.files.push(fileInfo)
+      } else {
+        filters[0] = fileInfo
+      }
       await this.save()
     } catch (error) {
       throw error
@@ -66,18 +71,10 @@ export class UserStorage extends Base {
   }
 
   /** Cloud Storage ダウンロード */
-  async downloadFile(filename: string = 'filename') {
+  async downloadFiles(): Promise<StorageDetailFile[]> {
     try {
-      const storagePath: string = `${this.path}/${this.uid}/${filename}`
-      const ref = this.storage.ref().child(storagePath)
-      const downloadUrl = await ref.getDownloadURL()
-      const meta = await ref.getMetadata()
-      console.log(downloadUrl, meta)
-      // this.image = {
-      //   name: filename,
-      //   url: downloadUrl,
-      //   fileType: 'contentType' in meta ? meta.contentType : '',
-      // }
+      await this.get()
+      return this.files
     } catch (error) {
       throw error
     }
@@ -90,12 +87,36 @@ export class UserStorage extends Base {
       const ref = this.storage.ref().child(storagePath)
       await ref.delete()
       const batch: firebase.firestore.WriteBatch = this.db.batch()
+      this.files = this.files.filter((file) => file.name !== filename)
+      if (this.files.length === 0) {
+        batch.set(this.documentRef, {
+          files: firebase.firestore.FieldValue.delete(),
+          updatedAt: new Date(),
+        }, { merge: true })
+      } else {
+        batch.set(this.documentRef, {
+          files: this.files,
+          updatedAt: new Date(),
+        }, { merge: true })
+      }
+      await batch.commit()
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async deleteAllFiles() {
+    try {
+      const storagePath: string = `${this.path}/${this.uid}`
+      const ref = this.storage.ref().child(storagePath)
+      await ref.delete()
+      const batch: firebase.firestore.WriteBatch = this.db.batch()
       batch.set(this.documentRef, {
-        image: firebase.firestore.FieldValue.delete(),
+        files: firebase.firestore.FieldValue.delete(),
         updatedAt: new Date(),
       }, { merge: true })
       await batch.commit()
-      // this.image = undefined
+      this.files = []
     } catch (error) {
       throw error
     }
@@ -106,9 +127,9 @@ export class UserStorage extends Base {
     super.setProperty(snapshot)
     if (snapshot.exists) {
       const data = snapshot.data()
-      // if (data !== undefined) {
-      //   this.image = 'image' in data ? data.image : undefined
-      // }
+      if (data !== undefined) {
+        this.files = 'files' in data ? data.files : []
+      }
     }
     console.log(this)
   }
@@ -118,16 +139,16 @@ export class UserStorage extends Base {
     const item: any = super.pack(isUpdate)
     // データ
     item.uid = this.uid
-    // if (this.image !== undefined) {
-    //   item.image = this.image
-    // }
+    if (this.files !== undefined) {
+      item.files = this.files
+    }
     return item
   }
 
   /** モデルクラスの内部プロパティを初期化する */
   protected clear() {
     super.clear()
-    // this.image = undefined
+    this.files = []
   }
 
 }

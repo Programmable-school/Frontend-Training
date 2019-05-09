@@ -35,7 +35,7 @@
             :loading="isLoading"
             color="red"
             class="white--text">
-            削除
+            全てを削除
           </v-btn>
           <v-flex style="margin: 24px;">
             <h3>ファイル一覧</h3>
@@ -119,7 +119,7 @@ export default class ImageOperationVariousFilesPage extends Vue {
   /** 初期処理 */
   async configure() {
     try {
-      this.userStorage = new UserStorage('userstorage', 'user2')
+      this.userStorage = new UserStorage('userstorage', 'user1')
       await this.getItems()
     } catch (error) {
       console.error(error)
@@ -127,11 +127,10 @@ export default class ImageOperationVariousFilesPage extends Vue {
   }
 
   async getItems() {
-    // await this.userStorage.get()
-    // if (this.userStorage.image !== undefined && this.userStorage.image.url !== null) {
-    //   this.fileInfo.url = this.userStorage.image.url
-    //   this.fileInfo.isDownloaded = true
-    // }
+    if (this.userStorage !== null) {
+      const files = await this.userStorage.downloadFiles()
+      console.log(files)
+    }
   }
 
   get imageData() {
@@ -195,11 +194,7 @@ export default class ImageOperationVariousFilesPage extends Vue {
   async onDelete() {
     this.isLoading = true
     this.message = ''
-    console.log(this.fileInfo)
-    if (this.fileInfo.isDownloaded === true) {
-      await this.deleteFile()
-    }
-    this.clear()
+    await this.deleteFile()
     this.isLoading = false
   }
 
@@ -220,12 +215,7 @@ export default class ImageOperationVariousFilesPage extends Vue {
   async downloadFile() {
     try {
       if (this.userStorage !== null) {
-        await this.userStorage.downloadFile()
-        // if (this.user.image !== undefined && this.user.image.url !== null) {
-        //   this.clear()
-        //   this.fileInfo.url = this.user.image.url
-        //   this.fileInfo.isDownloaded = true
-        // }
+        await this.userStorage.downloadFiles()
       } else {
         console.log('userStorage is null')
       }
@@ -238,7 +228,7 @@ export default class ImageOperationVariousFilesPage extends Vue {
   async deleteFile() {
      try {
       if (this.userStorage !== null) {
-        await this.userStorage.deleteFile()
+        await this.userStorage.deleteAllFiles()
       } else {
         console.log('userStorage is null')
       }

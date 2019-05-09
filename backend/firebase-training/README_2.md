@@ -128,7 +128,7 @@ service firebase.storage {
         // 認証有り、規定のファイルサイズとファイル形式で操作可
         match /{fileId} {
           allow read, delete: if isAuthenticated() && isUserAuthenticated(userId);
-          allow write: if isAuthenticated() && isUserAuthenticated(userId) && limitSize() && isImageType();
+          allow create, update: if isAuthenticated() && isUserAuthenticated(userId) && limitSize() && isImageType();
         }
       }
       match /folder/{fileId} {
@@ -144,6 +144,7 @@ service firebase.storage {
     }
   }
 }
+
 ```
 
 適用するためにdeployします。
@@ -167,6 +168,26 @@ Lesson12のコードを実装後、以下のコードを写経してページを
 ### 様々な形式のファイルを扱う
 #### スクリーンショット
 
+#### 実装
+
+以下のセキュリティルールを追加してください。
+
+・Cloud Storageセキュリティルール
+```js
+match /userstorage/{userstorageId} {
+  allow read, write: if true;
+  match /{fileId} {
+    allow read, write: if true;
+  }
+}
+```
+
+・Firestoreセキュリティルール
+```js
+match /userstorage/{userstorageId} {
+  allow read, write: if true;
+}
+```
 
 
 ## 課題
