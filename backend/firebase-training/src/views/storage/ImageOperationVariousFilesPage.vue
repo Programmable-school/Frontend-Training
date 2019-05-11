@@ -48,10 +48,9 @@
                 slot="items"
                 slot-scope="props">
                 <tr @click="onClick(props.item)">
-                  <td>{{ props.item.uid }}</td>
-                  <td>{{ props.item.filename }}</td>
+                  <td>{{ props.item.name }}</td>
+                  <td>{{ props.item.size | sizeFormat }}</td>
                   <td>{{ props.item.fileType }}</td>
-                  <td>{{ props.item.createdAt.toDate() | dateFormat }}</td>
                 </tr>
               </template>
             </v-data-table>
@@ -67,6 +66,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import firebase from 'firebase/app'
 import 'firebase/storage'
 import { UserStorage } from '@/ts/firebase/model/UserStorage'
+import StorageDetailFile from '@/ts/firebase/model/StorageDetailFile'
 
 /** ファイル操作で扱うデータをinterfaceで定義して扱いやすくする */
 import { FileInfo } from '@/ts/interface/FileInfo'
@@ -75,8 +75,24 @@ import { format } from 'date-fns'
 @Component({
   name: 'ImageOperationVariousFilesPage',
   filters: {
-    dateFormat(date: Date) {
-      return format(date, 'YYYY/MM/DD HH:mm:ss');
+    sizeFormat(size: number) {
+      const byte: number = 1024
+      const mByte: number = Math.pow(byte, 2)
+      const gByte: number = Math.pow(byte, 3)
+      let target: number = 0
+      let unit: string = ''
+      if (size >= gByte) {
+        target = gByte
+        unit = 'GB'
+      } else if (size >= mByte) {
+        target = mByte
+        unit = 'MB'
+      } else {
+        target = byte
+        unit = 'KB'
+      }
+      const newSize = Math.round((size / target) * 100) / 100
+      return `${String(newSize).replace(/(\d)(?=(\d\d\d)+$)/g, '$1,')} ${unit}`
     },
   },
 })
@@ -93,16 +109,16 @@ export default class ImageOperationVariousFilesPage extends Vue {
   selectRowsPerPage: number = 5
   selectItem: any = undefined
   headers: any[] = [
-    { text: 'filename', value: 'filename' },
+    { text: 'filename', value: 'name' },
+    { text: 'size', value: 'size' },
     { text: 'fileType', value: 'fileType' },
-    { text: 'createdAt', value: 'createdAt' },
   ]
   pagination: any = {
     sortBy: 'createdAt',
     descending: true,
     rowsPerPage: this.selectRowsPerPage,
   }
-  items: any[] = []
+  items: StorageDetailFile[] = []
 
   /**
    * ファイル
@@ -128,8 +144,8 @@ export default class ImageOperationVariousFilesPage extends Vue {
 
   async getItems() {
     if (this.userStorage !== null) {
-      const files = await this.userStorage.downloadFiles()
-      console.log(files)
+      this.items = await this.userStorage.downloadFiles()
+      console.log(this.items)
     }
   }
 
@@ -169,6 +185,7 @@ export default class ImageOperationVariousFilesPage extends Vue {
     this.message = ''
     if (this.fileInfo.file !== null) {
       await this.uploadFile(this.fileInfo.file)
+      await this.getItems()
     } else {
       this.message = '新しいファイルを選択してください。'
     }
@@ -182,19 +199,12 @@ export default class ImageOperationVariousFilesPage extends Vue {
     this.isLoading = false
   }
 
-  /** ダウンロード */
-  async onDownload() {
-    this.isLoading = true
-    this.message = ''
-    await this.downloadFile()
-    this.isLoading = false
-  }
-
   /** 削除 */
   async onDelete() {
     this.isLoading = true
     this.message = ''
     await this.deleteFile()
+    await this.getItems()
     this.isLoading = false
   }
 
@@ -212,12 +222,21 @@ export default class ImageOperationVariousFilesPage extends Vue {
   }
 
   /** ファイルのダウンロード */
-  async downloadFile() {
+  async downloadFile(item: StorageDetailFile) {
     try {
-      if (this.userStorage !== null) {
-        await this.userStorage.downloadFiles()
-      } else {
-        console.log('userStorage is null')
+      if (item.name !== null && item.url !== null) {
+        const xhr = new XMLHttpRequest()
+        xhr.responseType = 'blob'
+        xhr.onload = (event) => {
+          console.log(event)
+          const blob = xhr.response
+          const a = document.createElement('a')
+          a.download = item.name!
+          a.href = URL.createObjectURL(blob)
+          a.click()
+        }
+        xhr.open('GET', item.url)
+        xhr.send()
       }
     } catch (error) {
       console.error(error)
@@ -238,9 +257,9 @@ export default class ImageOperationVariousFilesPage extends Vue {
   }
 
   /** データリストを要素をクリック処理 */
-  onClick(item: any) {
+  onClick(item: StorageDetailFile) {
     console.log(item)
-    this.selectItem = item
+    this.downloadFile(item)
   }
 
   clear() {

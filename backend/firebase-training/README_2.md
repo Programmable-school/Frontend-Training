@@ -175,7 +175,6 @@ Lesson12のコードを実装後、以下のコードを写経してページを
 ・Cloud Storageセキュリティルール
 ```js
 match /userstorage/{userstorageId} {
-  allow read, write: if true;
   match /{fileId} {
     allow read, write: if true;
   }
@@ -189,6 +188,36 @@ match /userstorage/{userstorageId} {
 }
 ```
 
+localhostからCloudStorageのファイルをダウンロードできるよう、CORSの設定を行います
+[https://cloud.google.com/storage/docs/configuring-cors?hl=ja](https://cloud.google.com/storage/docs/configuring-cors?hl=ja)
+
+cors-json-file.jsonを作成します。
+
+```json
+[
+  {
+    "origin": ["http://localhost:8080"],
+    "responseHeader": ["Content-Type"],
+    "method": ["GET", "HEAD", "DELETE"],
+    "maxAgeSeconds": 3600
+  }
+]
+```
+
+cors-json-file.jsonをdeployします。
+```bash
+# gs://〜 はご自身のgsのURLを指定 GoogleCloudPlatformのStorage -> ブラウザ から確認できます。
+$ gsutil cors set cors-json-file.json gs://fir-training-ae8b1.appspot.com
+
+# 反映されているか確認
+$ gsutil cors get gs://fir-training-ae8b1.appspot.com
+[{"maxAgeSeconds": 3600, "method": ["GET", "HEAD", "DELETE"], "origin": ["http://localhost:8080"], "responseHeader": ["Content-Type"]}]
+```
+
+Lesson12、13のコードを実装後、以下のコードを写経してページを作成してください。
+- [ImageOperationVariousFilesPage.vue](./src/views/storage/ImageOperationVariousFilesPage.vue)
+- [StorageDetailFile.ts](./src/ts/firebase/model/StorageDetailFile.ts)
+- [UserStorage.ts](./src/ts/firebase/model/UserStorage.ts)
 
 ## 課題
 ### タイトル

@@ -33,7 +33,6 @@ service firebase.storage {
         }
       }
       match /userstorage/{userstorageId} {
-        allow read, write: if true;
         match /{fileId} {
           allow read, write: if true;
         }

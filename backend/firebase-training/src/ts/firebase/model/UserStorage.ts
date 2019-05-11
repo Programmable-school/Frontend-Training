@@ -108,8 +108,15 @@ export class UserStorage extends Base {
   async deleteAllFiles() {
     try {
       const storagePath: string = `${this.path}/${this.uid}`
-      const ref = this.storage.ref().child(storagePath)
-      await ref.delete()
+      await this.files.forEach(async (file: StorageDetailFile) => {
+        try {
+          console.log(`${storagePath}/${file.name}`)
+          await this.storage.ref().child(`${storagePath}/${file.name}`).delete()
+        } catch (error) {
+          throw error
+        }
+      })
+      console.log('delete batch')
       const batch: firebase.firestore.WriteBatch = this.db.batch()
       batch.set(this.documentRef, {
         files: firebase.firestore.FieldValue.delete(),
