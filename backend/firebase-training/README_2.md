@@ -168,11 +168,13 @@ Lesson12のコードを実装後、以下のコードを写経してページを
 ### 様々な形式のファイルを扱う
 #### スクリーンショット
 
+<a href="https://imgur.com/mu5xl8P"><img src="https://i.imgur.com/mu5xl8P.png" width="50%" height="50%" /></a>
+
 #### 実装
 
 以下のセキュリティルールを追加してください。
 
-・Cloud Storageセキュリティルール
+・Cloud Storage セキュリティルール
 ```js
 match /userstorage/{userstorageId} {
   match /{fileId} {
@@ -181,14 +183,15 @@ match /userstorage/{userstorageId} {
 }
 ```
 
-・Firestoreセキュリティルール
+・Firestore セキュリティルール
 ```js
 match /userstorage/{userstorageId} {
   allow read, write: if true;
 }
 ```
 
-localhostからCloudStorageのファイルをダウンロードできるよう、CORSの設定を行います
+localhostからCloud Storageに保存したファイルをダウンロードできるよう、CORSの設定を行います。
+
 [https://cloud.google.com/storage/docs/configuring-cors?hl=ja](https://cloud.google.com/storage/docs/configuring-cors?hl=ja)
 
 cors-json-file.jsonを作成します。
