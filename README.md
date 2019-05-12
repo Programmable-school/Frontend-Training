@@ -27,7 +27,7 @@
 [Cloud Firestore](./backend/firebase-training/README_1.md)<br>
 [Firebase Authantication](./backend/firebase-training/README_1.md#Lesson6)<br>
 [Cloud Storage](./backend/firebase-training/README_2.md)<br>
-Cloud Functions<br>
+[Cloud Functions](./backend/firebase-training/README_3.md)<br>
 Firebase Hosting<br>
 
 ## Blockchain

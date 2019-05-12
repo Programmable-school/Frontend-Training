@@ -7,5 +7,5 @@
 - [Cloud Firestore](./README_1.md)
 - [Firebase Authantication](./README_1.md#Lesson6)
 - [Cloud Storage](./README_2.md)
-- Cloud Functions
+- [Cloud Functions](./README_3.md)
 - Firebase Hosting
