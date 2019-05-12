@@ -9,6 +9,7 @@
 
 
 ### 課題
+準備中
 
 ## Firebase公式ページ
 [https://firebase.google.com/docs/web/setup?hl=ja](https://firebase.google.com/docs/web/setup?hl=ja)
