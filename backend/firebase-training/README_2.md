@@ -168,7 +168,7 @@ Lesson12のコードを実装後、以下のコードを写経してページを
 ### 様々な形式のファイルを扱う
 #### スクリーンショット
 
-<a href="https://imgur.com/mu5xl8P"><img src="https://i.imgur.com/mu5xl8P.png" width="50%" height="50%" /></a>
+<a href="https://imgur.com/mu5xl8P"><img src="https://i.imgur.com/mu5xl8P.png" width="70%" height="70%" /></a>
 
 #### 実装
 
