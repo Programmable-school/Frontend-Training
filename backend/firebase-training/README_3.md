@@ -3,9 +3,9 @@
 ## 目次
 ### Cloud Functions
 - [Hello Worldを表示](#Lesson15)
-- GET、POST、PUT、DELETE
+- [GET、POST、PUT、DELETEリクエスト](#Lesson16)
 - expressの導入（router、middleware）
-- Firestoreトリガーで実行
+- Firestoreを操作、トリガー実行
 - セキュアなリクエスト
 
 ### 課題
@@ -112,7 +112,7 @@ import * as admin from 'firebase-admin'
 admin.initializeApp()
 
 export const helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello World")
+ response.send('Hello World')
 })
 ```
 
@@ -156,15 +156,82 @@ Hello World
 ```
 
 ## Lesson16
-### GET、POST、PUT、DELETE
+### GET、POST、PUT、DELETEリクエスト
 #### 実装
+
+index.tsに以下のコードを実装します。
+
+```typescript
+export const requestTest = functions.https.onRequest((request, response) => {
+  console.log('method', request.method, 'content-type', request.headers['content-type'])
+  const resultParam: any = { message: '' }
+  let responseCode: number = 200
+  try {
+    const data = request.body
+    const id: string = data !== undefined && 'id' in data ? data.id : undefined
+    if (request.method === 'GET') {
+      resultParam.message = 'Request method is GET'
+    } else if (request.method === 'POST') {
+      resultParam.message = `Request method is POST. body is ${id}`
+    } else if (request.method === 'PUT') {
+      resultParam.message = 'Request method is PUT'
+    } else if (request.method === 'DELETE') {
+      resultParam.message = 'Request method is DELETE'
+    }
+  } catch (error) {
+    responseCode = 400
+    resultParam.message = error.message
+  }
+  response.status(responseCode).send({ code: responseCode, result: resultParam })
+})
+```
+
+yarn serveでローカルサーバーを立ち上げて以下のコマンドを実行し、期待するレスポンスが返ってくるか確認してください。
+
+```sh
+# GET request
+$ curl -X GET http://localhost:5000/fir-training-ae8b1/us-central1/requestTest
+{"code":200,"result":{"message":"Request method is GET"}
+
+# POST request
+$ curl -X POST http://localhost:5000/fir-training-ae8b1/us-central1/requestTest  -H "Content-Type: application/json" -d '{"id":"100"}' 
+{"code":200,"result":{"message":"Request method is POST. body is 100"}}
+
+# PUTとDELETEはなぜかローカルサーバーだと動かない...
+```
+
+今回作成したAPIのみをdeployします。以下のコマンドを実行してください。
+
+```sh
+$ firebase deploy --only functions:requestTest
+```
+
+deployしたAPIを実行して確認します。
+
+```sh
+# GET request
+$ curl -X GET https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest
+{"code":200,"result":{"message":"Request method is GET"}
+
+# POST request
+$ curl -X POST https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest  -H "Content-Type: application/json" -d '{"id":"100"}' 
+{"code":200,"result":{"message":"Request method is POST. body is 100"}}
+
+# PUT request
+$ curl -X PUT https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest
+{"code":200,"result":{"message":"Request method is PUT"}
+
+# DELETE request
+$ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest
+{"code":200,"result":{"message":"Request method is DELETE"}
+```
 
 ## Lesson17
 ### expressの導入（router、middleware）
 #### 実装
 
 ## Lesson18
-### Firestoreトリガーで実行
+### Firestoreを操作、トリガー実行
 #### 実装
 
 ## Lesson19
@@ -172,6 +239,5 @@ Hello World
 #### 実装
 
 ## 課題
-### タイトル
-#### 答え
+準備中
 
