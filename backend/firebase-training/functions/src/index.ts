@@ -24,7 +24,7 @@ export const requestTest = functions.https.onRequest((request, response) => {
       resultParam.message = 'Request method is DELETE'
     }
   } catch (error) {
-    responseCode = 400
+    responseCode = 500
     resultParam.message = error.message
   }
   response.status(responseCode).send({ code: responseCode, result: resultParam })

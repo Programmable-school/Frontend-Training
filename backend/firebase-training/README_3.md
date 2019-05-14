@@ -180,7 +180,7 @@ export const requestTest = functions.https.onRequest((request, response) => {
       resultParam.message = 'Request method is DELETE'
     }
   } catch (error) {
-    responseCode = 400
+    responseCode = 500
     resultParam.message = error.message
   }
   response.status(responseCode).send({ code: responseCode, result: resultParam })
@@ -192,7 +192,7 @@ yarn serveでローカルサーバーを立ち上げて以下のコマンドを�
 ```sh
 # GET request
 $ curl -X GET http://localhost:5000/fir-training-ae8b1/us-central1/requestTest
-{"code":200,"result":{"message":"Request method is GET"}
+{"code":200,"result":{"message":"Request method is GET"}}
 
 # POST request
 $ curl -X POST http://localhost:5000/fir-training-ae8b1/us-central1/requestTest  -H "Content-Type: application/json" -d '{"id":"100"}' 
@@ -212,7 +212,7 @@ deployしたAPIを実行して確認します。
 ```sh
 # GET request
 $ curl -X GET https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest
-{"code":200,"result":{"message":"Request method is GET"}
+{"code":200,"result":{"message":"Request method is GET"}}
 
 # POST request
 $ curl -X POST https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest  -H "Content-Type: application/json" -d '{"id":"100"}' 
@@ -220,11 +220,11 @@ $ curl -X POST https://us-central1-fir-training-ae8b1.cloudfunctions.net/request
 
 # PUT request
 $ curl -X PUT https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest
-{"code":200,"result":{"message":"Request method is PUT"}
+{"code":200,"result":{"message":"Request method is PUT"}}
 
 # DELETE request
 $ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/requestTest
-{"code":200,"result":{"message":"Request method is DELETE"}
+{"code":200,"result":{"message":"Request method is DELETE"}}
 ```
 
 ## Lesson17
