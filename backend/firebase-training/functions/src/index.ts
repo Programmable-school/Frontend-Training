@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import * as router from './router'
 
 admin.initializeApp()
 
@@ -29,3 +30,5 @@ export const requestTest = functions.https.onRequest((request, response) => {
   }
   response.status(responseCode).send({ code: responseCode, result: resultParam })
 })
+
+export const api = router.api

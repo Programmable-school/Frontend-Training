@@ -229,7 +229,76 @@ $ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/reque
 
 ## Lesson17
 ### expressの導入（router、middleware）
+
+[https://firebase.google.com/docs/functions/http-events?hl=ja](https://firebase.google.com/docs/functions/http-events?hl=ja)
+
 #### 実装
+
+Functionsにexpressを導入します。
+
+```sh
+$ yarn add express cors
+```
+
+route.tsを作成します。
+
+```typescript
+import * as functions from 'firebase-functions'
+import * as express from 'express'
+import * as corsLib from 'cors'
+
+const app = express()
+const cors = corsLib()
+const router = express.Router()
+router.use((request, response, next) => {
+	return cors(request, response, () => {
+    /** 
+     * middleware 
+     * ここでクロスドメイン制約や認証処理を行う
+     * */
+    console.log('request', request.body)
+    next()
+	})
+})
+
+/** /v1/test を指定して利用できる */
+router.use('/test', async (request, response) => {
+  response.status(200).send('Test')
+})
+
+app.use('/v1', router)
+
+const api = functions.https.onRequest(app)
+
+export { api }
+```
+
+index.ts に router.ts を追加します。
+
+```typescript
+import * as functions from 'firebase-functions'
+import * as admin from 'firebase-admin'
+
+/** 追加 */
+import * as router from './router'
+
+〜〜〜〜〜〜〜〜
+
+/** 末尾に追加 */
+export const api = router.api
+```
+
+deployして実行します。
+
+```sh
+$ firebase deploy --only functions:api
+```
+
+```sh
+$ curl https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/test
+Test
+```
+
 
 ## Lesson18
 ### Firestoreを操作、トリガー実行
