@@ -242,7 +242,7 @@ $ yarn add express cors
 $ yarn add @types/express @types/cors --dev
 ```
 
-route.tsを作成します。
+router.tsを作成します。
 
 ```typescript
 import * as functions from 'firebase-functions'
@@ -263,7 +263,7 @@ router.use((request, response, next) => {
 	})
 })
 
-/** /v1/test を指定して利用できる */
+
 router.use('/test', (request, response) => {
   response.status(200).send('Test')
 })
@@ -280,13 +280,12 @@ index.ts に router.ts を追加します。
 ```typescript
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-
 /** 追加 */
 import * as router from './router'
 
 〜〜〜〜〜〜〜〜
 
-/** 末尾に追加 */
+/** 追加 */
 export const api = router.api
 ```
 
