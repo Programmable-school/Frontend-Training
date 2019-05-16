@@ -4,7 +4,7 @@
 ### Cloud Functions
 - [Hello Worldを表示](#Lesson15)
 - [GET、POST、PUT、DELETEリクエスト](#Lesson16)
-- expressの導入（router、middleware）
+- [expressの導入（router、middleware）](#Lesson17)
 - Firestoreを操作、トリガー実行
 - セキュアなリクエスト
 - Vue.jsと連携
@@ -264,7 +264,7 @@ router.use((request, response, next) => {
 })
 
 /** /v1/test を指定して利用できる */
-router.use('/test', async (request, response) => {
+router.use('/test', (request, response) => {
   response.status(200).send('Test')
 })
 
@@ -300,7 +300,6 @@ $ firebase deploy --only functions:api
 $ curl https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/test
 Test
 ```
-
 
 ## Lesson18
 ### Firestoreを操作、トリガー実行
