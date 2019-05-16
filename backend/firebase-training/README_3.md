@@ -238,6 +238,8 @@ Functionsにexpressを導入します。
 
 ```sh
 $ yarn add express cors
+
+$ yarn add @types/express @types/cors --dev
 ```
 
 route.tsを作成します。

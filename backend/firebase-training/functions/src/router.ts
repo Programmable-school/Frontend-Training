@@ -17,7 +17,7 @@ router.use((request, response, next) => {
 })
 
 /** /v1/test を指定して利用できる */
-router.use('/test', async (request, response) => {
+router.use('/test', (request, response) => {
   response.status(200).send('Test')
 })
 
