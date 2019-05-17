@@ -16,9 +16,32 @@ router.use((request, response, next) => {
 	})
 })
 
-/** /v1/test を指定して利用できる */
-router.use('/test', (request, response) => {
-  response.status(200).send('Test')
+/** /v1/helloWorld を指定して利用できる */
+router.use('/helloWorld', (request, response) => {
+  console.log(request.method)
+  response.status(200).send('HelloWorld')
+})
+
+/** /v1/item を指定して利用できる */
+router.use('/item', (request, response) => {
+  const item: { id: number, message: string, postData: any } = {
+    id: 0, message: 'item', postData: undefined
+  }
+  if (request.method === 'POST') {
+    item.postData = request.body !== undefined && 'data' in request.body ? request.body['data'] : undefined
+  }
+  response.status(200).send(item)
+})
+
+/** /v1/page/1 を指定して利用できる */
+router.use('/page/:id', (request, response) => {
+  const item: { id: number | undefined, message: string } = {
+    id: undefined, message: 'page'
+  }
+  if (request.method === 'GET') {
+    item.id = Number(request.params.id)
+  }
+  response.status(200).send(item)
 })
 
 app.use('/v1', router)

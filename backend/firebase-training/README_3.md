@@ -263,9 +263,32 @@ router.use((request, response, next) => {
 	})
 })
 
+/** /v1/helloWorld を指定して利用できる */
+router.use('/helloWorld', (request, response) => {
+  console.log(request.method)
+  response.status(200).send('HelloWorld')
+})
 
-router.use('/test', (request, response) => {
-  response.status(200).send('Test')
+/** /v1/item を指定して利用できる */
+router.use('/item', (request, response) => {
+  const item: { id: number, message: string, postData: any } = {
+    id: 0, message: 'item', postData: undefined
+  }
+  if (request.method === 'POST') {
+    item.postData = request.body !== undefined && 'data' in request.body ? request.body['data'] : undefined
+  }
+  response.status(200).send(item)
+})
+
+/** /v1/page/1 を指定して利用できる */
+router.use('/page/:id', (request, response) => {
+  const item: { id: number | undefined, message: string } = {
+    id: undefined, message: 'page'
+  }
+  if (request.method === 'GET') {
+    item.id = Number(request.params.id)
+  }
+  response.status(200).send(item)
 })
 
 app.use('/v1', router)
@@ -289,15 +312,24 @@ import * as router from './router'
 export const api = router.api
 ```
 
-deployして実行します。
+ローカルサーバーを立ち上げ実行します。
 
 ```sh
-$ firebase deploy --only functions:api
-```
+# Rquest to helloWorld API
+$ curl http://localhost:5000/fir-training-ae8b1/untral1/api/v1/helloWorld
+HelloWorld
 
-```sh
-$ curl https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/test
-Test
+# Request to item API by GET
+$ curl -X GET http://localhost:5000/fir-training-ae8b1/us-central1/api/v1/item
+{"id":0,"message":"item"}
+
+# Request to item API by POST
+$ curl -X POST http://localhost:5000/fir-training-ae8b1/us-central1/api/v1/item -H "Content-Type: application/json" -d '{"data":"ITEM_DATA"}'
+{"id":0,"message":"item","postData":"ITEM_DATA"}
+
+# Request to page API by GET
+$ curl -X GET http://localhost:5000/fir-training-ae8b1/us-central1/api/v1/page/1
+{"id":1,"message":"page"}
 ```
 
 ## Lesson18
