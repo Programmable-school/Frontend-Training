@@ -336,6 +336,26 @@ $ curl -X GET http://localhost:5000/fir-training-ae8b1/us-central1/api/v1/page/1
 ### Firestoreを操作、トリガー実行
 #### 実装
 
+作成中。。。
+
+```sh
+# userのリストを取得
+# Firestoreのuserコレクション内のドキュメントを全て取得する
+$ curl -X GET https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user
+{"code":200,"message":"Success","data":[{"uid":"WH5fF5y5wDhisHWurDpD","updatedAt":{"_seconds":1558228783,"_nanoseconds":0},"createdAt":{"_seconds":1558228783,"_nanoseconds":0},"name":"taro"},{"name":"taro","uid":"Y9kta7mRMerm6qFAm6Ep","updatedAt":{"_seconds":1558229150,"_nanoseconds":418000000},"createdAt":{"_seconds":1558229150,"_nanoseconds":418000000}}]}
+
+# userを新規作成
+# FirebaseコンソールからFirestoreを見るとversion/5/userにドキュメントが作成される。
+$ curl -X POST https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user -H "Content-Type: application/json" -d '{"name":"taro"}'
+{"code":200,"message":"Success","data":{"uid":"Y9kta7mRMerm6qFAm6Ep","name":"taro","createdAt":{"_seconds":1558229150,"_nanoseconds":418000000},"updatedAt":{"_seconds":1558229150,"_nanoseconds":418000000}}}
+
+# 指定したdocumentIDのuserを更新
+$ curl -X PUT https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user -H "Content-Type: application/json" -d '{"id":"Y9kta7mRMerm6qFAm6Ep", "name":"hanako"}'
+
+# 指定したdocumentIDのuserを削除
+$ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user -H "Content-Type: application/json" -d '{"id":"Y9kta7mRMerm6qFAm6Ep"}'
+```
+
 ## Lesson19
 ### セキュアなリクエスト
 #### 実装
