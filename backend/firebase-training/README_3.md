@@ -5,9 +5,9 @@
 - [Hello Worldを表示](#Lesson15)
 - [GET、POST、PUT、DELETEリクエスト](#Lesson16)
 - [expressの導入（router、middleware）](#Lesson17)
-- [Firestoreを操作、トリガー実行](Lesson18)
-- セキュアなリクエスト
+- [Firestoreを操作、トリガー実行](#Lesson18)
 - Vue.jsと連携
+- セキュアなリクエスト
 
 ### 課題
 準備中
@@ -496,11 +496,12 @@ $ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v
 
 
 ## Lesson19
-### セキュアなリクエスト
+### Vue.jsと連携
 #### 実装
 
+
 ## Lesson20
-### Vue.jsと連携
+### セキュアなリクエスト
 #### 実装
 
 
