@@ -3,13 +3,14 @@ import { firestore } from 'firebase-admin'
 
 export default class UserController {
 
-  path: string = 'version/5/user'
+  static path: string = 'version/5/user'
+  static wildPath: string = `${UserController.path}/{userId}`
 
   async getUsers(): Promise<Result> {
     console.log('getUsers')
     const result: Result = { code: 200, message: 'Success' }
     try {
-      const collection = firestore().collection(this.path)
+      const collection = firestore().collection(UserController.path)
       const snapshot = await collection.get()
       result.data = snapshot.docs.map(doc => doc.data())
     } catch (error) {
@@ -29,7 +30,7 @@ export default class UserController {
       const name = body.name
       
       /** Firestore */
-      const collection = firestore().collection(this.path)
+      const collection = firestore().collection(UserController.path)
       const id = collection.doc().id
       const document = collection.doc(id)
       const batch = firestore().batch()
@@ -61,7 +62,7 @@ export default class UserController {
       const id = body.id
       
       /** Firestore */
-      const collection = firestore().collection(this.path)
+      const collection = firestore().collection(UserController.path)
       const document = collection.doc(id)
       const batch = firestore().batch()
       const dateAt = firestore.Timestamp.fromDate(new Date())
@@ -89,7 +90,7 @@ export default class UserController {
       const id = body.id
       
       /** Firestore */
-      const collection = firestore().collection(this.path)
+      const collection = firestore().collection(UserController.path)
       const document = collection.doc(id)
       const batch = firestore().batch()
       batch.delete(document)

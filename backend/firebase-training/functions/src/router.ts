@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as express from 'express'
 import * as corsLib from 'cors'
-import UserController from './Controller/UserController'
+import UserController from './controller/UserController'
 import Result from './Result'
 
 const app = express()

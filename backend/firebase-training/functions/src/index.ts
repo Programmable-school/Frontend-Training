@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import * as router from './router'
+import UserController from './controller/UserController'
 
 admin.initializeApp()
 
@@ -31,4 +32,39 @@ export const requestTest = functions.https.onRequest((request, response) => {
   response.status(responseCode).send({ code: responseCode, result: resultParam })
 })
 
+/** 
+ * express API 
+ * */
 export const api = router.api
+
+
+/** 
+ * trigger API 
+ * */
+/** ドキュメント作成時に発火 */
+export const createUser = functions.region('asia-northeast1').firestore
+  .document(UserController.wildPath)
+  .onCreate((snapshot: FirebaseFirestore.DocumentSnapshot, context: functions.EventContext) => {
+    console.log('onCreate context', context)
+    console.log('snapshot', snapshot)
+    return true
+  })
+
+/** ドキュメント更新時に発火 */
+export const updateUser = functions.region('asia-northeast1').firestore
+  .document(UserController.wildPath)
+  .onUpdate((change: functions.Change<FirebaseFirestore.DocumentSnapshot>, context: functions.EventContext) => {
+    console.log('onUpdate context', context)
+    console.log('change before', change.before)
+    console.log('change after', change.after)
+    return true
+  })
+
+/** ドキュメント削除時に発火 */
+export const deleteUser = functions.region('asia-northeast1').firestore
+  .document(UserController.wildPath)
+  .onDelete((snapshot: FirebaseFirestore.DocumentSnapshot, context: functions.EventContext) => {
+    console.log('onDelete context', context)
+    console.log('snapshot', snapshot)
+    return true
+  })

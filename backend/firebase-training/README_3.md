@@ -5,7 +5,7 @@
 - [Hello Worldを表示](#Lesson15)
 - [GET、POST、PUT、DELETEリクエスト](#Lesson16)
 - [expressの導入（router、middleware）](#Lesson17)
-- Firestoreを操作、トリガー実行
+- [Firestoreを操作、トリガー実行](Lesson18)
 - セキュアなリクエスト
 - Vue.jsと連携
 
@@ -151,6 +151,8 @@ i  functions: updating Node.js 8 function helloWorld(us-central1)...
 
 deployしたAPIをcurlでリクエストすると Hello World が返ってきます。
 
+実行例は以下の通りです（URLはご自身のサーバーのURLを指定してください）。
+
 ```sh
 $ curl https://us-central1-fir-training-ae8b1.cloudfunctions.net/helloWorld
 Hello World
@@ -208,6 +210,8 @@ $ firebase deploy --only functions:requestTest
 ```
 
 deployしたAPIを実行して確認します。
+
+実行例は以下の通りです（URLはご自身のサーバーのURLを指定してください）。
 
 ```sh
 # GET request
@@ -336,7 +340,54 @@ $ curl -X GET http://localhost:5000/fir-training-ae8b1/us-central1/api/v1/page/1
 ### Firestoreを操作、トリガー実行
 #### 実装
 
-作成中。。。
+##### Firestoreを操作
+
+Firestoreを操作する処理を実装します。
+
+srcにcontrollerディレクトリを作成して以下のコードを実装してください。<br>
+[UserContoroller.ts](./functions/src/controller/UserController.ts)
+
+
+リクエスト結果のインターフェースを実装します。src配下に以下のコードを実装してください。<br>
+[Result.ts](./functions/src/Result.ts)
+
+router.tsにUserContoroller.tsをつなぎます。
+
+```typescript
+import * as functions from 'firebase-functions'
+import * as express from 'express'
+import * as corsLib from 'cors'
+
+/** 追加 */
+import UserController from './controller/UserController'
+import Result from './Result'
+
+〜〜〜〜〜
+
+/** 追加 */
+router.use('/user', async (request, response) => {
+  let result: Result = { code: 200, message: '' }
+  try {
+    if (request.method === 'GET') {
+      result = await new UserController().getUsers()
+    } else if (request.method === 'POST') {
+      result = await new UserController().createUser(request.body)
+    } else if (request.method === 'PUT') {
+      result = await new UserController().updateUser(request.body)
+    } else if (request.method === 'DELETE') {
+      result = await new UserController().deleteUser(request.body)
+    }
+  } catch (error) {
+    result = { code: 400, message: error.message, error: error }
+  }
+  response.status(result.code).send(result)
+})
+
+```
+
+実装が完了したらサーバーへdeployして確認します。
+
+実行例は以下の通りです（URLはご自身のサーバーのURLを指定してください）。
 
 ```sh
 # userのリストを取得
@@ -355,6 +406,94 @@ $ curl -X PUT https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/u
 # 指定したdocumentIDのuserを削除
 $ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user -H "Content-Type: application/json" -d '{"id":"Y9kta7mRMerm6qFAm6Ep"}'
 ```
+
+※なぜかローカルサーバーだとexpressのPUTとDELETEのリクエストが404で応答されるため、cloudfunctionsのサーバー上で確認しています（firebase-toolsのバグ？）
+
+##### トリガー実行
+
+[https://firebase.google.com/docs/functions/firestore-events?hl=ja](https://firebase.google.com/docs/functions/firestore-events?hl=ja)
+
+
+Firestore内のデータの状況（作成、更新、削除）に応じて処理を行うよう実装します。
+
+先ほど実装したAPIのリクエスト後に処理が発火する処理を実装します。
+
+index.tsに以下のコードを追加します。
+
+```typescript
+import * as functions from 'firebase-functions'
+import * as admin from 'firebase-admin'
+import * as router from './router'
+
+/** 追加 */
+import UserController from './controller/UserController'
+
+〜〜〜〜〜〜〜〜
+
+/** 追加 */
+export const createUser = functions.region('asia-northeast1').firestore
+  .document(UserController.wildPath)
+  .onCreate((snapshot: FirebaseFirestore.DocumentSnapshot, context: functions.EventContext) => {
+    console.log('onCreate context', context)
+    console.log('snapshot', snapshot)
+    return true
+  })
+
+/** ドキュメント更新時に発火 */
+export const updateUser = functions.region('asia-northeast1').firestore
+  .document(UserController.wildPath)
+  .onUpdate((change: functions.Change<FirebaseFirestore.DocumentSnapshot>, context: functions.EventContext) => {
+    console.log('onUpdate context', context)
+    console.log('change before', change.before)
+    console.log('change after', change.after)
+    return true
+  })
+
+/** ドキュメント削除時に発火 */
+export const deleteUser = functions.region('asia-northeast1').firestore
+  .document(UserController.wildPath)
+  .onDelete((snapshot: FirebaseFirestore.DocumentSnapshot, context: functions.EventContext) => {
+    console.log('onDelete context', context)
+    console.log('snapshot', snapshot)
+    return true
+  })
+```
+
+実装後、サーバーへdeployしてください。
+
+
+Firestoreのデータ操作（作成、更新、削除）すると、実装したトリガーが処理されます。
+
+新規作成で発火（URLはご自身のサーバーのURLを指定してください）。
+
+```sh
+# userを新規作成
+$ curl -X POST https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user -H "Content-Type: application/json" -d '{"name":"hanako"}'
+```
+
+Firebase functionsのコンソール画面のログから処理されていることが確認できます。
+
+<a href="https://imgur.com/s1JOP8V"><img src="https://i.imgur.com/s1JOP8V.png" width="70%" height="70%" /></a>
+
+
+更新で発火（URLはご自身のサーバーのURLを指定してください）。
+
+```sh
+# 指定したdocumentIDのuserを更新
+$ curl -X PUT https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user -H "Content-Type: application/json" -d '{"id":"Y9kta7mRMerm6qFAm6Ep", "name":"hanako"}'
+```
+
+<a href="https://imgur.com/YpoN0HB"><img src="https://i.imgur.com/YpoN0HB.png" width="70%" height="70%" /></a>
+
+
+削除で発火（URLはご自身のサーバーのURLを指定してください）。
+
+```sh
+# 指定したdocumentIDのuserを削除
+$ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v1/user -H "Content-Type: application/json" -d '{"id":"Y9kta7mRMerm6qFAm6Ep"}'
+```
+<a href="https://imgur.com/QL5koD4"><img src="https://i.imgur.com/QL5koD4.png" width="70%" height="70%" /></a>
+
 
 ## Lesson19
 ### セキュアなリクエスト
