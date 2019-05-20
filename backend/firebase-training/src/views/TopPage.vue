@@ -87,6 +87,15 @@
               <div><b>様々な形式のファイルを扱う</b></div>
             </router-link>
           </v-flex>
+          <!-- Cloud Functions  -->
+          <v-flex>
+            <h2>Cloud Functionsトレーニング</h2>
+            <v-flex style="margin: 24px;">
+              <router-link to="./user_list_page">
+                <div><b>Vue.jsとの連携</b></div>
+              </router-link>
+            </v-flex>
+          </v-flex>
         </v-flex>
       </v-card>
     </v-flex>

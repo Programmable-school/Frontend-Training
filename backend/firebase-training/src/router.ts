@@ -16,6 +16,7 @@ import ImageOperationPage from './views/storage/ImageOperationPage.vue'
 import ImageOperationFirestorePage from './views/storage/ImageOperationFirestorePage.vue'
 import ImageOperationSecurePage from './views/storage/ImageOperationSecurePage.vue'
 import ImageOperationVariousFilesPage from './views/storage/ImageOperationVariousFilesPage.vue'
+import UserListPage from './views/functions/UserListPage.vue'
 
 Vue.use(Router)
 
@@ -102,6 +103,11 @@ export default new Router({
       path: '/image_operation_various_files_page',
       name: 'image_operation_various_files_page',
       component: ImageOperationVariousFilesPage,
+    },
+    {
+      path: '/user_list_page',
+      name: 'user_list_page',
+      component: UserListPage,
     },
   ],
 })

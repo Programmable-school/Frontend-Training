@@ -6,7 +6,7 @@
 - [GET、POST、PUT、DELETEリクエスト](#Lesson16)
 - [expressの導入（router、middleware）](#Lesson17)
 - [Firestoreを操作、トリガー実行](#Lesson18)
-- Vue.jsと連携
+- [Vue.jsと連携](#Lesson19)
 - セキュアなリクエスト
 
 ### 課題
@@ -498,6 +498,33 @@ $ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v
 ## Lesson19
 ### Vue.jsと連携
 #### 実装
+
+Vue.jsでユーザリストの作成、更新、削除フォームを作成し、Lesson18でdeployしたAPIを操作します。
+
+APIの操作はaxiosを利用します。
+
+axios.createでAPIのurlとheadersにパラメータを設定します（URLはご自身のサーバーのURLを指定してください）。
+
+
+```typescript
+import axios from 'axios'
+
+〜〜〜
+
+/**
+ * baseUrl for Request API.
+ * axios create for Request API.
+ */
+baseUrl: string = 'https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/'
+axios = axios.create({
+  headers: { 'Content-Type': 'application/json' },
+  baseURL: this.baseUrl,
+})
+```
+
+以下のコードを実装し、Vue.jsのページとして利用できるようにしてください。<br>
+[UserListPage.vue](./src/views/functions/UserListPage.vue)
+
 
 
 ## Lesson20
