@@ -52,8 +52,8 @@
                   <tr @click="onClick(props.item)">
                     <td>{{ props.item.uid }}</td>
                     <td>{{ props.item.name }}</td>
-                    <td>{{ props.item.createdAt.toDate() | dateFormat }}</td>
-                    <td>{{ props.item.updatedAt.toDate() | dateFormat }}</td>
+                    <td>{{ props.item.createdAt | dateFormat }}</td>
+                    <td>{{ props.item.updatedAt | dateFormat }}</td>
                   </tr>
                 </template>
               </v-data-table>
@@ -166,7 +166,6 @@ export default class UserListPage extends Vue {
    * 取得
    */
   async getItems() {
-    console.log('getItems')
     this.isLoading = true
     await this.readFirestore()
     this.isLoading = false
@@ -179,6 +178,7 @@ export default class UserListPage extends Vue {
   async onDelete() {
     this.isLoading = true
     await this.deleteFirestore(this.selectItem.uid)
+    await this.getItems()
     this.clear()
     this.isLoading = false
   }
@@ -239,13 +239,16 @@ export default class UserListPage extends Vue {
       // FunctionsのAPIへリクエスト
       const result = await this.axios.get('/v1/user')
       console.log(result)
-      result.data.data.forEach((item: any) => {
-        // console.log(item)
-        // const updatedAt = item.updatedAt as firebase.firestore.Timestamp
-        // console.log(updatedAt.toDate())
-        // this.items.push(item)
+      const items: any[] = result.data.data.map((item: any) => {
+        if ('createdAt' in item) {
+          item.createdAt = new Date(item.createdAt)
+        }
+        if ('updatedAt' in item) {
+          item.updatedAt = new Date(item.updatedAt)
+        }
+        return item
       })
-      // console.log(this.items)
+      this.items = items
     } catch (error) {
       console.error('firebase error', error)
     }

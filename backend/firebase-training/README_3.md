@@ -497,6 +497,10 @@ $ curl -X DELETE https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/v
 
 ## Lesson19
 ### Vue.jsと連携
+
+#### スクリーンショット
+<a href="https://imgur.com/CLQzi8h"><img src="https://i.imgur.com/CLQzi8h.png" width="70%" height="70%" /></a>
+
 #### 実装
 
 Vue.jsでユーザリストの作成、更新、削除フォームを作成し、Lesson18でdeployしたAPIを操作します。

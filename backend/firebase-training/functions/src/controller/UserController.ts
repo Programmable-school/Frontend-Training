@@ -12,7 +12,16 @@ export default class UserController {
     try {
       const collection = firestore().collection(UserController.path)
       const snapshot = await collection.get()
-      result.data = snapshot.docs.map(doc => doc.data())
+      result.data = snapshot.docs.map((doc: any) => {
+        const data = doc.data()
+        if ('createdAt' in data) {
+          data.createdAt = (data.createdAt as firestore.Timestamp).toDate()
+        }
+        if ('updatedAt' in data) {
+          data.updatedAt = (data.updatedAt as firestore.Timestamp).toDate()
+        }
+        return data
+      })
     } catch (error) {
       throw error
     }
