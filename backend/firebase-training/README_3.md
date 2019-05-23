@@ -7,7 +7,7 @@
 - [expressの導入（router、middleware）](#Lesson17)
 - [Firestoreを操作、トリガー実行](#Lesson18)
 - [Vue.jsと連携](#Lesson19)
-- セキュアなリクエスト
+- [セキュアなリクエスト](#Lesson20)
 
 ### 課題
 準備中
@@ -459,6 +459,10 @@ export const deleteUser = functions.region('asia-northeast1').firestore
   })
 ```
 
+※ regionを指定すると利用したいロケーションを選択できる。東京リージョンにすると日本からのアクセスの速度が向上する。
+
+
+
 実装後、サーバーへdeployしてください。
 
 
@@ -533,7 +537,42 @@ axios = axios.create({
 
 ## Lesson20
 ### セキュアなリクエスト
+
+[https://firebase.google.com/docs/functions/callable?hl=ja](https://firebase.google.com/docs/functions/callable?hl=ja)
+
+#### スクリーンショット
+
+作成中...
+
 #### 実装
+
+functions.https.onCall を用いると認証ユーザからのリクエストのみを許容することができます。
+
+認証していないユーザからのリクエストは全て拒否されます。
+
+index.tsに以下のコードを実装してください。
+
+```typescript
+/** 
+ * secure API 
+ * */
+export const authHelloWorld = functions.https.onCall((data: any, context: functions.https.CallableContext) => {
+  console.log('context')
+  const response: Result = {
+    code: 200,
+    message: 'Hello World',
+    data: {
+      data: data,
+      context: context
+    }
+  }
+  return response
+})
+```
+
+Vue.jsでフォームを作ります。
+
+作成中...
 
 
 ## 課題

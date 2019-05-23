@@ -1,7 +1,9 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import * as router from './router'
+import * as authRouter from './auth_router'
 import UserController from './controller/UserController'
+import Result from './Result'
 
 admin.initializeApp()
 
@@ -68,3 +70,21 @@ export const deleteUser = functions.region('asia-northeast1').firestore
     console.log('snapshot', snapshot)
     return true
   })
+
+/** 
+ * secure API 
+ * */
+export const authHelloWorld = functions.https.onCall((data: any, context: functions.https.CallableContext) => {
+  console.log('context')
+  const response: Result = {
+    code: 200,
+    message: 'Hello World',
+    data: {
+      data: data,
+      context: context
+    }
+  }
+  return response
+})
+
+export const authApi = authRouter.authApi
