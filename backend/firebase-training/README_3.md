@@ -570,7 +570,39 @@ export const authHelloWorld = functions.https.onCall((data: any, context: functi
 })
 ```
 
+また、router.tsに認証処理を追加した auth_router.ts を実装します。
+
+router.tsの同じディレクトリ内に以下のコードを実装してください。<br>
+[auth_router.ts](./functions/src/auth_router.ts)
+
+index.tsにauth_router.tsを追加します。
+
+```typescript
+import * as functions from 'firebase-functions'
+import * as admin from 'firebase-admin'
+import * as router from './router'
+
+/** 追加 */
+import * as authRouter from './auth_router'
+
+〜〜〜〜〜〜〜〜
+
+/** 追加 */
+export const authApi = authRouter.authApi
+```
+
+
+サーバーへdeployします。
+
+```sh
+$ firebase deploy --only functions:authHelloWorld,functions:authApi
+```
+
+
 Vue.jsでフォームを作ります。
+
+以下のコードを実装し、Vue.jsのページとして利用できるようにしてください。<br>
+[AuthUserListPage.vue](./src/views/functions/AuthUserListPage.vue)
 
 作成中...
 

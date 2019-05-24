@@ -95,6 +95,11 @@
                 <div><b>Vue.jsとの連携</b></div>
               </router-link>
             </v-flex>
+            <v-flex style="margin: 24px;">
+              <router-link to="./auth_user_list_page">
+                <div><b>セキュアなリクエスト</b></div>
+              </router-link>
+            </v-flex>
           </v-flex>
         </v-flex>
       </v-card>

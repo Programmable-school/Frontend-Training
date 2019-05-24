@@ -3,6 +3,56 @@
     <v-flex>
       <v-card class="container">
         <v-flex>
+          <h3>ログイン状態</h3>
+          <v-flex style="margin: 8px">
+            <p>{{ loginStatusText}}</p>
+          </v-flex>
+          <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
+            <v-card class="container">
+              <v-flex style="margin: 20px 0px;">
+                <h3>ログイン</h3>
+                <v-text-field
+                  v-model="loginEmail"
+                  type="text"
+                  required
+                  label="メールアドレス"
+                  placeholder=""/>
+                <v-text-field
+                  v-model="loginPassword"
+                  label="パスワード（6文字以上）"
+                  min="6"
+                  maxlength="32"
+                  :append-icon ="isLoginShowPassword ? 'visibility' : 'visibility_off'"
+                  @click:append="() => (isLoginShowPassword = !isLoginShowPassword)"
+                  :type="isLoginShowPassword ? 'text' : 'password'"
+                  required
+                  placeholder=""
+                  pattern="[a-zA-Z0-9]*"/>
+                <v-flex>
+                  <v-btn
+                    color="blue"
+                    class="white--text"
+                    :loading="isLoading"
+                    :disabled="isLoading"
+                    @click="onLogin">ログイン</v-btn>
+                  <v-btn
+                    :loading="isLoading"
+                    :disabled="!isLoginStatus"
+                    color="red"
+                    class="white--text"
+                    @click="onLogout">ログアウト</v-btn>
+                </v-flex>
+                <v-flex style="margin: 20px 0px;">
+                  <h3>ログインメッセージ</h3>
+                  <p style="margin: 10px;" v-html="loginResultMessage"/>
+                </v-flex>
+              </v-flex>
+            </v-card>
+          </v-flex>
+          <h2>Callableデータ</h2>
+          <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
+            <p>{{ resultCallable }}</p>
+          </v-flex>
           <h2>ユーザリスト</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <v-text-field
@@ -68,22 +118,34 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import firebase, { firestore } from 'firebase/app'
+import 'firebase/functions'
 import { format } from 'date-fns'
 import axios from 'axios'
 
 @Component({
-  name: 'UserListPage',
+  name: 'AuthUserListPage',
   filters: {
     dateFormat(date: Date) {
       return format(date, 'YYYY/MM/DD HH:mm:ss');
     },
   },
 })
-export default class UserListPage extends Vue {
-  /**
-   * ローディングフラグ
-   */
+export default class AuthUserListPage extends Vue {
+
   isLoading: boolean = false
+  message: string = ''
+  isLoginStatus: boolean | null = null
+  resultCallable: string = ''
+
+  /**
+   * [ログイン用]
+   * メールとパスワードとログイン結果
+   */
+  loginEmail: string = ''
+  loginPassword: string = ''
+  loginResultMessage: string = ''
+  isLoginShowPassword: boolean = false
+  accessToken: string = ''
 
   /**
    * 登録データ
@@ -127,8 +189,7 @@ export default class UserListPage extends Vue {
    * baseUrl for Request API.
    * axios create for Request API.
    */
-  // baseURLはご自身のものを設定してください！！
-  baseUrl: string = 'https://us-central1-fir-training-ae8b1.cloudfunctions.net/api/'
+  baseUrl: string = 'https://us-central1-fir-training-ae8b1.cloudfunctions.net/authApi/'
   axios = axios.create({
     headers: { 'Content-Type': 'application/json' },
     baseURL: this.baseUrl,
@@ -140,7 +201,74 @@ export default class UserListPage extends Vue {
   }
 
   async mounted() {
-    await this.getItems()
+    this.onAuthState()
+  }
+
+  /** 認証状態を監視する */
+  onAuthState() {
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (user !== null) {
+        this.isLoginStatus = true
+        this.accessToken = await user!.getIdToken()
+      } else {
+        this.isLoginStatus = false
+      }
+      await this.getItems()
+      // await this.onLoadCallable()
+    })
+  }
+
+  get loginStatusText() {
+    return this.isLoginStatus === true ? 'ログイン中' : 'ログアウト中'
+  }
+
+  /** ログイン */
+  async onLogin() {
+    this.isLoading = true
+    await this.login()
+    this.isLoading = false
+  }
+
+  /** ログアウト */
+  async onLogout() {
+    this.isLoading = true
+    await this.signOut()
+    this.isLoading = false
+  }
+
+  /** メール認証でログインする */
+  async login() {
+    try {
+      this.loginResultMessage = ''
+      const result = await firebase.auth().signInWithEmailAndPassword(this.loginEmail, this.loginPassword)
+      console.log(result)
+      this.loginResultMessage = 'ログインしました'
+    } catch (error) {
+      console.error('firebase error', error)
+      this.loginResultMessage = error.message
+    }
+  }
+
+  /** ログアウトする */
+  async signOut() {
+    try {
+      const result = await firebase.auth().signOut()
+      console.log(result)
+      this.clear()
+    } catch (error) {
+      console.error('firebase error', error)
+    }
+  }
+
+  async onLoadCallable() {
+    try {
+      /** localhostからではリクエストが弾かれる */
+      const api = firebase.functions().httpsCallable('authHelloWorld')
+      const result = await api('clientMessage')
+      this.resultCallable = result.data
+    } catch (error) {
+      console.error('firebase error', error)
+    }
   }
 
   /**
@@ -208,6 +336,7 @@ export default class UserListPage extends Vue {
     this.name = 'ゲスト'
     this.selectItem = undefined
     this.isUpdate = false
+    this.items = []
   }
 
   /**
@@ -223,8 +352,10 @@ export default class UserListPage extends Vue {
   async writeFirestore() {
     try {
       // FunctionsのAPIへリクエスト
+      const params = { name: this.name }
       const result = await this.axios.post('/v1/user', {
-        name: this.name,
+        params,
+        headers: { authorization: this.accessToken },
       })
       console.log(result)
     } catch (error) {
@@ -238,7 +369,9 @@ export default class UserListPage extends Vue {
   async readFirestore() {
     try {
       // FunctionsのAPIへリクエスト
-      const result = await this.axios.get('/v1/user')
+      const result = await this.axios.get('/v1/user', {
+        headers: { authorization: this.accessToken },
+      })
       console.log(result)
       const items: any[] = result.data.data.map((item: any) => {
         if ('createdAt' in item) {
@@ -260,10 +393,11 @@ export default class UserListPage extends Vue {
    */
   async updateFirestore(id: string) {
     try {
-       // FunctionsのAPIへリクエスト
+      // FunctionsのAPIへリクエスト
+      const params = { id, name: this.name }
       const result = await this.axios.put('/v1/user', {
-        id,
-        name: this.name,
+        params,
+        headers: { authorization: this.accessToken },
       })
       console.log(result)
     } catch (error) {
@@ -276,8 +410,12 @@ export default class UserListPage extends Vue {
    */
   async deleteFirestore(id: string) {
     try {
-       // FunctionsのAPIへリクエスト
-      const result = await this.axios.delete('/v1/user', { data: { id } })
+      // FunctionsのAPIへリクエスト
+      const params = { id }
+      const result = await this.axios.delete('/v1/user', {
+        params,
+        headers: { authorization: this.accessToken },
+      })
       console.log(result)
     } catch (error) {
       console.error('firebase error', error)
