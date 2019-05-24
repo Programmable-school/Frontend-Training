@@ -49,10 +49,10 @@
               </v-flex>
             </v-card>
           </v-flex>
-          <h2>Callableデータ</h2>
+          <!-- <h2>Callableデータ</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <p>{{ resultCallable }}</p>
-          </v-flex>
+          </v-flex> -->
           <h2>ユーザリスト</h2>
           <v-flex style="margin: 24px;" xs12 sm6 offset-sm3>
             <v-text-field
@@ -262,7 +262,10 @@ export default class AuthUserListPage extends Vue {
 
   async onLoadCallable() {
     try {
-      /** localhostからではリクエストが弾かれる */
+      /**
+       * localhostからのリクエストは弾かれるため、
+       * 確認する場合は、Firebase hosting等でdeployしたホスティングサービス上からリクエストして確認してください。
+       */
       const api = firebase.functions().httpsCallable('authHelloWorld')
       const result = await api('clientMessage')
       this.resultCallable = result.data
