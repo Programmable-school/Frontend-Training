@@ -28,7 +28,7 @@
 [Firebase Authantication](./backend/firebase-training/README_2.md)<br>
 [Cloud Storage](./backend/firebase-training/README_3.md)<br>
 [Cloud Functions](./backend/firebase-training/README_4.md)<br>
-Firebase Hosting<br>
+[Firebase Hosting](./backend/firebase-training/README_5.md)<br>
 
 ## Blockchain
 1. NEM<br>

@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["http://localhost:8080"],
+    "origin": ["http://localhost:8080", "https://fir-training-ae8b1.firebaseapp.com"],
     "responseHeader": ["Content-Type"],
     "method": ["GET", "HEAD", "DELETE"],
     "maxAgeSeconds": 3600

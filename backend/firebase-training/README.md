@@ -8,4 +8,4 @@
 - [Firebase Authantication](./README_2.md)
 - [Cloud Storage](./README_3.md)
 - [Cloud Functions](./README_4.md)
-- Firebase Hosting
+- [Firebase Hosting](./README_5.md)
