@@ -10,12 +10,52 @@
               <v-flex style="margin: 8px">
                 <p>{{ loginStatusText}}</p>
               </v-flex>
+              <v-card class="container">
+                <v-flex style="margin: 20px 0px;">
+                  <h3>ログイン</h3>
+                  <v-text-field
+                    v-model="loginEmail"
+                    type="text"
+                    required
+                    label="メールアドレス"
+                    placeholder=""/>
+                  <v-text-field
+                    v-model="loginPassword"
+                    label="パスワード（6文字以上）"
+                    min="6"
+                    maxlength="32"
+                    :append-icon ="isLoginShowPassword ? 'visibility' : 'visibility_off'"
+                    @click:append="() => (isLoginShowPassword = !isLoginShowPassword)"
+                    :type="isLoginShowPassword ? 'text' : 'password'"
+                    required
+                    placeholder=""
+                    pattern="[a-zA-Z0-9]*"/>
+                  <v-flex>
+                    <v-btn
+                      color="blue"
+                      class="white--text"
+                      :loading="isLoading"
+                      :disabled="isLoading"
+                      @click="onLogin">ログイン</v-btn>
+                    <v-btn
+                      :loading="isLoading"
+                      :disabled="!isLoginStatus"
+                      color="red"
+                      class="white--text"
+                      @click="onLogout">ログアウト</v-btn>
+                  </v-flex>
+                  <v-flex style="margin: 20px 0px;">
+                    <h3>ログインメッセージ</h3>
+                    <p style="margin: 10px;" v-html="loginResultMessage"/>
+                  </v-flex>
+                </v-flex>
+              </v-card>
+            </v-flex>
+            <v-flex style="margin: 8px;">
               <h3>ファイル名</h3>
-              <v-flex style="margin: 8px">
+              <v-flex style="margin: 8px;">
                 <p v-if="user!==null&&user.image!==undefined">{{ user.image.name }}</p>
               </v-flex>
-            </v-flex>
-            <v-flex>
               <v-flex class="upload-img-container">
                 <img class="uploaded-img" :src="imageData" />
               </v-flex>
@@ -50,46 +90,6 @@
                 削除
               </v-btn>
             </v-flex>
-            <v-card class="container">
-              <v-flex style="margin: 20px 0px;">
-                <h3>ログイン</h3>
-                <v-text-field
-                  v-model="loginEmail"
-                  type="text"
-                  required
-                  label="メールアドレス"
-                  placeholder=""/>
-                <v-text-field
-                  v-model="loginPassword"
-                  label="パスワード（6文字以上）"
-                  min="6"
-                  maxlength="32"
-                  :append-icon ="isLoginShowPassword ? 'visibility' : 'visibility_off'"
-                  @click:append="() => (isLoginShowPassword = !isLoginShowPassword)"
-                  :type="isLoginShowPassword ? 'text' : 'password'"
-                  required
-                  placeholder=""
-                  pattern="[a-zA-Z0-9]*"/>
-                <v-flex>
-                  <v-btn
-                    color="blue"
-                    class="white--text"
-                    :loading="isLoading"
-                    :disabled="isLoading"
-                    @click="onLogin">ログイン</v-btn>
-                  <v-btn
-                    :loading="isLoading"
-                    :disabled="!isLoginStatus"
-                    color="red"
-                    class="white--text"
-                    @click="onLogout">ログアウト</v-btn>
-                </v-flex>
-                <v-flex style="margin: 20px 0px;">
-                  <h3>ログインメッセージ</h3>
-                  <p style="margin: 10px;" v-html="loginResultMessage"/>
-                </v-flex>
-              </v-flex>
-            </v-card>
           </v-flex>
         </v-flex>
       </v-card>
