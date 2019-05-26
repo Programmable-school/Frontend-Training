@@ -287,6 +287,7 @@ export default class RosterListPage extends Vue {
     this.isLoading = true
     await this.deleteFirestore(this.selectItem.uid)
     await this.readQueryFirestore()
+    await this.readFirestore()
     this.clear()
     this.isLoading = false
   }

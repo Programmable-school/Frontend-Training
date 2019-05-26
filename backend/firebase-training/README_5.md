@@ -32,8 +32,8 @@ have a build process for your assets, use your build s output directory.
 
 ? What do you want to use as your public directory? dist
 ? Configure as a single-page app (rewrite all urls to /index.html)? Yes
-? File public/index.html already exists. Overwrite? No
-i  Skipping write of public/index.html
+? File dist/index.html already exists. Overwrite? No
+i  Skipping write of dist/index.html
 
 i  Writing configuration info to firebase.json...
 i  Writing project information to .firebaserc...
@@ -64,9 +64,17 @@ Vue.jsで作成したページをdeployするのでここは Yes にします。
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 ```
+
+[https://firebase.google.com/docs/hosting/full-config?hl=ja](https://firebase.google.com/docs/hosting/full-config?hl=ja)
 
 deploy対象になるディレクトリの設定は public: "dist" です。 この場合、distのディレクトリ内のファイルがdeployされます。
 
@@ -79,7 +87,7 @@ ignore に設定されているファイルはdeploy対象外のファイルで�
 Hostingの環境が完了したら、静的ページをdeployします。<br>
 今まで写経したVue.jsの静的ページをdeployします。
 
-Vue.jsで作られたコードを静的ページとして表示できるようビルドします。ビルドすると distディレクトリ が作成されます
+Vue.jsで作られたコードを静的ページとして表示できるようビルドします。ビルドすると distディレクトリ が作成されます。
 
 ```sh
 $ yarn build
