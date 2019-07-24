@@ -9,11 +9,16 @@
   <!-- jquery plugin -->
   <script type="text/javascript" src="vender/jquery/jquery-3.3.1.js"></script>
   <script type="text/javascript" src="vender/liscroll/jquery.li-scroller.1.0.js"></script>
+  <script type="text/javascript" src="vender/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
   <!-- js -->
   <script src="js/main.js" defer></script>
   <script language='JavaScript'>
     function func1(){
-      console.log('func1')
+      console.log('func1');
+    }
+    function func2() {
+      console.log('func2');
+      $.func.call("", false, 'input[type="search"]');
     }
   </script>
 </head>
@@ -29,6 +34,12 @@
       <a id="link__continue--middle" href="javascript:func1();">リンク1</a>
       <a id="link__continue--lower" href="javascript:func1();">リンク2</a>
       <a id="xxxxxx" href="javascript:func1();">リンク3</a>
+    </div>
+    <div style="margin-top: 20px;">
+      <div>
+        <input type="search"></input>
+      </div>
+      <a href="javascript:func2();">ボタン</a>
     </div>
   </div>
 </body>

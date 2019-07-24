@@ -71,7 +71,7 @@ index.htmlとmain.tsにVuetifyの初期化コードを追加します。
   〜〜〜〜 省略 〜〜〜〜
     <!-- 追加 -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
-    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@1.5.16/dist/vuetify.min.css" rel="stylesheet" >
     <!--------->
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>firebase-training</title>
@@ -85,24 +85,9 @@ index.htmlとmain.tsにVuetifyの初期化コードを追加します。
 ```ts
 import Vuetify from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
+import 'vuetify/dist/vuetify.min.css'
 
-// themeはお好みでどうぞ。
-Vue.use(Vuetify, {
-  theme: {
-    original: colors.purple.base,
-    theme: '#5982EE',
-    background: '#ffffff',
-    twitter: '#00aced',
-    facebook: '#305097',
-    line: '#5ae628',
-    red: '#F26964',
-    error: '#F26964',
-    succcess: '#698FF0',
-  },
-  options: {
-    themeVariations: ['original', 'secondary'],
-  },
-})
+Vue.use(Vuetify)
 ```
 
 ## レッスン
