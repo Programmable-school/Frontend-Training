@@ -305,6 +305,11 @@ $ git reset --soft HEAD~1
 $ git reset --hard HEAD~1
 ```
 
+## 変更を元に戻す
+```bash
+$ git reset --hard
+```
+
 ## 取り込み
 ``` bash
 # リモートリポジトリの情報を追加（リモートリポジトリのパスを指定）
