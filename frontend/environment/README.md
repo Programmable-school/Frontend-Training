@@ -248,6 +248,17 @@ $ git add <ファイル名>
 $ git commit
 ```
 
+## 変更を退避する
+```bash
+# 変更したコードを退避
+$ git stash save -u
+
+# 退避したリストを取得
+$ git stash list
+
+# 退避したリストを反映させる
+$ git stash pop
+```
 
 ## 差分の確認
 ```bash
